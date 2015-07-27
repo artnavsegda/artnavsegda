@@ -32,7 +32,6 @@ fatalError(char *message)
   exit(1);
 }
 
-void
 main(int argc, char **argv)
 {
   XVisualInfo *vi;
@@ -77,6 +76,8 @@ main(int argc, char **argv)
   glXMakeCurrent(dpy, win, cx);
 
   XMapWindow(dpy, win);
+  Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
+  XSetWMProtocols(dpy, win, &WM_DELETE_WINDOW, 1);
 
   /* Enable depth buffering */
   glEnable(GL_DEPTH_TEST);
@@ -109,6 +110,10 @@ main(int argc, char **argv)
       case Expose:
         needRedraw = True;
         break;
+      case ClientMessage:
+	XCloseDisplay(dpy);
+	exit(0);
+	break;
       }
     } while (XPending(dpy));  /* Loop to compress events. */
     if (recalcModelView) {
@@ -129,6 +134,7 @@ main(int argc, char **argv)
       needRedraw = False;
     }
   }
+  return 0;
 }
 
 void
