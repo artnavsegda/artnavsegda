@@ -1,4 +1,4 @@
-all:	hello.exe winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg
+all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg
 
 clean:
 	rm *.o
@@ -6,6 +6,9 @@ clean:
 
 hello.exe:	hello.obj
 	link hello.obj
+
+hello:	hello.o
+	cc -o hello hello.o
 
 winhello.exe:	winhello.obj
 	link winhello.obj user32.lib
@@ -33,3 +36,7 @@ ghello.o:	ghello.c
 
 ghello:		ghello.o
 	cc -o ghello ghello.o `pkg-config --libs gtk+-3.0`
+
+xlibpng:	xlibpng.o
+	cc xlibpng.o -o xlibpng -L/usr/X11R6/lib -lX11 -lpng -lm
+
