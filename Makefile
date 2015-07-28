@@ -1,4 +1,4 @@
-all:	hello.exe winhello.exe glhello.exe glxhello sdlhello
+all:	hello.exe winhello.exe glhello.exe glxhello sdlhello xhello
 
 clean:
 	rm *.o
@@ -21,3 +21,6 @@ sdlhello.o:	sdlhello.c
 
 sdlhello:	sdlhello.o
 	cc -o sdlhello sdlhello.o `sdl-config --libs`
+
+xhello:		xhello.o
+	cc -o xhello xhello.o -L/usr/X11R6/lib -lX11
