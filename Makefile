@@ -1,4 +1,4 @@
-all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg
+all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg xliban
 
 clean:
 	rm *.o
@@ -30,6 +30,12 @@ xhello:		xhello.o
 
 xlibjpeg:	xlibjpeg.o
 	cc xlibjpeg.o -o xlibjpeg -L/usr/X11R6/lib -lX11 -ljpeg -lm
+
+xliban:	xliban.o
+	cc xliban.o -o xliban -L/usr/X11R6/lib -lX11 -ljpeg -lm
+
+anjpeg:	anjpeg.o
+	cc anjpeg.o -o anjpeg -ljpeg -lm
 
 ghello.o:	ghello.c
 	cc -c -o ghello.o ghello.c `pkg-config --cflags gtk+-3.0`
