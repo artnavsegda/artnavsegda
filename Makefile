@@ -1,4 +1,4 @@
-all:	hello.exe winhello.exe glhello.exe glxhello
+all:	hello.exe winhello.exe glhello.exe glxhello sdlhello
 
 clean:
 	rm *.o
@@ -16,3 +16,8 @@ glhello.exe:	glhello.obj
 glxhello:	glxhello.o
 	cc -o glxhello glxhello.o -lGL -lXext -lX11
 
+sdlhello.o:	sdlhello.c
+	cc -c -o sdlhello.o sdlhello.c `sdl-config --cflags`
+
+sdlhello:	sdlhello.o
+	cc -o sdlhello sdlhello.o `sdl-config --libs`
