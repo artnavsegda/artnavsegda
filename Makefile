@@ -32,7 +32,7 @@ xlibjpeg:	xlibjpeg.o
 	cc xlibjpeg.o -o xlibjpeg -L/usr/X11R6/lib -lX11 -ljpeg -lm
 
 xliban:	xliban.o
-	cc xliban.o -o xliban -L/usr/X11R6/lib -lX11 -ljpeg -lm
+	cc xliban.o -o xliban -L/usr/X11R6/lib -lX11 -lm
 
 anjpeg:	anjpeg.o
 	cc anjpeg.o -o anjpeg -ljpeg -lm

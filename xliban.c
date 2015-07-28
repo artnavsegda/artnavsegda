@@ -5,8 +5,6 @@
 
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-#include <jpeglib.h>
-#include <jerror.h>
 
 #ifndef u_char
 #define u_char unsigned char
@@ -28,18 +26,9 @@ int get_byte_order (void) {
 	}
 }
 		
-/*void jpeg_error_exit (j_common_ptr cinfo) {
-	cinfo->err->output_message (cinfo);
-	exit (EXIT_FAILURE);
-}*/
-
-/*This returns an array for a 24 bit image.*/
 u_char *decode_jpeg (char *filename, int *widthPtr, int *heightPtr) {
 	int magiclength = strlen(artnavsegda);
 	char magic[sizeof(artnavsegda)];
-	/*register JSAMPARRAY lineBuf;
-	struct jpeg_decompress_struct cinfo;
-	struct jpeg_error_mgr err_mgr;*/
 	int bytesPerPix;
 	FILE *inFile;
 	u_char *retBuf;
@@ -57,21 +46,10 @@ u_char *decode_jpeg (char *filename, int *widthPtr, int *heightPtr) {
 		exit(1);
 	}
 
-	/*cinfo.err = jpeg_std_error (&err_mgr);
-	err_mgr.error_exit = jpeg_error_exit;	
-
-	jpeg_create_decompress (&cinfo);
-	jpeg_stdio_src (&cinfo, inFile);
-	jpeg_read_header (&cinfo, 1);
-	cinfo.do_fancy_upsampling = 0;
-	cinfo.do_block_smoothing = 0;
-	jpeg_start_decompress (&cinfo);*/
-
 	*widthPtr = fgetc(inFile);
 	*heightPtr = fgetc(inFile);
 	bytesPerPix = 3;
 
-	//lineBuf = cinfo.mem->alloc_sarray ((j_common_ptr) &cinfo, JPOOL_IMAGE, (*widthPtr * bytesPerPix), 1);
 	retBuf = malloc (3 * (*widthPtr * *heightPtr));
 		
 	if (NULL == retBuf) {
@@ -86,7 +64,6 @@ u_char *decode_jpeg (char *filename, int *widthPtr, int *heightPtr) {
 		int y;
 		
 		for (y = 0; y < *heightPtr; ++y) {
-			//jpeg_read_scanlines (&cinfo, lineBuf, 1);
 				
 			for (x = 0; x < lineOffset; ++x) {
 				retBuf[(lineOffset * y) + x] = fgetc(inFile);
@@ -97,35 +74,6 @@ u_char *decode_jpeg (char *filename, int *widthPtr, int *heightPtr) {
 			}
 		}
 	}
-	/*} else if (1 == bytesPerPix) { 
-		unsigned int col;
-		int lineOffset = (*widthPtr * 3);
-		int lineBufIndex;
-		int x ;
-		int y;
-						
-		for (y = 0; y < cinfo.output_height; ++y) {
-			jpeg_read_scanlines (&cinfo, lineBuf, 1);
-				
-			lineBufIndex = 0;
-			for (x = 0; x < lineOffset; ++x) {
-				col = lineBuf[0][lineBufIndex];
-			
-				retBuf[(lineOffset * y) + x] = col;
-				++x;
-				retBuf[(lineOffset * y) + x] = col;
-				++x;
-				retBuf[(lineOffset * y) + x] = col;
-				
-				++lineBufIndex;
-			}			
-		}
-	} else {
-		fprintf (stderr, "Error: the number of color channels is %d.  This program only handles 1 or 3\n", bytesPerPix);
-		return NULL;
-	}*/
-	//jpeg_finish_decompress (&cinfo);
-	//jpeg_destroy_decompress (&cinfo);
 	fclose (inFile);
 			
 	return retBuf;
@@ -211,15 +159,12 @@ XImage *create_image_from_buffer (Display *dis, int screen, u_char *buf, int wid
 	}
 
 	XInitImage (img);
-	/*Set the client's byte order, so that XPutImage knows what to do with the data.*/
-	/*The default in a new X image is the server's format, which may not be what we want.*/
 	if ((LSBFirst == get_byte_order ())) {
 		img->byte_order = LSBFirst;
 	} else {
 		img->byte_order = MSBFirst;
 	}
 	
-	/*The bitmap_bit_order doesn't matter with ZPixmap images.*/
 	img->bitmap_bit_order = MSBFirst;
 
 	return img;
@@ -277,8 +222,6 @@ int main (int argc, char *argv[]) {
 		exit (EXIT_FAILURE);		
 	}
 				
-	/*create_image_from_buffer creates a new buffer after translation, so we can free.
-	 */
 	free (buf);
 					
 	mainWin = create_window (dis, screen, 20, 20, imageWidth, imageHeight);
@@ -309,6 +252,5 @@ int main (int argc, char *argv[]) {
 			break;
 		}			
 	}
-	/*We shouldn't reach this point.*/
 	return EXIT_FAILURE;
 } 
