@@ -20,7 +20,7 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 
-	screen = SDL_SetVideoMode(640,480, 32, SDL_SWSURFACE);
+	screen = SDL_SetVideoMode(640,480, 32, SDL_OPENGL);
 	if (screen==NULL)
 	{
 		printf("video error %s\n", SDL_GetError());

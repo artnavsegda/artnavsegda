@@ -1,90 +1,73 @@
-
-/* Copyright (c) Mark J. Kilgard, 1996. */
-
-/* This program is freely distributable without licensing fees 
-   and is provided without guarantee or warrantee expressed or 
-   implied. This program is -not- in the public domain. */
-
-/* compile: cc -o glxsimple glxsimple.c -lGL -lX11 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include <GL/gl.h>
 
-static int snglBuf[] = {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1,
-                        GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, None};
-static int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1,
-                        GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, GLX_DOUBLEBUFFER, None};
+static int snglBuf[] = {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, None};
+static int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, GLX_DOUBLEBUFFER, None};
 
 Display *dpy;
 Window win;
 Bool doubleBuffer = True;
-/* Initial 3D box orientation. */
 GLfloat xAngle = 42.0, yAngle = 82.0, zAngle = 112.0;
 
 void redraw(void);
 
-void
-fatalError(char *message)
+void fatalError(char *message)
 {
-  fprintf(stderr, "glxsimple: %s\n", message);
-  exit(1);
+	fprintf(stderr, "glxsimple: %s\n", message);
+	exit(1);
 }
 
 main(int argc, char **argv)
 {
-  XVisualInfo *vi;
-  Colormap cmap;
-  XSetWindowAttributes swa;
-  GLXContext cx;
-  XEvent event;
-  Bool needRedraw = False, recalcModelView = True;
-  int dummy;
+	XVisualInfo *vi;
+	Colormap cmap;
+	XSetWindowAttributes swa;
+	GLXContext cx;
+	XEvent event;
+	Bool needRedraw = False, recalcModelView = True;
+	int dummy;
 
-  dpy = XOpenDisplay(NULL);
-  if (dpy == NULL)
-    fatalError("could not open display");
+	dpy = XOpenDisplay(NULL);
+	if (dpy == NULL)
+		fatalError("could not open display");
 
-  if (!glXQueryExtension(dpy, &dummy, &dummy))
-    fatalError("X server has no OpenGL GLX extension");
+	if (!glXQueryExtension(dpy, &dummy, &dummy))
+		fatalError("X server has no OpenGL GLX extension");
 
-  vi = glXChooseVisual(dpy, DefaultScreen(dpy), dblBuf);
-  if (vi == NULL) {
-    vi = glXChooseVisual(dpy, DefaultScreen(dpy), snglBuf);
-    if (vi == NULL)
-      fatalError("no RGB visual with depth buffer");
-    doubleBuffer = False;
-  }
-  if (vi->class != TrueColor)
-    fatalError("TrueColor visual required for this program");
+	vi = glXChooseVisual(dpy, DefaultScreen(dpy), dblBuf);
+	if (vi == NULL) {
+		vi = glXChooseVisual(dpy, DefaultScreen(dpy), snglBuf);
+		if (vi == NULL)
+			fatalError("no RGB visual with depth buffer");
+		doubleBuffer = False;
+	}
+	if (vi->class != TrueColor)
+		fatalError("TrueColor visual required for this program");
 
-  cx = glXCreateContext(dpy, vi,
-    /* No sharing of display lists */ None,
-    /* Direct rendering if possible */ True);
-  if (cx == NULL)
-    fatalError("could not create rendering context");
+	cx = glXCreateContext(dpy, vi, None, True);
+	if (cx == NULL)
+		fatalError("could not create rendering context");
 
-  cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
-  swa.colormap = cmap;
-  swa.border_pixel = 0;
-  swa.event_mask = ExposureMask | ButtonPressMask | StructureNotifyMask;
-  win = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 300, 300, 0, vi->depth,
-    InputOutput, vi->visual, CWBorderPixel | CWColormap | CWEventMask, &swa);
-  XSetStandardProperties(dpy, win, "glxsimple", "glxsimple", None, argv, argc, NULL);
+	cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
+	swa.colormap = cmap;
+	swa.border_pixel = 0;
+	swa.event_mask = ExposureMask | ButtonPressMask | StructureNotifyMask;
+	win = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 300, 300, 0, vi->depth, InputOutput, vi->visual, CWBorderPixel | CWColormap | CWEventMask, &swa);
+	XSetStandardProperties(dpy, win, "glxsimple", "glxsimple", None, argv, argc, NULL);
+	glXMakeCurrent(dpy, win, cx);
+	XMapWindow(dpy, win);
+	Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
+	XSetWMProtocols(dpy, win, &WM_DELETE_WINDOW, 1);
 
-  glXMakeCurrent(dpy, win, cx);
-
-  XMapWindow(dpy, win);
-  Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
-  XSetWMProtocols(dpy, win, &WM_DELETE_WINDOW, 1);
-
-  /* Enable depth buffering */
-  glEnable(GL_DEPTH_TEST);
-  /* Set up projection transform. */
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);
+	/* Enable depth buffering */
+	glEnable(GL_DEPTH_TEST);
+	/* Set up projection transform. */
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);
 
   while (1) {
     do {
