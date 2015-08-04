@@ -11,7 +11,7 @@ hello:	hello.o
 	cc -o hello hello.o
 
 winbmp.exe:	winbmp.obj
-	link winbmp.obj user32.lib
+	link winbmp.obj user32.lib gdi32.lib
 
 winhello.exe:	winhello.obj
 	link winhello.obj user32.lib
