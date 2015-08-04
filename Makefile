@@ -1,4 +1,4 @@
-all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg xliban
+all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg xliban winbmp.exe
 
 clean:
 	rm *.o
@@ -9,6 +9,9 @@ hello.exe:	hello.obj
 
 hello:	hello.o
 	cc -o hello hello.o
+
+winbmp.exe:	winbmp.obj
+	link winbmp.obj user32.lib
 
 winhello.exe:	winhello.obj
 	link winhello.obj user32.lib
