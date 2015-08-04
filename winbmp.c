@@ -2,13 +2,24 @@
 #include <windowsx.h>
 
 HMENU menu;
-HBRUSH hBlueBrush,hRedBrush;
+BYTE bBytes[] =
+{
+  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+  0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+  0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+  0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+  0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+  0x00, 0xff, 0xff, 0x00, 0x00, 0xff, 0xff, 0x00,
+  0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+  0xff, 0x00, 0x00, 0xff, 0xff, 0x00, 0x00, 0xff,
+  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+};
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	HDC hdc;
+	HDC hdc,dcLogo;
 	PAINTSTRUCT ps;
-	HBRUSH hOldBrush;
+	HBITMAP bmLogo;
 	switch(msg)
 	{
 		case WM_CONTEXTMENU:
@@ -28,9 +39,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_PAINT:
 		{
 			hdc = BeginPaint(hwnd, &ps);
-			hOldBrush = SelectObject(ps.hdc,hRedBrush);
-			Rectangle(ps.hdc,100,100,150,150);
-			SelectObject(ps.hdc,hOldBrush);
+			bmLogo = CreateBitmap(64,9,1,1,&bBytes);
+			dcLogo = CreateCompatibleDC(hdc);
+			SelectObject(dcLogo,bmLogo);
+			BitBlt(hdc,100,100,100,100,dcLogo,0,0,SRCCOPY);
+			DeleteDC(dcLogo);
+			DeleteObject(bmLogo);
 			EndPaint(hwnd, &ps);
 		}
 		break;
@@ -45,8 +59,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	MSG Msg;
 	HWND hwnd;
 	WNDCLASS wc = {0,WindowProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),(HBRUSH)(COLOR_WINDOW+1),"Menu","MainWindowClass"};
-	hBlueBrush = CreateSolidBrush(RGB(0,0,255));
-	hRedBrush = CreateSolidBrush(RGB(255,0,0));
 	RegisterClass(&wc);
 	menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
 	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,NULL,NULL,hInstance,NULL);
