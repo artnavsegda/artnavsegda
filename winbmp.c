@@ -8,6 +8,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	HDC hdc;
 	PAINTSTRUCT ps;
+	HBRUSH hOldBrush;
 	switch(msg)
 	{
 		case WM_CONTEXTMENU:
@@ -27,6 +28,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_PAINT:
 		{
 			hdc = BeginPaint(hwnd, &ps);
+			hOldBrush = SelectObject(ps.hdc,hRedBrush);
+			Rectangle(ps.hdc,100,100,150,150);
+			SelectObject(ps.hdc,hOldBrush);
 			EndPaint(hwnd, &ps);
 		}
 		break;

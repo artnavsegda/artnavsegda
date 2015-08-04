@@ -147,6 +147,7 @@
 //		"/property:GenerateFullPaths=true"
 //	],
 //	"taskSelector": "/t:",
+	"isShellCommand": true,
 	"showOutput": "silent",
 	"tasks": [
 		{
