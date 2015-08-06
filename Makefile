@@ -1,6 +1,6 @@
 #CFLAGS = /FC
 
-all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg xliban winbmp.exe sdlopengl
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
 build:	hello.exe winhello.exe glhello.exe winbmp.exe
 
 clean:

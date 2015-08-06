@@ -62,34 +62,12 @@ main(int argc, char **argv)
 	Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
 	XSetWMProtocols(dpy, win, &WM_DELETE_WINDOW, 1);
 
-	/* Enable depth buffering */
-	glEnable(GL_DEPTH_TEST);
-	/* Set up projection transform. */
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);
-
   while (1) {
     do {
       XNextEvent(dpy, &event);
       switch (event.type) {
-      case ButtonPress:
-        recalcModelView = True;
-        switch (event.xbutton.button) {
-        case 1:
-          xAngle += 10.0;
-          break;
-        case 2:
-          yAngle += 10.0;
-          break;
-        case 3:
-          zAngle += 10.0;
-          break;
-        }
-        break;
       case ConfigureNotify:
         glViewport(0, 0, event.xconfigure.width, event.xconfigure.height);
-        /* Fall through... */
       case Expose:
         needRedraw = True;
         break;
@@ -99,19 +77,6 @@ main(int argc, char **argv)
 	break;
       }
     } while (XPending(dpy));  /* Loop to compress events. */
-    if (recalcModelView) {
-      glMatrixMode(GL_MODELVIEW);
-      /* Reset modelview matrix to the identity matrix. */
-      glLoadIdentity();
-      /* Move the camera back three units. */
-      glTranslatef(0.0, 0.0, -3.0);
-      /* Rotate by X, Y, and Z angles. */
-      glRotatef(xAngle, 0.1, 0.0, 0.0);
-      glRotatef(yAngle, 0.0, 0.1, 0.0);
-      glRotatef(zAngle, 0.0, 0.0, 1.0);
-      recalcModelView = False;
-      needRedraw = True;
-    }
     if (needRedraw) {
       redraw();
       needRedraw = False;
@@ -132,33 +97,18 @@ redraw(void)
     /* Otherwise compile and execute to create the display
        list. */
     glNewList(1, GL_COMPILE_AND_EXECUTE);
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      glBegin(GL_QUADS);
-        /* Front face */
-        glColor3f(0.0, 0.7, 0.1);  /* Green */
-        glVertex3f(-1.0, 1.0, 1.0);
-        glVertex3f(1.0, 1.0, 1.0);
-        glVertex3f(1.0, -1.0, 1.0);
-        glVertex3f(-1.0, -1.0, 1.0);
-        /* Back face */
-        glColor3f(0.9, 1.0, 0.0);  /* Yellow */
-        glVertex3f(-1.0, 1.0, -1.0);
-        glVertex3f(1.0, 1.0, -1.0);
-        glVertex3f(1.0, -1.0, -1.0);
-        glVertex3f(-1.0, -1.0, -1.0);
-        /* Top side face */
-        glColor3f(0.2, 0.2, 1.0);  /* Blue */
-        glVertex3f(-1.0, 1.0, 1.0);
-        glVertex3f(1.0, 1.0, 1.0);
-        glVertex3f(1.0, 1.0, -1.0);
-        glVertex3f(-1.0, 1.0, -1.0);
-        /* Bottom side face */
-        glColor3f(0.7, 0.0, 0.1);  /* Red */
-        glVertex3f(-1.0, -1.0, 1.0);
-        glVertex3f(1.0, -1.0, 1.0);
-        glVertex3f(1.0, -1.0, -1.0);
-        glVertex3f(-1.0, -1.0, -1.0);
-      glEnd();
+	glClearColor(0.0,0.0,0.0,0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+        glColor3f(1.0, 1.0, 1.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	glBegin(GL_POLYGON);
+ 		glVertex2f(-0.5, -0.5);
+		glVertex2f(-0.5, 0.5);
+		glVertex2f(0.5, 0.5);
+		glVertex2f(0.5, -0.5);
+        glEnd();
     glEndList();
     displayListInited = True;
   }
