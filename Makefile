@@ -1,7 +1,6 @@
-CFLAGS = /FC
+#CFLAGS = /FC
 
-#all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg xliban winbmp.exe
-all:	hello.exe winhello.exe glhello.exe winbmp.exe
+all:	hello.exe hello winhello.exe glhello.exe glxhello sdlhello xhello ghello xlibjpeg xliban winbmp.exe sdlopengl
 build:	hello.exe winhello.exe glhello.exe winbmp.exe
 
 clean:
@@ -35,8 +34,14 @@ sdlhello.o:	sdlhello.c
 sdlhello:	sdlhello.o
 	cc -o sdlhello sdlhello.o `sdl-config --libs`
 
+sdlopengl.o:	sdlopengl.c
+	cc -c -o sdlopengl.o sdlopengl.c `sdl-config --cflags`
+
+sdlopengl:	sdlopengl.o
+	cc -o sdlopengl sdlopengl.o `sdl-config --libs` -lGL -lGLU
+
 xhello:		xhello.o
-	cc -o xhello xhello.o -L/usr/X11R6/lib -lX11
+	cc -o xhello xhello.o -L/usr/X11R6/lib -lGL -lXext -lX11
 
 xlibjpeg:	xlibjpeg.o
 	cc xlibjpeg.o -o xlibjpeg -L/usr/X11R6/lib -lX11 -ljpeg -lm
