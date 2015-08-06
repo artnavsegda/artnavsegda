@@ -4,15 +4,10 @@
 #include <GL/glx.h>
 #include <GL/gl.h>
 
-static int snglBuf[] = {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, None};
 static int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, GLX_DOUBLEBUFFER, None};
 
 Display *dpy;
 Window win;
-Bool doubleBuffer = True;
-GLfloat xAngle = 42.0, yAngle = 82.0, zAngle = 112.0;
-
-void redraw(void);
 
 void fatalError(char *message)
 {
@@ -38,15 +33,6 @@ main(int argc, char **argv)
 		fatalError("X server has no OpenGL GLX extension");
 
 	vi = glXChooseVisual(dpy, DefaultScreen(dpy), dblBuf);
-	if (vi == NULL) {
-		vi = glXChooseVisual(dpy, DefaultScreen(dpy), snglBuf);
-		if (vi == NULL)
-			fatalError("no RGB visual with depth buffer");
-		doubleBuffer = False;
-	}
-	if (vi->class != TrueColor)
-		fatalError("TrueColor visual required for this program");
-
 	cx = glXCreateContext(dpy, vi, None, True);
 	if (cx == NULL)
 		fatalError("could not create rendering context");
@@ -70,7 +56,20 @@ main(int argc, char **argv)
       			case ConfigureNotify:
 				glViewport(0, 0, event.xconfigure.width, event.xconfigure.height);
 			case Expose:
-				redraw();
+				glClearColor(0.0,0.0,0.0,0.0);
+				glClear(GL_COLOR_BUFFER_BIT);
+				glColor3f(1.0, 1.0, 1.0);
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+				glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+				glBegin(GL_POLYGON);
+				glVertex2f(-0.5, -0.5);
+				glVertex2f(-0.5, 0.5);
+				glVertex2f(0.5, 0.5);
+				glVertex2f(0.5, -0.5);
+				glEnd();
+				glXSwapBuffers(dpy, win);
+				glFlush();          
 				break;
 			case ClientMessage:
 				XCloseDisplay(dpy);
@@ -79,23 +78,4 @@ main(int argc, char **argv)
 		}
 	}
 	return 0;
-}
-
-void
-redraw(void)
-{
-	glClearColor(0.0,0.0,0.0,0.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-        glColor3f(1.0, 1.0, 1.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
-	glBegin(GL_POLYGON);
- 		glVertex2f(-0.5, -0.5);
-		glVertex2f(-0.5, 0.5);
-		glVertex2f(0.5, 0.5);
-		glVertex2f(0.5, -0.5);
-        glEnd();
-    glXSwapBuffers(dpy, win);
-    glFlush();          
 }
