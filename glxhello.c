@@ -62,41 +62,28 @@ main(int argc, char **argv)
 	Atom WM_DELETE_WINDOW = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
 	XSetWMProtocols(dpy, win, &WM_DELETE_WINDOW, 1);
 
-  while (1) {
-    do {
-      XNextEvent(dpy, &event);
-      switch (event.type) {
-      case ConfigureNotify:
-        glViewport(0, 0, event.xconfigure.width, event.xconfigure.height);
-      case Expose:
-        needRedraw = True;
-        break;
-      case ClientMessage:
-	XCloseDisplay(dpy);
-	exit(0);
-	break;
-      }
-    } while (XPending(dpy));  /* Loop to compress events. */
-    if (needRedraw) {
-      redraw();
-      needRedraw = False;
-    }
-  }
-  return 0;
+	while (1)
+	{
+		XNextEvent(dpy, &event);
+		switch (event.type)
+		{
+      			case ConfigureNotify:
+				glViewport(0, 0, event.xconfigure.width, event.xconfigure.height);
+			case Expose:
+				redraw();
+				break;
+			case ClientMessage:
+				XCloseDisplay(dpy);
+				exit(0);
+				break;
+		}
+	}
+	return 0;
 }
 
 void
 redraw(void)
 {
-  static Bool displayListInited = False;
-
-  if (displayListInited) {
-    /* If display list already exists, just execute it. */
-    glCallList(1);
-  } else {
-    /* Otherwise compile and execute to create the display
-       list. */
-    glNewList(1, GL_COMPILE_AND_EXECUTE);
 	glClearColor(0.0,0.0,0.0,0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
         glColor3f(1.0, 1.0, 1.0);
@@ -109,13 +96,6 @@ redraw(void)
 		glVertex2f(0.5, 0.5);
 		glVertex2f(0.5, -0.5);
         glEnd();
-    glEndList();
-    displayListInited = True;
-  }
-  if (doubleBuffer)
-    /* Buffer swap does implicit glFlush. */
     glXSwapBuffers(dpy, win);
-  else
-    /* Explicit flush for single buffered case. */
     glFlush();          
 }
