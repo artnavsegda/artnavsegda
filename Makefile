@@ -1,17 +1,15 @@
 #CFLAGS = /FC
 
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg
 build:	hello.exe winhello.exe glhello.exe winbmp.exe
 
 clean:
 	rm *.o
-	del *.obj
+	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
+#	del *.obj
 
 hello.exe:	hello.obj
 	link hello.obj
-
-hello:	hello.o
-	cc -o hello hello.o
 
 winbmp.obj:	winbmp.c
 	cl /FC /c winbmp.c
@@ -48,6 +46,9 @@ xlibjpeg:	xlibjpeg.o
 
 xliban:	xliban.o
 	cc xliban.o -o xliban -L/usr/X11R6/lib -lX11 -lm
+
+xlibstdin:	xlibstdin.o
+	cc xlibstdin.o -o xlibstdin -L/usr/X11R6/lib -lX11 -lm
 
 anjpeg:	anjpeg.o
 	cc anjpeg.o -o anjpeg -ljpeg -lm

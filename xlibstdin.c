@@ -12,28 +12,21 @@
 
 #include "artnavsegda.h"
 
-u_char *decode_artnavsegda (char *filename, int *widthPtr, int *heightPtr) {
+u_char *decode_artnavsegda (int *widthPtr, int *heightPtr) {
 	int magiclength = strlen(artnavsegda);
 	char magic[sizeof(artnavsegda)];
 	int bytesPerPix;
-	FILE *inFile;
 	u_char *retBuf;
 	
-	inFile = fopen (filename, "rb");
-	if (NULL == inFile) { 
-		perror (NULL);
-		return NULL;
-	}
-
-	fgets(magic,magiclength+1,inFile);
+	fgets(magic,magiclength+1,stdin);
 	if (strcmp(artnavsegda,magic)!=0)
 	{
 		printf("incorrect format\n");
 		exit(1);
 	}
 
-	*widthPtr = fgetc(inFile);
-	*heightPtr = fgetc(inFile);
+	*widthPtr = fgetc(stdin);
+	*heightPtr = fgetc(stdin);
 
 	retBuf = malloc (3 * (*widthPtr * *heightPtr));
 		
@@ -46,18 +39,8 @@ u_char *decode_artnavsegda (char *filename, int *widthPtr, int *heightPtr) {
 	int x;
 	int y;
 		
-	for (y = 0; y < *heightPtr; ++y)
-	{
-		for (x = 0; x < lineOffset; ++x)
-		{
-			retBuf[(lineOffset * y) + x] = fgetc(inFile);
-			++x;
-			retBuf[(lineOffset * y) + x] = fgetc(inFile);
-			++x;
-			retBuf[(lineOffset * y) + x] = fgetc(inFile);
-		}
-	}
-	fclose (inFile);
+	fread(retBuf,3,*widthPtr * *heightPtr,stdin);
+	fclose (stdin);
 			
 	return retBuf;
 }
@@ -95,7 +78,7 @@ XImage *create_image_from_buffer (Display *dis, int screen, u_char *buf, int wid
 		newBuf[outIndex] = r | g | b;
 		++outIndex;
 	}		
-		
+
 	img = XCreateImage (dis,CopyFromParent, 24,ZPixmap, 0,(char *) newBuf,width, height,32, 0);
 	//img = XCreateImage (dis,CopyFromParent, 24,ZPixmap, 0,(char *) buf,width, height,32, 0);
 	XInitImage (img);
@@ -131,12 +114,7 @@ main (int argc, char *argv[])
 	u_char *buf;
 	GC copyGC;
 
-	if (2 != argc) {
-		fprintf (stderr, "please specify a filename to %s\n", argv[0]);
-		exit (EXIT_FAILURE);
-	}
-
-	buf = decode_artnavsegda (argv[1], &imageWidth, &imageHeight);
+	buf = decode_artnavsegda (&imageWidth, &imageHeight);
 	
 	if (NULL == buf) {
 		fprintf (stderr, "unable to decode JPEG");
