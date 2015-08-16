@@ -27,6 +27,8 @@ main(int argc, char *argv[])
 	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
 
+	SDL_WM_SetCaption("My Game Window", "game");
+
 	screen = SDL_SetVideoMode(640,480, 32, SDL_OPENGL);
 	if (screen==NULL)
 	{

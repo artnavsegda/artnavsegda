@@ -80,7 +80,7 @@ main(int argc, char *argv[])
 	jpeg_destroy_decompress(&cinfo);
 	fclose(inFile);
 
-	x = 0;
+	/*x = 0;
 	while (x != WIDTH)
 	{
 		y = 0;
@@ -93,6 +93,6 @@ main(int argc, char *argv[])
 		}
 		//fputs("SCANLINE",stdout);
 		x++;
-	}
+	}*/
 	return 0;
 }

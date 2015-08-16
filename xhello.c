@@ -3,7 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
  
-main(void) {
+main()
+{
+	int i = 0;
+	int r = 0;
 	Display *d;
 	Window w;
 	XEvent e;
@@ -16,6 +19,8 @@ main(void) {
 		fprintf(stderr, "Cannot open display\n");
 		exit(1);
 	}
+	else
+		fprintf(stderr, "display sucessfully opened\n");
  
 	s = DefaultScreen(d);
 	w = XCreateSimpleWindow(d, RootWindow(d, s), 10, 10, 100, 100, 1, BlackPixel(d, s), WhitePixel(d, s));
@@ -27,7 +32,9 @@ main(void) {
 	while (1)
 	{
 		XNextEvent(d, &e);
+		printf("event %d\n",r++);
 		if (e.type == Expose) {
+			printf("expose %d %d %d %d %d\n",i++,e.xexpose.x,e.xexpose.y,e.xexpose.width,e.xexpose.height);
 			XFillRectangle(d, w, DefaultGC(d, s), 20, 20, 10, 10);
 			XDrawString(d, w, DefaultGC(d, s), 10, 50, msg, strlen(msg));
 		}
