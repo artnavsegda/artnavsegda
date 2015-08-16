@@ -1,12 +1,25 @@
 #CFLAGS = /FC
 
+<<<<<<< HEAD
 all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota
+=======
+<<<<<<< HEAD
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
+build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe
+
+clean:
+#	rm *.o
+	del *.obj *.exe
+=======
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg
+>>>>>>> 17e78c6f8295440185e03ad141cb75cb2abfffec
 build:	hello.exe winhello.exe glhello.exe winbmp.exe
 
 clean:
 	rm *.o
 	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
 #	del *.obj
+>>>>>>> origin/master
 
 hello.exe:	hello.obj
 	link hello.obj
@@ -19,6 +32,9 @@ winbmp.exe:	winbmp.obj
 
 winhello.exe:	winhello.obj
 	link winhello.obj user32.lib
+	
+winchota.exe:	winchota.obj
+	link winchota.obj user32.lib gdi32.lib
 
 glhello.exe:	glhello.obj
 	link glhello.obj user32.lib gdi32.lib opengl32.lib glu32.lib
