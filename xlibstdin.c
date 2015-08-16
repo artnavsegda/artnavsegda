@@ -2,50 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-
-#ifndef u_char
-#define u_char unsigned char
-#endif		
-
 #include "artnavsegda.h"
 
-u_char *decode_artnavsegda (int *widthPtr, int *heightPtr) {
+XImage *create_image_from_buffer (Display *dis, int screen, int *width, int *height) {
 	int magiclength = strlen(artnavsegda);
 	char magic[sizeof(artnavsegda)];
-	int bytesPerPix;
-	u_char *retBuf;
-	
 	fgets(magic,magiclength+1,stdin);
 	if (strcmp(artnavsegda,magic)!=0)
 	{
 		printf("incorrect format\n");
 		exit(1);
 	}
-
-	*widthPtr = fgetc(stdin);
-	*heightPtr = fgetc(stdin);
-
-	retBuf = malloc (3 * (*widthPtr * *heightPtr));
-		
-	if (NULL == retBuf) {
-		perror (NULL);
-		return NULL;
-	}
-		
-	int lineOffset = (*widthPtr * 3);
-	int x;
-	int y;
-		
-	fread(retBuf,3,*widthPtr * *heightPtr,stdin);
-	fclose (stdin);
-			
-	return retBuf;
-}
-
-XImage *create_image_from_buffer (Display *dis, int screen, u_char *buf, int width, int height) {
+	*width = fgetc(stdin);
+	*height = fgetc(stdin);
 	XImage *img = NULL;
 	Visual *vis;
 	double rRatio;
@@ -53,90 +24,55 @@ XImage *create_image_from_buffer (Display *dis, int screen, u_char *buf, int wid
 	double bRatio;
 	int outIndex = 0;	
 	int i;
-	int numBufBytes = (3 * (width * height));
-		
+	int numBufBytes = (3 * (*width * *height));
 	vis = DefaultVisual (dis, screen);
-
 	rRatio = vis->red_mask / 255.0;
 	gRatio = vis->green_mask / 255.0;
 	bRatio = vis->blue_mask / 255.0;
-		
-	size_t numNewBufBytes = (4 * (width * height));
+	size_t numNewBufBytes = (4 * (*width * *height));
 	u_int32_t *newBuf = malloc (numNewBufBytes);
-	
 	for (i = 0; i < numBufBytes; ++i)
 	{
 		unsigned int r, g, b;
-		r = (buf[i] * rRatio);
+		r = (fgetc(stdin) * rRatio);
 		++i;
-		g = (buf[i] * gRatio);
+		g = (fgetc(stdin) * gRatio);
 		++i;
-		b = (buf[i] * bRatio);
-		r &= vis->red_mask;
-		g &= vis->green_mask;
-		b &= vis->blue_mask;
+		b = (fgetc(stdin) * bRatio);
+		//r &= vis->red_mask;
+		//g &= vis->green_mask;
+		//b &= vis->blue_mask;
 		newBuf[outIndex] = r | g | b;
 		++outIndex;
 	}		
-
-	img = XCreateImage (dis,CopyFromParent, 24,ZPixmap, 0,(char *) newBuf,width, height,32, 0);
-	//img = XCreateImage (dis,CopyFromParent, 24,ZPixmap, 0,(char *) buf,width, height,32, 0);
+	img = XCreateImage (dis,CopyFromParent, 24,ZPixmap, 0,(char *) newBuf,*width, *height,32, 0);
 	XInitImage (img);
 	img->byte_order = LSBFirst;
 	img->bitmap_bit_order = MSBFirst;
-
 	return img;
 }		
 
-Window create_window (Display *dis, int screen, int x, int y, int width, int height) {
-	Window win;
-	unsigned long windowMask;
-	XSetWindowAttributes winAttrib;	
-			
-	windowMask = CWBackPixel | CWBorderPixel;	
-	winAttrib.border_pixel = BlackPixel (dis, screen);
-	winAttrib.background_pixel = BlackPixel (dis, screen);
-	winAttrib.override_redirect = 0;
-		
-	win = XCreateWindow (dis, DefaultRootWindow (dis),x, y,	width, height,0, DefaultDepth (dis, screen),InputOutput, CopyFromParent,windowMask, &winAttrib);
-		
-	return win;
-}	
-		
 main (int argc, char *argv[])
 {
 	int imageWidth;
 	int imageHeight;
 	XImage *img;		
 	Window mainWin;
+	unsigned long windowMask;
+	XSetWindowAttributes winAttrib;
 	int screen;
 	Display *dis;
-	u_char *buf;
 	GC copyGC;
-
-	buf = decode_artnavsegda (&imageWidth, &imageHeight);
-	
-	if (NULL == buf) {
-		fprintf (stderr, "unable to decode JPEG");
-		exit (EXIT_FAILURE);
-	}
-	
 	dis = XOpenDisplay (NULL);
 	screen = DefaultScreen (dis);
-	
-	img = create_image_from_buffer (dis, screen, buf, imageWidth, imageHeight);
-			
-	if (NULL == img) {
-		exit (EXIT_FAILURE);		
-	}
-				
-	free (buf);
-					
-	mainWin = create_window (dis, screen, 20, 20, imageWidth, imageHeight);
+	img = create_image_from_buffer (dis, screen, &imageWidth, &imageHeight);
+	windowMask = CWBackPixel | CWBorderPixel;
+	winAttrib.border_pixel = BlackPixel (dis, screen);
+	winAttrib.background_pixel = BlackPixel (dis, screen);
+	winAttrib.override_redirect = 0;
+	mainWin = XCreateWindow (dis, DefaultRootWindow (dis),20, 20,imageWidth,imageHeight,0, DefaultDepth (dis, screen),InputOutput, CopyFromParent,CWBackPixel | CWBorderPixel, &winAttrib);
 	copyGC = XCreateGC (dis, mainWin, 0, NULL);
-		
-	XMapRaised (dis, mainWin);
-	
+	XMapWindow (dis, mainWin);
 	XSelectInput(dis, mainWin, ExposureMask | KeyPressMask);
 	Atom WM_DELETE_WINDOW = XInternAtom(dis, "WM_DELETE_WINDOW", False);
 	XSetWMProtocols(dis, mainWin, &WM_DELETE_WINDOW, 1);

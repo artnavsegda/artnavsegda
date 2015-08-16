@@ -1,6 +1,6 @@
 #CFLAGS = /FC
 
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota
 build:	hello.exe winhello.exe glhello.exe winbmp.exe
 
 clean:
@@ -24,7 +24,7 @@ glhello.exe:	glhello.obj
 	link glhello.obj user32.lib gdi32.lib opengl32.lib glu32.lib
 
 glxhello:	glxhello.o
-	cc -o glxhello glxhello.o -lGL -lXext -lX11
+	cc -o glxhello glxhello.o -lGLEW -lGL -lXext -lX11
 
 sdlhello.o:	sdlhello.c
 	cc -c -o sdlhello.o sdlhello.c `sdl-config --cflags`
@@ -36,10 +36,13 @@ sdlopengl.o:	sdlopengl.c
 	cc -c -o sdlopengl.o sdlopengl.c `sdl-config --cflags`
 
 sdlopengl:	sdlopengl.o
-	cc -o sdlopengl sdlopengl.o `sdl-config --libs` -lGL -lGLU
+	cc -o sdlopengl sdlopengl.o `sdl-config --libs` -lGLEW -lGL -lGLU
 
 xhello:		xhello.o
-	cc -o xhello xhello.o -L/usr/X11R6/lib -lGL -lXext -lX11
+	cc -o xhello xhello.o -L/usr/X11R6/lib -lXext -lX11
+
+xchota:		xchota.o
+	cc -o xchota xchota.o -L/usr/X11R6/lib -lXext -lX11
 
 xlibjpeg:	xlibjpeg.o
 	cc xlibjpeg.o -o xlibjpeg -L/usr/X11R6/lib -lX11 -ljpeg -lm

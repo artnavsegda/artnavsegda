@@ -6,6 +6,8 @@
  * Distributed under terms of the LGPL. 
  */
 
+#include <GL/glew.h>
+#include <GL/glxew.h>
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -241,7 +243,13 @@ static void draw_screen( void )
 
 static void setup_opengl( int width, int height )
 {
+    GLenum err;
     float ratio = (float) width / (float) height;
+
+    err = glXSwapIntervalMESA(1);
+    if (err == GLX_BAD_CONTEXT)
+	printf("bad context");
+    printf("swap interval is %d\n", glXGetSwapIntervalMESA());
 
     /* Our shading model--Gouraud (smooth). */
     glShadeModel( GL_SMOOTH );
@@ -366,7 +374,11 @@ int main( int argc, char* argv[] )
      * At this point, we should have a properly setup
      * double-buffered window for use with OpenGL.
      */
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+	printf("Error: %s\n", glewGetErrorString(err));
     setup_opengl( width, height );
+
 
     /*
      * Now we want to begin our normal app process--
@@ -377,7 +389,6 @@ int main( int argc, char* argv[] )
         process_events( );
         /* Draw the screen. */
         draw_screen( );
-	usleep(10000);
     }
 
     /*

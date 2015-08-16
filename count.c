@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 main(int argc, char *argv[])
 {
@@ -31,7 +32,7 @@ main(int argc, char *argv[])
 		mm += m;
 		if (count == numbers)
 		{
-			printf("%d %d %d %d %d %d %d %d %d %d %d %d %d\n",am, bm, cm, dm, em, fm, gm, hm, im, jm, km, lm, mm);
+			printf("%d %d %d %d %d %d %d %d %d %d %d %d %d\n",am/numbers, bm/numbers, cm/numbers, dm/numbers, em/numbers, fm/numbers, gm/numbers, hm/numbers, im/numbers, jm/numbers, km/numbers, lm/numbers, mm/numbers);
 			count = 0;
 			am=0;bm=0;cm=0;dm=0;em=0;fm=0;gm=0;hm=0;im=0;jm=0;km=0;lm=0;mm=0;
 		}

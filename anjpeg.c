@@ -66,33 +66,14 @@ main(int argc, char *argv[])
 		for (x = 0; x < lineoffset; ++x)
 		{
 			fputc(lineBuf[0][x],stdout);
-			//retBuf[(lineoffset*y)+x] = lineBuf[0][x];
 			++x;	
 			fputc(lineBuf[0][x],stdout);
-			//retBuf[(lineoffset*y)+x] = lineBuf[0][x];
 			++x;	
 			fputc(lineBuf[0][x],stdout);
-			//retBuf[(lineoffset*y)+x] = lineBuf[0][x];
 		}
-		//fputs("SCANLINE",stdout);
 	}
 	jpeg_finish_decompress(&cinfo);
 	jpeg_destroy_decompress(&cinfo);
 	fclose(inFile);
-
-	/*x = 0;
-	while (x != WIDTH)
-	{
-		y = 0;
-		while (y != HEIGHT)
-		{
-			//fputc(R,stdout);
-			//fputc(G,stdout);
-			//fputc(B,stdout);
-			y++;
-		}
-		//fputs("SCANLINE",stdout);
-		x++;
-	}*/
 	return 0;
 }
