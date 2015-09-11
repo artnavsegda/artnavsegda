@@ -4,9 +4,11 @@ all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive
 build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe
 
 clean:
-	rm *.o
-#	del *.obj *.exe
+	rm *.o *.exe
 	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
+
+winclean:
+	del *.o *.obj *.exe
 
 hello.exe:	hello.obj
 	link hello.obj
