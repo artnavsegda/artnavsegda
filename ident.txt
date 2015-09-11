@@ -1,0 +1,1 @@
+indent -npcs -l1000 -i8 -bli0 -ut < sdlhello.c > temp

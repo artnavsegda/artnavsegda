@@ -1,25 +1,12 @@
 #CFLAGS = /FC
 
-<<<<<<< HEAD
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota
-=======
-<<<<<<< HEAD
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2
 build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe
 
 clean:
-#	rm *.o
-	del *.obj *.exe
-=======
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg
->>>>>>> 17e78c6f8295440185e03ad141cb75cb2abfffec
-build:	hello.exe winhello.exe glhello.exe winbmp.exe
-
-clean:
 	rm *.o
+#	del *.obj *.exe
 	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
-#	del *.obj
->>>>>>> origin/master
 
 hello.exe:	hello.obj
 	link hello.obj
@@ -46,13 +33,13 @@ sdlhello.o:	sdlhello.c
 	cc -c -o sdlhello.o sdlhello.c `sdl-config --cflags`
 
 sdlhello:	sdlhello.o
-	cc -o sdlhello sdlhello.o `sdl-config --libs`
+	cc -o sdlhello sdlhello.o `sdl-config --libs` -lGL -lGLU
 
 sdlopengl.o:	sdlopengl.c
-	cc -c -o sdlopengl.o sdlopengl.c `sdl-config --cflags`
+	cc -fprofile-arcs -pg -c -o sdlopengl.o sdlopengl.c `sdl-config --cflags`
 
 sdlopengl:	sdlopengl.o
-	cc -o sdlopengl sdlopengl.o `sdl-config --libs` -lGLEW -lGL -lGLU
+	cc -fprofile-arcs -pg -o sdlopengl sdlopengl.o `sdl-config --libs` -lGLEW -lGL -lGLU
 
 xhello:		xhello.o
 	cc -o xhello xhello.o -L/usr/X11R6/lib -lXext -lX11
@@ -77,6 +64,12 @@ ghello.o:	ghello.c
 
 ghello:		ghello.o
 	cc -o ghello ghello.o `pkg-config --libs gtk+-3.0`
+
+ghello2.o:	ghello2.c
+	cc -c -o ghello2.o ghello2.c `pkg-config --cflags gtk+-3.0`
+
+ghello2:		ghello2.o
+	cc -o ghello2 ghello2.o `pkg-config --libs gtk+-3.0`
 
 xlibpng:	xlibpng.o
 	cc xlibpng.o -o xlibpng -L/usr/X11R6/lib -lX11 -lpng -lm
