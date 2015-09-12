@@ -8,7 +8,6 @@
 int main(int argc, char *argv[])
 {
 	GLfloat spin = 0.0;
-	GLuint i;
 	SDL_Event event;
 	atexit(SDL_Quit);
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) exit(1);
@@ -16,7 +15,7 @@ int main(int argc, char *argv[])
 	glViewport(0, 0, 300, 300);
 	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
 	GLuint fontOffset = glGenLists(128);
-	for (i = 32; i < 127; i++)
+	for (GLuint i = 32; i < 127; i++)
 	{
 		glNewList(i+fontOffset, GL_COMPILE);
 		glBitmap(8,13,0.0,2.0,10.0,0.0,font[i-32]);
