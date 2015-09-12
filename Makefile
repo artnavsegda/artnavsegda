@@ -28,6 +28,9 @@ winchota.exe:	winchota.obj winchota.res
 glhello.exe:	glhello.obj
 	link glhello.obj user32.lib gdi32.lib opengl32.lib glu32.lib
 
+gldouble.exe:	gldouble.obj
+	link gldouble.obj user32.lib gdi32.lib opengl32.lib glu32.lib
+
 glxhello:	glxhello.o
 	cc -o glxhello glxhello.o -lGLEW -lGL -lXext -lX11
 

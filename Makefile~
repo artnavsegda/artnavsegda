@@ -1,14 +1,14 @@
 #CFLAGS = /FC
 
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
 build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe
 
 clean:
-	rm *.o *.exe
-	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl
+	rm *.o
+	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
 
 winclean:
-	del *.o *.obj *.exe
+	del *.obj *.exe
 
 hello.exe:	hello.obj
 	link hello.obj
@@ -25,21 +25,29 @@ winhello.exe:	winhello.obj
 winchota.exe:	winchota.obj
 	link winchota.obj user32.lib gdi32.lib
 
-#glhello.obj: glhello.c
-#	cl /c /Z7 /Zi glhello.c
-
 glhello.exe:	glhello.obj
-#	link /debug:full glhello.obj user32.lib gdi32.lib opengl32.lib glu32.lib
 	link glhello.obj user32.lib gdi32.lib opengl32.lib glu32.lib
+
+gldouble.exe:	gldouble.obj
+	link gldouble.obj user32.lib gdi32.lib opengl32.lib glu32.lib
 
 glxhello:	glxhello.o
 	cc -o glxhello glxhello.o -lGLEW -lGL -lXext -lX11
+
+glxdouble:	glxdouble.o
+	cc -o glxdouble glxdouble.o -lGLEW -lGL -lXext -lX11
 
 sdlhello.o:	sdlhello.c
 	cc -c -o sdlhello.o sdlhello.c `sdl-config --cflags`
 
 sdlhello:	sdlhello.o
 	cc -o sdlhello sdlhello.o `sdl-config --libs` -lGL -lGLU
+
+sdldouble.o:	sdldouble.c
+	cc -c -o sdldouble.o sdldouble.c `sdl-config --cflags`
+
+sdldouble:	sdldouble.o
+	cc -o sdldouble sdldouble.o `sdl-config --libs` -lGL -lGLU
 
 sdlopengl.o:	sdlopengl.c
 	cc -fprofile-arcs -pg -c -o sdlopengl.o sdlopengl.c `sdl-config --cflags`
