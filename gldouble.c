@@ -6,15 +6,16 @@ GLuint fontOffset;
 typedef BOOL (APIENTRY *PFNWGLSWAPINTERVALFARPROC)(int);
 PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT;
 
+HDC hDC;
+HGLRC hRC;
+
 LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 {
-	static HGLRC hRC;
-	static HDC hDC;
 	switch (message)
 	{
 	case WM_CREATE:
 		hDC = GetDC(hWnd);		
-		static PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
+		PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
 		SetPixelFormat(hDC, ChoosePixelFormat(hDC, &pfd), &pfd);
 		hRC = wglCreateContext(hDC);
 		wglMakeCurrent(hDC, hRC);
@@ -48,7 +49,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 {
 	GLfloat spin = 0.0;
 	MSG Msg;
-	WNDCLASS wc = {0,WndProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),(HBRUSH)(COLOR_WINDOW+1),"Menu","MainWindowClass"};
+	WNDCLASS wc = {0,WndProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),NULL,"Menu","MainWindowClass"};
 	RegisterClass(&wc);
 	HMENU menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
 	HWND hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,300,300,NULL,NULL,hInstance,NULL);
@@ -75,6 +76,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 			glVertex2f(0.5,0.5);
 			glVertex2f(0.5,-0.5);
 		glEnd();
+
 		glRasterPos2f(0.5,0.5);
 		glPushAttrib(GL_LIST_BIT);
 		glListBase(fontOffset);
@@ -82,9 +84,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 		glPopAttrib();
 
 		glPopMatrix();
-		SwapBuffers(GetDC(hwnd));
 		glFlush();
+		SwapBuffers(hDC);
 		ValidateRect(hwnd,NULL);
+//		Sleep(1);
 	}
 	return 0;
 }
