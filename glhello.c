@@ -1,5 +1,8 @@
 #include <windows.h>
 #include <gl\gl.h>
+#include "font.h"
+
+GLuint fontOffset;
 
 LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 {
@@ -13,6 +16,14 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 		SetPixelFormat(hDC, ChoosePixelFormat(hDC, &pfd), &pfd);
 		hRC = wglCreateContext(hDC);
 		wglMakeCurrent(hDC, hRC);
+		glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+		fontOffset = glGenLists(128);
+		for (GLuint i = 32; i < 127; i++)
+		{
+			glNewList(i+fontOffset, GL_COMPILE);
+			glBitmap(8,13,0.0,2.0,10.0,0.0,font[i-32]);
+			glEndList();
+		}
 		break;
 	case WM_DESTROY:
 		wglMakeCurrent(hDC,NULL);
@@ -26,7 +37,14 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glColor3f(1.0, 1.0, 1.0);
+
 		glRectf(-0.5, -0.5, 0.5, 0.5);
+
+		glRasterPos2f(0.5,0.5);
+		glPushAttrib(GL_LIST_BIT);
+		glListBase(fontOffset);
+		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
+		glPopAttrib();
 		glFlush();
 		SwapBuffers(hDC);
 		ValidateRect(hWnd,NULL);
