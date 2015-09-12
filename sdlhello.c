@@ -40,13 +40,13 @@ int main(int argc, char *argv[])
 		glClear(GL_COLOR_BUFFER_BIT);
 		glColor3f(1.0, 1.0, 1.0);
 		//glRectf(-0.5,0.5,0.5,-0.5);
-		/*glBegin(GL_LINE_LOOP);
+		glBegin(GL_LINE_LOOP);
 			glVertex2f(-0.5,-0.5);
 			glVertex2f(-0.5,0.5);
 			glVertex2f(0.5,0.5);
 			glVertex2f(0.5,-0.5);
-		glEnd();*/
-		glRasterPos2i(0,0);
+		glEnd();
+		glRasterPos2f(0.5,0.5);
 		glPushAttrib(GL_LIST_BIT);
 		glListBase(fontOffset);
 		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
