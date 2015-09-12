@@ -7,6 +7,7 @@
 int
 main(int argc, char *argv[])
 {
+	GLfloat spin = 0.0;
 	SDL_Event event;
 	atexit(SDL_Quit);
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) exit(1);
@@ -27,10 +28,16 @@ main(int argc, char *argv[])
 				break;
 			}
 		}
+		spin = spin + 2.0;
+		if (spin > 360)
+			spin = spin - 360.0;
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glPushMatrix();
+		glRotatef(spin,0.0,0.0,1.0);
 		glColor3f(1.0, 1.0, 1.0);
 		glRectf(-0.5,0.5,0.5,-0.5);
+		glPopMatrix();
 		SDL_GL_SwapBuffers();
 	}
 	return 0;

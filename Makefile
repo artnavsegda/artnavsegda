@@ -1,11 +1,11 @@
 #CFLAGS = /FC
 
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 glxhello hello image interactive read resizable sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
 build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe
 
 clean:
 	rm *.o
-	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 glxhello hello image interactive read resizable sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin
+	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
 
 winclean:
 	del *.obj *.exe
@@ -31,11 +31,20 @@ glhello.exe:	glhello.obj
 glxhello:	glxhello.o
 	cc -o glxhello glxhello.o -lGLEW -lGL -lXext -lX11
 
+glxdouble:	glxdouble.o
+	cc -o glxdouble glxdouble.o -lGLEW -lGL -lXext -lX11
+
 sdlhello.o:	sdlhello.c
 	cc -c -o sdlhello.o sdlhello.c `sdl-config --cflags`
 
 sdlhello:	sdlhello.o
 	cc -o sdlhello sdlhello.o `sdl-config --libs` -lGL -lGLU
+
+sdldouble.o:	sdldouble.c
+	cc -c -o sdldouble.o sdldouble.c `sdl-config --cflags`
+
+sdldouble:	sdldouble.o
+	cc -o sdldouble sdldouble.o `sdl-config --libs` -lGL -lGLU
 
 sdlopengl.o:	sdlopengl.c
 	cc -fprofile-arcs -pg -c -o sdlopengl.o sdlopengl.c `sdl-config --cflags`
