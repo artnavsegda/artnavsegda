@@ -5,11 +5,11 @@
 #include <GL/glxew.h>
 #include <GL/glx.h>
 #include <GL/gl.h>
+#include "font.h"
 
-static int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, GLX_DOUBLEBUFFER, None};
-
-main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
+	int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, GLX_DOUBLEBUFFER, None};
 	XSetWindowAttributes swa;
 	GLfloat spin = 0.0;
 	XEvent event;
@@ -34,6 +34,14 @@ main(int argc, char **argv)
 	if (err == GLX_BAD_CONTEXT)
 		printf("bad context\n");
 	//printf("swap interval is %d\n", glXGetSwapIntervalMESA());
+	glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+	GLuint fontOffset = glGenLists(128);
+	for (GLuint i = 32; i < 127; i++)
+	{
+		glNewList(i+fontOffset, GL_COMPILE);
+		glBitmap(8,13,0.0,2.0,10.0,0.0,font[i-32]);
+		glEndList();
+	}
 	while (1)
 	{
 		while (XPending(dpy))
@@ -58,7 +66,28 @@ main(int argc, char **argv)
 		glPushMatrix();
 		glRotatef(spin,0.0,0.0,1.0);
 		glColor3f(1.0, 1.0, 1.0);
-		glRectf(-0.5,0.5,0.5,-0.5);
+
+		glPushAttrib(GL_LIST_BIT);
+		glListBase(fontOffset);
+		glRasterPos2f(-0.5,-0.5);
+		glCallLists(3, GL_UNSIGNED_BYTE,(GLubyte *)"one");
+		glRasterPos2f(-0.5,0.5);
+		glCallLists(3, GL_UNSIGNED_BYTE,(GLubyte *)"day");
+		glRasterPos2f(0.5,0.5);
+		glCallLists(7, GL_UNSIGNED_BYTE,(GLubyte *)"it goes");
+		glRasterPos2f(0.5,-0.5);
+		glCallLists(4, GL_UNSIGNED_BYTE,(GLubyte *)"away");
+		glPopAttrib();
+
+		//glRectf(-0.5,0.5,0.5,-0.5);
+		/*glBegin(GL_LINE_LOOP);
+			glVertex2f(-0.5,-0.5);
+			glVertex2f(-0.5,0.5);
+			glVertex2f(0.5,0.5);
+			glVertex2f(0.5,-0.5);
+		glEnd();*/
+
+
 		glPopMatrix();
 		glXSwapBuffers(dpy, win);
 		glFlush();          
