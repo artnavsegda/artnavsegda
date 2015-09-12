@@ -10,23 +10,17 @@ static int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_S
 
 main(int argc, char **argv)
 {
-	Display *dpy;
-	Window win;
-	XVisualInfo *vi;
-	Colormap cmap;
 	XSetWindowAttributes swa;
-	GLXContext cx;
 	GLfloat spin = 0.0;
 	XEvent event;
-	Bool needRedraw = False, recalcModelView = True;
-	dpy = XOpenDisplay(NULL);
-	vi = glXChooseVisual(dpy, DefaultScreen(dpy), dblBuf);
-	cx = glXCreateContext(dpy, vi, None, True);
-	cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
+	Display *dpy = XOpenDisplay(NULL);
+	XVisualInfo *vi = glXChooseVisual(dpy, DefaultScreen(dpy), dblBuf);
+	GLXContext cx = glXCreateContext(dpy, vi, None, True);
+	Colormap cmap = XCreateColormap(dpy, RootWindow(dpy, vi->screen), vi->visual, AllocNone);
 	swa.colormap = cmap;
 	swa.border_pixel = 0;
 	swa.event_mask = StructureNotifyMask;
-	win = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 300, 300, 0, vi->depth, InputOutput, vi->visual, CWBorderPixel | CWColormap | CWEventMask, &swa);
+	Window win = XCreateWindow(dpy, RootWindow(dpy, vi->screen), 0, 0, 300, 300, 0, vi->depth, InputOutput, vi->visual, CWBorderPixel | CWColormap | CWEventMask, &swa);
 	XSetStandardProperties(dpy, win, "glxsimple", "glxsimple", None, argv, argc, NULL);
 	glXMakeCurrent(dpy, win, cx);
 	XSelectInput(dpy, win, StructureNotifyMask);
