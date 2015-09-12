@@ -39,7 +39,7 @@ main(int argc, char **argv)
 	err = glXSwapIntervalMESA(1);
 	if (err == GLX_BAD_CONTEXT)
 		printf("bad context\n");
-	printf("swap interval is %d\n", glXGetSwapIntervalMESA());
+	//printf("swap interval is %d\n", glXGetSwapIntervalMESA());
 	while (1)
 	{
 		XNextEvent(dpy, &event);
@@ -51,14 +51,7 @@ main(int argc, char **argv)
 				glClearColor(0.0,0.0,0.0,0.0);
 				glClear(GL_COLOR_BUFFER_BIT);
 				glColor3f(1.0, 1.0, 1.0);
-				glMatrixMode(GL_PROJECTION);
-				glLoadIdentity();
-				glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
-				glBegin(GL_POLYGON);
-				glVertex2f(-0.5, -0.5);
-				glVertex2f(-0.5, 0.5);
-				glVertex2f(0.5, 0.5);
-				glVertex2f(0.5, -0.5);
+				glRectf(-0.5,0.5,0.5,-0.5);
 				glEnd();
 				glXSwapBuffers(dpy, win);
 				glFlush();          

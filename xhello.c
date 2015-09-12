@@ -41,16 +41,16 @@ main(int argc, char *argv[])
 	while (1)
 	{
 		XNextEvent(d, &e);
-		printf("event %d\n",r++);
+		//printf("event %d\n",r++);
 		if (e.type == ConfigureNotify)
 		{
-			printf("structure %d %d %d\n",x++,e.xconfigure.width,e.xconfigure.height);
+			//printf("structure %d %d %d\n",x++,e.xconfigure.width,e.xconfigure.height);
 		}
 		if (e.type == Expose)
 		{
 			printf("expose %d %d %d %d %d\n",i++,e.xexpose.x,e.xexpose.y,e.xexpose.width,e.xexpose.height);
 			XFillRectangle(d, w, DefaultGC(d, s), 20, 20, 10, 10);
-			XDrawString(d, w, DefaultGC(d, s), 10, 50, msg, strlen(msg));
+			//XDrawString(d, w, DefaultGC(d, s), 10, 50, msg, strlen(msg));
 		}
 		if (e.type == KeyPress)
 		{
