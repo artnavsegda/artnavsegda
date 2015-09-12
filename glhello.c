@@ -1,52 +1,45 @@
 #include <windows.h>
 #include <gl\gl.h>
 
-HMENU menu;
-HPALETTE hPalette = NULL;
-GLfloat windowWidth;
-GLfloat windowHeight;
-static LPCTSTR lpszAppName = "GLRect";
-LRESULT CALLBACK WndProc(HWND hWnd,	UINT message, WPARAM wParam, LPARAM	lParam);
-void SetDCPixelFormat(HDC hDC);
-
-void ChangeSize(GLsizei w, GLsizei h)
+LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 {
-	if(h == 0)
-	h = 1;
-    glViewport(0, 0, w, h);
-    glLoadIdentity();
-	if (w <= h) 
+	static HGLRC hRC;
+	static HDC hDC;
+	switch (message)
 	{
-		windowHeight = 250.0f*h/w;
-		windowWidth = 250.0f;
+	case WM_CREATE:
+		hDC = GetDC(hWnd);		
+		static PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
+		SetPixelFormat(hDC, ChoosePixelFormat(hDC, &pfd), &pfd);
+		hRC = wglCreateContext(hDC);
+		wglMakeCurrent(hDC, hRC);
+		break;
+	case WM_DESTROY:
+		wglMakeCurrent(hDC,NULL);
+		wglDeleteContext(hRC);
+		PostQuitMessage(0);
+		break;
+	case WM_SIZE:
+		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
+		break;
+	case WM_PAINT:
+		glClearColor(0.0, 0.0, 0.0, 0.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glColor3f(1.0, 1.0, 1.0);
+		glRectf(-0.5, -0.5, 0.5, 0.5);
+		glFlush();
+		SwapBuffers(hDC);
+		ValidateRect(hWnd,NULL);
+		break;
+	default:
+		return (DefWindowProc(hWnd, message, wParam, lParam));
 	}
-    else 
-	{
-		windowWidth = 250.0f*w/h;
-		windowHeight = 250.0f;
-	}
-	glOrtho(0.0f, windowWidth, 0.0f, windowHeight, 1.0f, -1.0f);
-}
-
-void RenderScene(void)
-{
-	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glRectf(100.0f, 100.0f, 200.0f, 200.0f);
-	glFlush();
-}
-
-void SetDCPixelFormat(HDC hDC)
-{
-	int nPixelFormat;
-	static PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
-	nPixelFormat = ChoosePixelFormat(hDC, &pfd);
-	SetPixelFormat(hDC, nPixelFormat, &pfd);
+	return 0;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
+	HMENU menu;
 	MSG Msg;
 	HWND hwnd;
 	WNDCLASS wc = {0,WndProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),(HBRUSH)(COLOR_WINDOW+1),"Menu","MainWindowClass"};
@@ -60,36 +53,4 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 		DispatchMessage(&Msg);
 	}
 	return 0;
-}
-
-LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
-{
-	static HGLRC hRC;
-	static HDC hDC;
-	switch (message)
-	{
-		case WM_CREATE:
-			hDC = GetDC(hWnd);		
-			SetDCPixelFormat(hDC);		
-			hRC = wglCreateContext(hDC);
-			wglMakeCurrent(hDC, hRC);
-			break;
-		case WM_DESTROY:
-			KillTimer(hWnd,101);
-			wglMakeCurrent(hDC,NULL);
-			wglDeleteContext(hRC);
-			PostQuitMessage(0);
-			break;
-		case WM_SIZE:
-			ChangeSize(LOWORD(lParam), HIWORD(lParam));
-			break;
-		case WM_PAINT:
-			RenderScene();
-			SwapBuffers(hDC);
-			ValidateRect(hWnd,NULL);
-			break;
-        default:
-            return (DefWindowProc(hWnd, message, wParam, lParam));
-    }
-    return (0L);
 }
