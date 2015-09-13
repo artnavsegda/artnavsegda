@@ -11,8 +11,8 @@ clean:
 winclean:
 	del *.obj *.exe
 
-hello.exe:	hello.obj
-	link hello.obj
+hello.exe:	$*.obj
+	link $*.obj
 
 winbmp.obj:	winbmp.c
 	cl /FC /c winbmp.c
@@ -20,17 +20,14 @@ winbmp.obj:	winbmp.c
 winbmp.exe:	winbmp.obj
 	link winbmp.obj user32.lib gdi32.lib
 
-winhello.exe:	winhello.obj
-	link winhello.obj user32.lib
+winhello.exe:	$*.obj
+	link $*.obj user32.lib
 	
 winchota.exe:	winchota.obj winchota.res
 	link winchota.obj user32.lib gdi32.lib winchota.res comdlg32.lib
 
-glhello.exe:	glhello.obj
-	link glhello.obj user32.lib gdi32.lib opengl32.lib glu32.lib
-
-gldouble.exe:	gldouble.obj
-	link gldouble.obj user32.lib gdi32.lib opengl32.lib glu32.lib
+glhello.exe gldouble.exe:	$*.obj
+	link $*.obj user32.lib gdi32.lib opengl32.lib glu32.lib
 
 glxhello:	glxhello.o
 	cc -o glxhello glxhello.o -lGLEW -lGL -lXext -lX11
