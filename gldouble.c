@@ -1,34 +1,38 @@
 #include <windows.h>
 #include <gl\gl.h>
-#include "font.h"
 
-GLuint fontOffset;
 typedef BOOL (APIENTRY *PFNWGLSWAPINTERVALFARPROC)(int);
 PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT;
 
 HDC hDC;
 HGLRC hRC;
+GLuint myList;
 
 LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 {
 	switch (message)
 	{
 	case WM_CREATE:
+		//initiate wgl bullshit
 		hDC = GetDC(hWnd);		
 		PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
 		SetPixelFormat(hDC, ChoosePixelFormat(hDC, &pfd), &pfd);
 		hRC = wglCreateContext(hDC);
 		wglMakeCurrent(hDC, hRC);
+		//enable vsync
 		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALFARPROC)wglGetProcAddress("wglSwapIntervalEXT");
 		wglSwapIntervalEXT(1);
-		glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-		fontOffset = glGenLists(128);
-		for (GLuint i = 32; i < 127; i++)
-		{
-			glNewList(i+fontOffset, GL_COMPILE);
-			glBitmap(8,13,0.0,2.0,10.0,0.0,font[i-32]);
-			glEndList();
-		}
+		//create display list that draw rectangle
+		myList = glGenLists(1);
+		glNewList(myList, GL_COMPILE);
+		glBegin(GL_LINE_LOOP);
+			glVertex2f(-0.5,-0.5);
+			glVertex2f(-0.5,0.5);
+			glVertex2f(0.5,0.5);
+			glVertex2f(0.5,-0.5);
+		glEnd();
+		glEndList();
+		//over
 		break;
 	case WM_DESTROY:
 		wglMakeCurrent(hDC,NULL);
@@ -61,30 +65,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 			TranslateMessage(&Msg);
 			DispatchMessage(&Msg);
 		}
-		spin = spin + 2.0;
-		if (spin > 360)
-			spin = spin - 360.0;
-		glClearColor(0.0, 0.0, 0.0, 0.0);
+		//clear
 		glClear(GL_COLOR_BUFFER_BIT);
+		//deal gl bullshit
 		glPushMatrix();
-		glRotatef(spin,0.0,0.0,1.0);
+		//rotate
+		if (spin > 360)	spin = 0.0;
+		glRotatef(spin++,0.0,0.0,1.0);
+		//set color
 		glColor3f(1.0, 1.0, 1.0);
-		//glRectf(-0.5, -0.5, 0.5, 0.5);
-		glBegin(GL_LINE_LOOP);
-			glVertex2f(-0.5,-0.5);
-			glVertex2f(-0.5,0.5);
-			glVertex2f(0.5,0.5);
-			glVertex2f(0.5,-0.5);
-		glEnd();
-
-		glRasterPos2f(0.5,0.5);
-		glPushAttrib(GL_LIST_BIT);
-		glListBase(fontOffset);
-		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
-		glPopAttrib();
-
+		//call list
+		glCallList(myList);
+		//deal gl bullshit
 		glPopMatrix();
 		glFlush();
+		//deal wgl bullshit
 		SwapBuffers(hDC);
 		ValidateRect(hwnd,NULL);
 //		Sleep(1);
