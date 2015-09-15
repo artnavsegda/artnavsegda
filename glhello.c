@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <gl\gl.h>
+#include <gl\glu.h>
 #include "font.h"
 
 GLuint fontOffset;
@@ -32,15 +33,17 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 		break;
 	case WM_SIZE:
 		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
+		glLoadIdentity();
+		gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
 		break;
 	case WM_PAINT:
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glColor3f(1.0, 1.0, 1.0);
 
-		glRectf(-0.5, -0.5, 0.5, 0.5);
+		glRectf(10, 10, 20, 20);
 
-		glRasterPos2f(0.5,0.5);
+		glRasterPos2f(50,50);
 		glPushAttrib(GL_LIST_BIT);
 		glListBase(fontOffset);
 		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
