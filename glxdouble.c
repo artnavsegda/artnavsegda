@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
 {
 	int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, GLX_DOUBLEBUFFER, None};
 	XSetWindowAttributes swa;
-	GLfloat spin = 0.0;
 	XEvent event;
 	Display *dpy = XOpenDisplay(NULL);
 	XVisualInfo *vi = glXChooseVisual(dpy, DefaultScreen(dpy), dblBuf);
@@ -42,6 +41,7 @@ int main(int argc, char *argv[])
 		glBitmap(8,13,0.0,2.0,10.0,0.0,font[i-32]);
 		glEndList();
 	}
+	glListBase(fontOffset);
 	while (1)
 	{
 		while (XPending(dpy))
@@ -58,17 +58,8 @@ int main(int argc, char *argv[])
 				break;
 			}
 		}
-		spin = spin + 2.0;
-		if (spin > 360)
-			spin = spin - 360.0;
-		glClearColor(0.0,0.0,0.0,0.0);
 		glClear(GL_COLOR_BUFFER_BIT);
-		glPushMatrix();
-		glRotatef(spin,0.0,0.0,1.0);
-		glColor3f(1.0, 1.0, 1.0);
-
-		glPushAttrib(GL_LIST_BIT);
-		glListBase(fontOffset);
+		glRotatef(1.0,0.0,0.0,1.0);
 		glRasterPos2f(-0.5,-0.5);
 		glCallLists(3, GL_UNSIGNED_BYTE,(GLubyte *)"one");
 		glRasterPos2f(-0.5,0.5);
@@ -77,18 +68,15 @@ int main(int argc, char *argv[])
 		glCallLists(7, GL_UNSIGNED_BYTE,(GLubyte *)"it goes");
 		glRasterPos2f(0.5,-0.5);
 		glCallLists(4, GL_UNSIGNED_BYTE,(GLubyte *)"away");
-		glPopAttrib();
 
 		//glRectf(-0.5,0.5,0.5,-0.5);
-		/*glBegin(GL_LINE_LOOP);
+		glBegin(GL_LINE_LOOP);
 			glVertex2f(-0.5,-0.5);
 			glVertex2f(-0.5,0.5);
 			glVertex2f(0.5,0.5);
 			glVertex2f(0.5,-0.5);
-		glEnd();*/
+		glEnd();
 
-
-		glPopMatrix();
 		glXSwapBuffers(dpy, win);
 		glFlush();          
 	}

@@ -8,7 +8,7 @@
 
 static int dblBuf[] =  {GLX_RGBA, GLX_RED_SIZE, 1, GLX_GREEN_SIZE, 1, GLX_BLUE_SIZE, 1, GLX_DEPTH_SIZE, 12, GLX_DOUBLEBUFFER, None};
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	Display *dpy;
 	Window win;
@@ -47,9 +47,7 @@ main(int argc, char **argv)
       			case ConfigureNotify:
 				glViewport(0, 0, event.xconfigure.width, event.xconfigure.height);
 			case Expose:
-				glClearColor(0.0,0.0,0.0,0.0);
 				glClear(GL_COLOR_BUFFER_BIT);
-				glColor3f(1.0, 1.0, 1.0);
 				glRectf(-0.5,0.5,0.5,-0.5);
 				glEnd();
 				glXSwapBuffers(dpy, win);
