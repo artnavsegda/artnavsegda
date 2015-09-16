@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <windows.h>
 #include <windowsx.h>
+#include <gl\gl.h>
+#include <gl\glu.h>
 
 HMENU menu;
+HDC hDC;
+HGLRC hRC;
 
 #define MAXLENGTH 900000
 int column = 5;
@@ -19,6 +23,9 @@ int length = 0;
 int slip = 1;
 int vslip = 1;
 float aspan=1.0,bspan=1.0,cspan=1.0,dspan=1.0,espan=1.0,fspan=1.0,gspan=1.0,hspan=1.0,ispan=1.0,jspan=1.0,kspan=1.0,lspan=1.0,mspan=1.0;
+int screenwidth = 2700;
+
+GLuint alist,blist,clist,dlist,elist,flist,glist,hlist,ilist,jlist,klist,llist,mlist;
 
 int developmassive(char filename[])
 {
@@ -86,6 +93,162 @@ int developmassive(char filename[])
 	if ((kmax-kmin)/1000 > 0) kspan = (kmax-kmin);
 	if ((lmax-lmin)/1000 > 0) lspan = (lmax-lmin);
 	if ((mmax-mmin)/1000 > 0) mspan = (mmax-mmin);
+
+	alist = glGenLists(1);
+	glNewList(alist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	int x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[1][x]-amin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	blist = glGenLists(1);
+	glNewList(blist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[2][x]-bmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	clist = glGenLists(1);
+	glNewList(clist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[3][x]-cmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	dlist = glGenLists(1);
+	glNewList(dlist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[4][x]-dmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	elist = glGenLists(1);
+	glNewList(elist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[5][x]-emin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	flist = glGenLists(1);
+	glNewList(flist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[6][x]-fmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	glist = glGenLists(1);
+	glNewList(glist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[7][x]-gmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	hlist = glGenLists(1);
+	glNewList(hlist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[8][x]-hmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	ilist = glGenLists(1);
+	glNewList(ilist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[9][x]-imin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	jlist = glGenLists(1);
+	glNewList(jlist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[10][x]-jmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	klist = glGenLists(1);
+	glNewList(klist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[11][x]-kmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	llist = glGenLists(1);
+	glNewList(llist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[12][x]-lmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
+
+	mlist = glGenLists(1);
+	glNewList(mlist,GL_COMPILE);
+	glBegin(GL_LINE_STRIP);
+	x = 0;
+	while(x < length)
+	{
+		glVertex2i(x,(massive[13][x]-mmin));
+		x++;
+	}
+	glEnd();
+	glEndList();
 	return 0;
 }
 
@@ -212,10 +375,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			switch (wParam)
 			{
 				case VK_RIGHT:
+					glTranslatef(-100.0,0.0,0.0);
 					startsector = startsector + (100*slip);
 					InvalidateRect(hwnd,NULL,TRUE);
 				break;
 				case VK_LEFT:
+					glTranslatef(100.0,0.0,0.0);
 					if (startsector > (100*slip))
 						startsector = startsector - (100*slip);
 					else
@@ -223,10 +388,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					InvalidateRect(hwnd,NULL,TRUE);				
 				break;
 				case VK_UP:
+					glTranslatef(0.0,10.0,0.0);
 					vslip++;
 					InvalidateRect(hwnd,NULL,TRUE);	
 				break;
 				case VK_DOWN:
+					glTranslatef(0.0,-10.0,0.0);
 					if (vslip > 1)
 						vslip--;
 					else
@@ -234,10 +401,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					InvalidateRect(hwnd,NULL,TRUE);	
 				break;
 				case VK_INSERT:
+					glScalef(0.5,1.0,1.0);
 					slip++;
 					InvalidateRect(hwnd,NULL,TRUE);	
 				break;
 				case VK_DELETE:
+					glScalef(2.0,1.0,1.0);
 					if (slip > 1)
 						slip--;
 					else
@@ -249,57 +418,55 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 		break;
 		case WM_CREATE:
+			hDC = GetDC(hwnd);
+			PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
+			SetPixelFormat(hDC, ChoosePixelFormat(hDC, &pfd), &pfd);
+			hRC = wglCreateContext(hDC);
+			wglMakeCurrent(hDC, hRC);
 			SendMessage(hwnd, WM_COMMAND,3,0);
+		break;
+		case WM_SIZE:
+			glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
+			glLoadIdentity();
+			gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
+			screenwidth = LOWORD(lParam);
+			InvalidateRect(hwnd,NULL,TRUE);
 		break;
 		case WM_PAINT:
 		{
-			int x = startsector;
-			PAINTSTRUCT ps;
-			BeginPaint(hwnd,&ps);
-			SetBkMode(ps.hdc, TRANSPARENT); 
-			//SelectObject(ps.hdc,CreateSolidBrush(RGB(255,255,255)));
-			SetTextColor(ps.hdc,RGB(0,255,0));
-			sprintf(text,"%d samples read",length);
-			TextOut(ps.hdc,100,100,text,strlen(text));
-			sprintf(text,"%d sample start",startsector);
-			TextOut(ps.hdc,100,120,text,strlen(text));
+			glClear(GL_COLOR_BUFFER_BIT);
 			if (open == 1)
 				{
-					while(x < length)
-					{
-						if (acol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[1][x]-amin)/vslip,RGB(255,0,0));
-						if (bcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[2][x]-bmin)/vslip,RGB(0,255,0));
-						if (ccol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[3][x]-cmin)/vslip,RGB(0,0,255));
-						if (dcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[4][x]-dmin)/vslip,RGB(255,255,0));
-						if (ecol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[5][x]+500)/vslip,RGB(0,255,255));
-						if (fcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[6][x]-fmin)/vslip,RGB(255,0,255));
-						if (gcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[7][x]-gmin)/vslip,RGB(128,0,255));
-						if (hcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[8][x]-hmin)/vslip,RGB(255,0,128));
-						if (icol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[9][x]-imin)/vslip,RGB(128,255,0));
-						if (jcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[10][x]-2400)/vslip,RGB(0,128,255));
-						if (kcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[11][x]-kmin)/vslip,RGB(255,0,128));
-						if (lcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[12][x]-lmin)/vslip,RGB(0,255,128));
-						if (mcol==BST_CHECKED)
-							SetPixel(ps.hdc,(x-startsector)/slip,(massive[13][x]-mmin)/vslip,RGB(0,128,255));
-						//SetPixel(ps.hdc,x,massive[column][x],RGB(0,0,0));
-						if ((x-startsector)/slip==2000)
-							break;
-						x = x + slip;
-					}
+					glColor3f(0.0,0.5,1.0);
+					glCallList(alist);
+					glColor3f(1.0,0.0,0.0);
+					glCallList(blist);
+					glColor3f(0.0,1.0,0.0);
+					glCallList(clist);
+					glColor3f(0.0,0.0,1.0);
+					glCallList(dlist);
+					glColor3f(1.0,1.0,0.0);
+					glCallList(elist);
+					glColor3f(0.0,1.0,1.0);
+					glCallList(flist);
+					glColor3f(1.0,0.0,1.0);
+					glCallList(glist);
+					glColor3f(0.5,0.0,1.0);
+					glCallList(hlist);
+					glColor3f(1.0,0.0,0.5);
+					glCallList(ilist);
+					glColor3f(0.5,1.0,0.0);
+					glCallList(jlist);
+					glColor3f(0.0,0.5,0.1);
+					glCallList(klist);
+					glColor3f(1.0,0.0,0.5);
+					glCallList(llist);
+					glColor3f(0.0,1.0,0.5);
+					glCallList(mlist);
 				}
-			EndPaint(hwnd,&ps);
+			glFlush();
+			SwapBuffers(hDC);
+			ValidateRect(hwnd,NULL);
 		}
 		break;
 		case WM_CONTEXTMENU:
@@ -340,6 +507,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 		break;
 		case WM_DESTROY:
+			wglMakeCurrent(hDC,NULL);
+			wglDeleteContext(hRC);
 			PostQuitMessage(0);
 		break;
 		default:
