@@ -20,8 +20,8 @@ winbmp.obj:	winbmp.c
 winbmp.exe:	winbmp.obj
 	link winbmp.obj user32.lib gdi32.lib
 
-winhello.exe:	$*.obj
-	link $*.obj user32.lib
+winhello.exe:	$*.obj $*.res
+	link $*.obj $*.res user32.lib
 	
 glchota.exe:	glchota.obj glchota.res
 	link glchota.obj user32.lib gdi32.lib glchota.res comdlg32.lib opengl32.lib glu32.lib
