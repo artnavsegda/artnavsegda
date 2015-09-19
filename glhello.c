@@ -35,19 +35,16 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 		glLoadIdentity();
 		gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
+		InvalidateRect(hWnd,NULL,TRUE);
 		break;
 	case WM_PAINT:
-		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT);
-		glColor3f(1.0, 1.0, 1.0);
-
 		glRectf(10, 10, 20, 20);
-
 		glRasterPos2f(50,50);
-		glPushAttrib(GL_LIST_BIT);
+		//glPushAttrib(GL_LIST_BIT);
 		glListBase(fontOffset);
 		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
-		glPopAttrib();
+		//glPopAttrib();
 		glFlush();
 		SwapBuffers(hDC);
 		ValidateRect(hWnd,NULL);
