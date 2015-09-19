@@ -2,7 +2,7 @@
 #CFLAGS="-std=gnu99"
 
 all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
-build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe
+build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
 
 clean:
 	rm *.o
@@ -11,8 +11,8 @@ clean:
 winclean:
 	del *.obj *.exe
 
-hello.exe:	$*.obj
-	link $*.obj
+#hello.exe:	$*.obj
+#	link $*.obj
 
 winbmp.obj:	winbmp.c
 	cl /FC /c winbmp.c
