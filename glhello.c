@@ -57,12 +57,10 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
-	HMENU menu;
 	MSG Msg;
 	HWND hwnd;
 	WNDCLASS wc = {0,WndProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),(HBRUSH)(COLOR_WINDOW+1),"Menu","MainWindowClass"};
 	RegisterClass(&wc);
-	menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
 	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,300,300,NULL,NULL,hInstance,NULL);
 	ShowWindow(hwnd,SW_SHOWDEFAULT);
 	while(GetMessage(&Msg, NULL, 0, 0) > 0)

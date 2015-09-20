@@ -51,7 +51,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	MSG Msg;
 	WNDCLASS wc = {0,WndProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),NULL,"Menu","MainWindowClass"};
 	RegisterClass(&wc);
-	HMENU menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
 	HWND hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,300,300,NULL,NULL,hInstance,NULL);
 	ShowWindow(hwnd,SW_SHOWDEFAULT);
 	while (1)
