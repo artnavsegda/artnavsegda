@@ -1,12 +1,26 @@
 #include <windows.h>
+#include "winhello.h"
 
 Menu MENU
 {
-    POPUP "&Menu"
+    POPUP "&File"
     {
         MENUITEM "&Open", 3
         MENUITEM "&Dialog", 1
-        MENUITEM "&Exit", 0
+        MENUITEM "&Exit", ID_EXIT
+    }
+    POPUP "&View"
+    {
+	MENUITEM "One", 11, CHECKED
+	MENUITEM "Two", 12
+	MENUITEM "Three", 13
+	MENUITEM "Four", 14
+	MENUITEM "Five", 15
+	MENUITEM "Six", 16
+	MENUITEM "Seven", 17
+	MENUITEM "Eight", 18
+	MENUITEM "Nine", 19
+	MENUITEM "Ten", 20 
     }
 }
 

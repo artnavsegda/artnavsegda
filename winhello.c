@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <stdio.h>
+#include "winhello.h"
 
-HMENU menu;
 char configfile[] = ".\\winhello.ini";
 char swidth[10] = "300";
 char sheight[10] = "300";
@@ -12,13 +12,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch(msg)
 	{
 		case WM_CONTEXTMENU:
-			TrackPopupMenu(menu,TPM_LEFTALIGN,GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam),0,hwnd,NULL);
+			TrackPopupMenu(GetSubMenu(GetMenu(hwnd),0),TPM_LEFTALIGN,GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam),0,hwnd,NULL);
 		break;
 		case WM_COMMAND:
 			switch(LOWORD(wParam))
 			{
-				case 0:
+				case ID_EXIT:
 					DestroyWindow(hwnd);
+				break;
+				case 12:
+					CheckMenuItem(GetMenu(hwnd),12,MF_BYCOMMAND|MF_CHECKED);
 				break;
 			}
 		break;
@@ -43,7 +46,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	HWND hwnd;
 	WNDCLASS wc = {0,WindowProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),(HBRUSH)(COLOR_WINDOW+1),"Menu","MainWindowClass"};
 	RegisterClass(&wc);
-	menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
 	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,GetPrivateProfileInt("window","width",300,configfile),GetPrivateProfileInt("window","height",300,configfile),NULL,NULL,hInstance,NULL);
 	ShowWindow(hwnd,SW_SHOWDEFAULT);
 	while(GetMessage(&Msg, NULL, 0, 0) > 0)
