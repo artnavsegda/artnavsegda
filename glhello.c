@@ -5,12 +5,69 @@
 
 GLuint fontOffset;
 
-LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
+LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 {
 	static HGLRC hRC;
 	static HDC hDC;
 	switch (message)
 	{
+	case WM_MOUSEWHEEL:
+		switch (GET_KEYSTATE_WPARAM(wParam))
+		{
+		case MK_CONTROL|MK_SHIFT:
+			glScalef(1.0,GET_WHEEL_DELTA_WPARAM(wParam),1.0);
+			break;
+		case MK_CONTROL:
+			glScalef(GET_WHEEL_DELTA_WPARAM(wParam),1.0,1.0);
+			break;
+		case MK_SHIFT:
+			glTranslatef(0.0,GET_WHEEL_DELTA_WPARAM(wParam),0.0);
+			break;
+		default:
+			glTranslatef(GET_WHEEL_DELTA_WPARAM(wParam),0.0,0.0);
+			break;
+		}
+		InvalidateRect(hWnd,NULL,TRUE);
+		break;
+	case WM_KEYDOWN:
+		if (GetKeyState(VK_CONTROL)<0)
+			switch (wParam)
+			{
+			case VK_RIGHT:
+				glScalef(2.0,1.0,1.0);
+				break;
+			case VK_LEFT:
+				glScalef(0.5,1.0,1.0);
+				break;
+			case VK_UP:
+				glScalef(1.0,2.0,1.0);
+				break;
+			case VK_DOWN:
+				glScalef(1.0,0.5,1.0);
+				break;
+			default:
+				break;
+			}
+		else
+			switch (wParam)
+			{
+			case VK_RIGHT:
+				glTranslatef(10.0,0.0,0.0);
+				break;
+			case VK_LEFT:
+				glTranslatef(-10.0,0.0,0.0);
+				break;
+			case VK_UP:
+				glTranslatef(0.0,10.0,0.0);
+				break;
+			case VK_DOWN:
+				glTranslatef(0.0,-10.0,0.0);
+				break;
+			default:
+				break;
+			}
+		InvalidateRect(hWnd,NULL,TRUE);
+		break;
 	case WM_CREATE:
 		hDC = GetDC(hWnd);		
 		static PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
