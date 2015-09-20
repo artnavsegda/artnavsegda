@@ -9,7 +9,7 @@ clean:
 	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
 
 winclean:
-	del *.obj *.exe
+	del *.obj *.exe *.res *~
 
 #hello.exe:	$*.obj
 #	link $*.obj
