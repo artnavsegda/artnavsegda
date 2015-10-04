@@ -7,6 +7,7 @@
 
 int main(int argc, char *argv[])
 {
+	GLint values[4];
 	GLfloat spin = 0.0;
 	SDL_Event event;
 	atexit(SDL_Quit);
@@ -21,6 +22,18 @@ int main(int argc, char *argv[])
 		glBitmap(8,13,0.0,2.0,10.0,0.0,font[i-32]);
 		glEndList();
 	}
+	GLuint myList = glGenLists(1);
+	/*glNewList(myList, GL_COMPILE);
+	glBegin(GL_LINE_LOOP);
+		glVertex2f(-0.5,-0.5);
+		glVertex2f(-0.5,0.5);
+		glVertex2f(0.5,0.5);
+		glVertex2f(0.5,-0.5);
+	glEnd();
+	glEndList();*/
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	
 	while (1)
 	{
 		while (SDL_PollEvent(&event))
@@ -45,18 +58,15 @@ int main(int argc, char *argv[])
 		glRotatef(spin,0.0,0.0,1.0);
 
 		glColor3f(1.0, 1.0, 1.0);
+		//glCallList(myList);
+		//glRasterPos2f(0.5,0.5);
 		glRasterPos2f(0.5,0.5);
+		glGetIntegerv(GL_CURRENT_RASTER_POSITION,values);
+		printf("%d %d\n",values[0],values[1]);
 		glPushAttrib(GL_LIST_BIT);
 		glListBase(fontOffset);
 		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
-		
 		//glRectf(-0.5,0.5,0.5,-0.5);
-		glBegin(GL_LINE_LOOP);
-			glVertex2f(-0.5,-0.5);
-			glVertex2f(-0.5,0.5);
-			glVertex2f(0.5,0.5);
-			glVertex2f(0.5,-0.5);
-		glEnd();
 
 		glPopAttrib();
 
