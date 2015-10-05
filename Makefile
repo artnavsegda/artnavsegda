@@ -41,20 +41,15 @@ glhello.exe:	glhello.obj
 gldouble.exe:	gldouble.obj
 	link $*.obj user32.lib gdi32.lib opengl32.lib glu32.lib
 
-glxhello:	glxhello.o
-	cc -o glxhello glxhello.o -lGLEW -lGL -lXext -lX11
-
-glxdouble:	glxdouble.o
-	cc -o glxdouble glxdouble.o -lGLEW -lGL -lXext -lX11
-
+glxhello glxdouble:	LDFLAGS = $(shell pkg-config --libs glew gl xext x11)
 sdlhello.o sdldouble.o sdlopengl.o:	CFLAGS = $(shell sdl-config --cflags)
-sdlhello sdldouble sdlopengl:	LDFLAGS = $(shell sdl-config --libs) -lGL -lGLU
-sdlopengl:	LDFLAGS = $(shell sdl-config --libs) -lGLEW -lGL -lGLU
-xhello xchota:	LDFLAGS = -L/usr/X11R6/lib -lXext -lX11
-xlibjpeg:	LDFLAGS = -L/usr/X11R6/lib -lX11 -ljpeg -lm
-xliban xlibstdin:	LDFLAGS = -L/usr/X11R6/lib -lX11 -lm
-anjpeg:		LDFLAGS = -ljpeg -lm
+sdlhello sdldouble sdlopengl:	LDFLAGS = $(shell pkg-config --libs sdl gl glu)
+sdlopengl:	LDFLAGS = $(shell pkg-config --libs sdl gl glu glew)
+xhello xchota:	LDFLAGS = $(shell pkg-config --libs x11 xext)
+xlibjpeg:	LDFLAGS = $(shell pkg-config --libs x11 libjpeg) -lm
+xliban xlibstdin:	LDFLAGS = $(shell pkg-config --libs x11) -lm
+anjpeg:		LDFLAGS = $(shell pkg-config --libs libjpeg) -lm
 ghello.o ghello2.o:	CFLAGS = $(shell pkg-config --cflags gtk+-3.0)
 ghello ghello2:		LDFLAGS = $(shell pkg-config --libs gtk+-3.0)
-xlibpng:	LDFLAGS = -L/usr/X11R6/lib -lX11 -lpng -lm
+xlibpng:	LDFLAGS = $(shell pkg-config --libs x11 libpng) -lm
 
