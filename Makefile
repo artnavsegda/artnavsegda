@@ -1,8 +1,11 @@
+CC = cl
+COMPILE.c = $(CC) $(CFLAGS) /c
 #CFLAGS = /FC
 #CFLAGS="-std=gnu99"
+LINK="user32.lib"
 
 all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
-build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
+#build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
 
 clean:
 	rm *.o
@@ -15,10 +18,10 @@ winclean:
 	rc $*.rc
 
 %.obj:	%.c
-	cl /c $<
+	$(COMPILE.c) $<
 
 %.exe:	%.obj
-	link $^ $(LDLIBS)
+	link $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) /out:$@
 
 winbmp.obj:	winbmp.c
 	cl /FC /c winbmp.c
@@ -26,20 +29,17 @@ winbmp.obj:	winbmp.c
 winbmp.exe:	winbmp.obj
 	link winbmp.obj user32.lib gdi32.lib
 
-winhello.exe:	winhello.obj winhello.res
-	link $^ user32.lib
-	
-glchota.exe:	glchota.obj glchota.res
-	link glchota.obj user32.lib gdi32.lib glchota.res comdlg32.lib opengl32.lib glu32.lib
+winhello.exe:	LDLIBS = user32.lib
+winhello.exe:	winhello.res
 
-winchota.exe:	winchota.obj winchota.res
-	link winchota.obj user32.lib gdi32.lib winchota.res comdlg32.lib
+winchota.exe:	LDLIBS = user32.lib gdi32.lib comdlg32.lib
+winchota.exe:	winchota.res
 
-glhello.exe:	glhello.obj
-	link $*.obj user32.lib gdi32.lib opengl32.lib glu32.lib
+glchota.exe:	LDLIBS = user32.lib gdi32.lib comdlg32.lib opengl32.lib glu32.lib
+glchota.exe:	glchota.res
 
-gldouble.exe:	gldouble.obj
-	link $*.obj user32.lib gdi32.lib opengl32.lib glu32.lib
+glhello.exe:	LDLIBS = user32.lib gdi32.lib opengl32.lib glu32.lib
+gldouble.exe:	LDLIBS = user32.lib gdi32.lib opengl32.lib glu32.lib
 
 glxhello glxdouble:	LDFLAGS = $(shell pkg-config --libs glew gl xext x11)
 sdlhello.o sdldouble.o sdlopengl.o:	CFLAGS = $(shell sdl-config --cflags)

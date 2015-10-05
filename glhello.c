@@ -1,9 +1,17 @@
+#include <stdio.h>
 #include <windows.h>
 #include <gl\gl.h>
 #include <gl\glu.h>
 #include "font.h"
 
 GLuint fontOffset;
+char configfile[] = ".\\glhello.ini";
+char swidth[10] = "300";
+char sheight[10] = "300";
+GLfloat xscale = 1.0;
+GLfloat yscale = 1.0;
+GLint xoffset = 0;
+GLint yoffset = 0;
 
 LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 {
@@ -34,10 +42,12 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 			switch (wParam)
 			{
 			case VK_RIGHT:
-				glScalef(2.0,1.0,1.0);
+				//glScalef(2.0,1.0,1.0);
+				xscale = xscale * 2.0;
 				break;
 			case VK_LEFT:
-				glScalef(0.5,1.0,1.0);
+				//glScalef(0.5,1.0,1.0);
+				xscale = xscale * 0.5;
 				break;
 			case VK_UP:
 				glScalef(1.0,2.0,1.0);
@@ -82,13 +92,18 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 			glBitmap(8,13,0.0,2.0,10.0,0.0,font[i-32]);
 			glEndList();
 		}
+		glListBase(fontOffset);
 		break;
 	case WM_DESTROY:
+		WritePrivateProfileString("window","height",sheight,configfile);
+		WritePrivateProfileString("window","width",swidth,configfile);
 		wglMakeCurrent(hDC,NULL);
 		wglDeleteContext(hRC);
 		PostQuitMessage(0);
 		break;
 	case WM_SIZE:
+		snprintf(swidth,10,"%d",LOWORD(lParam));
+		snprintf(sheight,10,"%d",HIWORD(lParam));
 		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 		glLoadIdentity();
 		gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
@@ -96,12 +111,12 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 		break;
 	case WM_PAINT:
 		glClear(GL_COLOR_BUFFER_BIT);
+		glPushMatrix();
+		glScalef(xscale,yscale,1.0);
 		glRectf(10, 10, 20, 20);
 		glRasterPos2f(50,50);
-		//glPushAttrib(GL_LIST_BIT);
-		glListBase(fontOffset);
 		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
-		//glPopAttrib();
+		glPopMatrix();
 		glFlush();
 		SwapBuffers(hDC);
 		ValidateRect(hWnd,NULL);
@@ -118,7 +133,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	HWND hwnd;
 	WNDCLASS wc = {0,WndProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),(HBRUSH)(COLOR_WINDOW+1),"Menu","MainWindowClass"};
 	RegisterClass(&wc);
-	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,300,300,NULL,NULL,hInstance,NULL);
+	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,GetPrivateProfileInt("window","width",300,configfile),GetPrivateProfileInt("window","height",300,configfile),NULL,NULL,hInstance,NULL);
 	ShowWindow(hwnd,SW_SHOWDEFAULT);
 	while(GetMessage(&Msg, NULL, 0, 0) > 0)
 	{

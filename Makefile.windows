@@ -1,0 +1,58 @@
+#CFLAGS = /FC
+#CFLAGS="-std=gnu99"
+LINK="user32.lib"
+
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
+#build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
+
+clean:
+	rm *.o
+	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
+
+winclean:
+	del *.obj *.exe *.res *~
+
+#%.res:	%.rc
+#	rc $*.rc
+
+#%.obj:	%.c
+#	cl /c $<
+
+#%.exe:	%.obj
+#	link $^ $(LDLIBS)
+
+winbmp.obj:	winbmp.c
+	cl /FC /c winbmp.c
+
+winbmp.exe:	winbmp.obj
+	link winbmp.obj user32.lib gdi32.lib
+
+#build:	winhello.exe
+#winhello.exe:	winhello.obj winhello.res
+#	link $^ user32.lib
+#	link $^ user32.lib
+	
+glchota.exe:	glchota.obj glchota.res
+	link glchota.obj user32.lib gdi32.lib glchota.res comdlg32.lib opengl32.lib glu32.lib
+
+winchota.exe:	winchota.obj winchota.res
+	link winchota.obj user32.lib gdi32.lib winchota.res comdlg32.lib
+
+glhello.exe:	glhello.obj
+	link $*.obj user32.lib gdi32.lib opengl32.lib glu32.lib
+
+gldouble.exe:	gldouble.obj
+	link $*.obj user32.lib gdi32.lib opengl32.lib glu32.lib
+
+#glxhello glxdouble:	LDFLAGS = $(shell pkg-config --libs glew gl xext x11)
+#sdlhello.o sdldouble.o sdlopengl.o:	CFLAGS = $(shell sdl-config --cflags)
+#sdlhello sdldouble sdlopengl:	LDFLAGS = $(shell pkg-config --libs sdl gl glu)
+#sdlopengl:	LDFLAGS = $(shell pkg-config --libs sdl gl glu glew)
+#xhello xchota:	LDFLAGS = $(shell pkg-config --libs x11 xext)
+#xlibjpeg:	LDFLAGS = $(shell pkg-config --libs x11 libjpeg) -lm
+#xliban xlibstdin:	LDFLAGS = $(shell pkg-config --libs x11) -lm
+#anjpeg:		LDFLAGS = $(shell pkg-config --libs libjpeg) -lm
+#ghello.o ghello2.o:	CFLAGS = $(shell pkg-config --cflags gtk+-3.0)
+#ghello ghello2:		LDFLAGS = $(shell pkg-config --libs gtk+-3.0)
+#xlibpng:	LDFLAGS = $(shell pkg-config --libs x11 libpng) -lm
+

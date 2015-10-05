@@ -24,6 +24,8 @@ int slip = 1;
 int vslip = 1;
 float aspan=1.0,bspan=1.0,cspan=1.0,dspan=1.0,espan=1.0,fspan=1.0,gspan=1.0,hspan=1.0,ispan=1.0,jspan=1.0,kspan=1.0,lspan=1.0,mspan=1.0;
 int screenwidth = 2700;
+GLfloat xscale = 1.0;
+GLfloat yscale = 1.0;
 
 GLuint alist,blist,clist,dlist,elist,flist,glist,hlist,ilist,jlist,klist,llist,mlist;
 
@@ -372,50 +374,37 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch(msg)
 	{
 		case WM_KEYDOWN:
-			switch (wParam)
-			{
+			if (GetKeyState(VK_CONTROL)<0)
+				switch (wParam)
+				{
+				case VK_RIGHT:
+					xscale = xscale * 2.0;
+					//glScalef(2.0,1.0,1.0);
+					break;
+				case VK_LEFT:
+					xscale = xscale * 0.5;
+					//glScalef(0.5,1.0,1.0);
+					break;
+				}
+			else
+				switch (wParam)
+				{
 				case VK_RIGHT:
 					glTranslatef(-100.0,0.0,0.0);
-					startsector = startsector + (100*slip);
-					InvalidateRect(hwnd,NULL,TRUE);
-				break;
+					break;
 				case VK_LEFT:
 					glTranslatef(100.0,0.0,0.0);
-					if (startsector > (100*slip))
-						startsector = startsector - (100*slip);
-					else
-						startsector = 0;
-					InvalidateRect(hwnd,NULL,TRUE);				
-				break;
+					break;
 				case VK_UP:
 					glTranslatef(0.0,10.0,0.0);
-					vslip++;
-					InvalidateRect(hwnd,NULL,TRUE);	
-				break;
+					break;
 				case VK_DOWN:
 					glTranslatef(0.0,-10.0,0.0);
-					if (vslip > 1)
-						vslip--;
-					else
-						vslip = 1;
-					InvalidateRect(hwnd,NULL,TRUE);	
-				break;
-				case VK_INSERT:
-					glScalef(0.5,1.0,1.0);
-					slip++;
-					InvalidateRect(hwnd,NULL,TRUE);	
-				break;
-				case VK_DELETE:
-					glScalef(2.0,1.0,1.0);
-					if (slip > 1)
-						slip--;
-					else
-						slip = 1;
-					InvalidateRect(hwnd,NULL,TRUE);	
-				break;
+					break;
 				default:
-				break;
-			}
+					break;
+				}
+			InvalidateRect(hwnd,NULL,TRUE);	
 		break;
 		case WM_CREATE:
 			hDC = GetDC(hwnd);
@@ -435,6 +424,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_PAINT:
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
+			glPushMatrix();
+			glScalef(xscale,yscale,1.0);
 			if (open == 1)
 				{
 					glColor3f(0.0,0.5,1.0);
@@ -464,6 +455,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					glColor3f(0.0,1.0,0.5);
 					glCallList(mlist);
 				}
+			glPopMatrix();
 			glFlush();
 			SwapBuffers(hDC);
 			ValidateRect(hwnd,NULL);
