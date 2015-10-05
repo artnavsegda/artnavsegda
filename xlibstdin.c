@@ -52,7 +52,7 @@ XImage *create_image_from_buffer (Display *dis, int screen, int *width, int *hei
 	return img;
 }		
 
-main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
 	int imageWidth;
 	int imageHeight;

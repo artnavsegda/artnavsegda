@@ -47,54 +47,14 @@ glxhello:	glxhello.o
 glxdouble:	glxdouble.o
 	cc -o glxdouble glxdouble.o -lGLEW -lGL -lXext -lX11
 
-sdlhello.o:	sdlhello.c
-	cc -c -o sdlhello.o sdlhello.c `sdl-config --cflags`
-
-sdlhello:	sdlhello.o
-	cc -o sdlhello sdlhello.o `sdl-config --libs` -lGL -lGLU
-
-sdldouble.o:	sdldouble.c
-	cc -c -o sdldouble.o sdldouble.c `sdl-config --cflags`
-
-sdldouble:	sdldouble.o
-	cc -o sdldouble sdldouble.o `sdl-config --libs` -lGL -lGLU
-
-sdlopengl.o:	sdlopengl.c
-	cc -fprofile-arcs -pg -c -o sdlopengl.o sdlopengl.c `sdl-config --cflags`
-
-sdlopengl:	sdlopengl.o
-	cc -fprofile-arcs -pg -o sdlopengl sdlopengl.o `sdl-config --libs` -lGLEW -lGL -lGLU
-
-xhello:		xhello.o
-	cc -o xhello xhello.o -L/usr/X11R6/lib -lXext -lX11
-
-xchota:		xchota.o
-	cc -o xchota xchota.o -L/usr/X11R6/lib -lXext -lX11
-
-xlibjpeg:	xlibjpeg.o
-	cc xlibjpeg.o -o xlibjpeg -L/usr/X11R6/lib -lX11 -ljpeg -lm
-
-xliban:	xliban.o
-	cc xliban.o -o xliban -L/usr/X11R6/lib -lX11 -lm
-
-xlibstdin:	xlibstdin.o
-	cc xlibstdin.o -o xlibstdin -L/usr/X11R6/lib -lX11 -lm
-
-anjpeg:	anjpeg.o
-	cc anjpeg.o -o anjpeg -ljpeg -lm
-
-ghello.o:	ghello.c
-	cc -c -o ghello.o ghello.c `pkg-config --cflags gtk+-3.0`
-
-ghello:		ghello.o
-	cc -o ghello ghello.o `pkg-config --libs gtk+-3.0`
-
-ghello2.o:	ghello2.c
-	cc -c -o ghello2.o ghello2.c `pkg-config --cflags gtk+-3.0`
-
-ghello2:		ghello2.o
-	cc -o ghello2 ghello2.o `pkg-config --libs gtk+-3.0`
-
-xlibpng:	xlibpng.o
-	cc xlibpng.o -o xlibpng -L/usr/X11R6/lib -lX11 -lpng -lm
+sdlhello.o sdldouble.o sdlopengl.o:	CFLAGS = $(shell sdl-config --cflags)
+sdlhello sdldouble sdlopengl:	LDFLAGS = $(shell sdl-config --libs) -lGL -lGLU
+sdlopengl:	LDFLAGS = $(shell sdl-config --libs) -lGLEW -lGL -lGLU
+xhello xchota:	LDFLAGS = -L/usr/X11R6/lib -lXext -lX11
+xlibjpeg:	LDFLAGS = -L/usr/X11R6/lib -lX11 -ljpeg -lm
+xliban xlibstdin:	LDFLAGS = -L/usr/X11R6/lib -lX11 -lm
+anjpeg:		LDFLAGS = -ljpeg -lm
+ghello.o ghello2.o:	CFLAGS = $(shell pkg-config --cflags gtk+-3.0)
+ghello ghello2:		LDFLAGS = $(shell pkg-config --libs gtk+-3.0)
+xlibpng:	LDFLAGS = -L/usr/X11R6/lib -lX11 -lpng -lm
 

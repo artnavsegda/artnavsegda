@@ -28,7 +28,7 @@ int developmassive()
 	return 0;
 }
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	char buf[100];
 	int i = 0;

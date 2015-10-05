@@ -120,7 +120,7 @@ Window create_window (Display *dis, int screen, int x, int y, int width, int hei
 	return win;
 }	
 		
-main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
 	int imageWidth;
 	int imageHeight;
