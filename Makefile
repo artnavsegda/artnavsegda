@@ -1,11 +1,11 @@
-#CC = cl
-#COMPILE.c = $(CC) $(CFLAGS) /c
+WINCC = cl
+WINCOMPILE.c = $(WINCC) $(CFLAGS) /c
 #CFLAGS = /FC
-CFLAGS="-std=gnu99"
+#CFLAGS="-std=gnu99"
 #LINK="user32.lib"
 
 all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
-#build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
+build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
 
 clean:
 	rm *.o
@@ -18,7 +18,7 @@ winclean:
 	rc $*.rc
 
 %.obj:	%.c
-	$(COMPILE.c) $<
+	$(WINCOMPILE.c) $<
 
 %.exe:	%.obj
 	link $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) /out:$@
