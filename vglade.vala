@@ -1,14 +1,21 @@
 using Gtk;
 
-public void on_button1_clicked (Button source) {
+public class TextFileViewer : Window {
+
+[CCode (instance_pos = -1)]
+public void on_open_clicked (ToolButton source) {
     source.label = "Thank you!";
+        var file_chooser = new FileChooserDialog ("Open File", this,
+                                      FileChooserAction.OPEN,
+                                      Stock.CANCEL, ResponseType.CANCEL,
+                                      Stock.OPEN, ResponseType.ACCEPT);
+        if (file_chooser.run () == ResponseType.ACCEPT) {
+            //open_file (file_chooser.get_filename ());
+        }
+        file_chooser.destroy ();
 }
 
-public void on_button2_clicked (Button source) {
-    source.label = "Thanks!";
-}
-
-int main (string[] args) {
+public static int main (string[] args) {
     Gtk.init (ref args);
 
     try {
@@ -16,9 +23,10 @@ int main (string[] args) {
         // Type type = typeof(Foo.BarEntry);
         // assert(type != 0);
         var builder = new Builder ();
-        builder.add_from_file ("sample.ui");
-        builder.connect_signals (null);
-        var window = builder.get_object ("window") as Window;
+        builder.add_from_file ("vgtext.ui");
+	var object = new TextFileViewer();
+        builder.connect_signals (object);
+        var window = builder.get_object ("window1") as Window;
         window.show_all ();
         Gtk.main ();
     } catch (Error e) {
@@ -27,5 +35,7 @@ int main (string[] args) {
     }
 
     return 0;
+}
+
 }
 
