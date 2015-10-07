@@ -4,11 +4,12 @@ public class TextFileViewer:Window
 {
 
 	private TextView text_view;
+	private FileChooserDialog file_chooser;
 
 	[CCode(instance_pos = -1)] public void on_open_clicked(ToolButton source)
 	{
-		source.label = "Thank you!";
-		var file_chooser = new FileChooserDialog("Open File", this, FileChooserAction.OPEN, Stock.CANCEL, ResponseType.CANCEL, Stock.OPEN, ResponseType.ACCEPT);
+		//source.label = "Thank you!";
+		var file_chooser = new FileChooserDialog("Open File", this, FileChooserAction.OPEN, "_Cancel", ResponseType.CANCEL, "_Open", ResponseType.ACCEPT);
 		if (file_chooser.run() == ResponseType.ACCEPT)
 		{
 			open_file(file_chooser.get_filename());
@@ -42,6 +43,7 @@ public class TextFileViewer:Window
 			builder.connect_signals(this);
 			var window = builder.get_object("window1") as Window;
 			this.text_view = builder.get_object("textview1") as TextView;
+			this.file_chooser = builder.get_object("filechooserdialog1") as FileChooserDialog;
 			window.show_all();
 		} catch(Error e)
 		{
