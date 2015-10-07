@@ -4,7 +4,7 @@ WINCOMPILE.c = $(WINCC) $(CFLAGS) /c
 #CFLAGS="-std=gnu99"
 #LINK="user32.lib"
 
-all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble
+all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello
 build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
 
 clean:
@@ -52,4 +52,12 @@ anjpeg:		LDLIBS = -ljpeg -lm
 ghello.o ghello2.o:	CFLAGS = $(shell pkg-config --cflags gtk+-3.0)
 ghello ghello2:		LDLIBS = $(shell pkg-config --libs gtk+-3.0)
 xlibpng:	LDLIBS = $(shell pkg-config --libs x11 libpng) -lm
+
+CFLAGS = $(shell pkg-config --cflags glib-2.0)
+LDLIBS = $(shell pkg-config --libs glib-2.0)
+vghello:	VALAFLAGS = --pkg gtk+-3.0
+vghello:	CFLAGS = $(shell pkg-config --cflags glib-2.0 gtk+-3.0)
+vghello:	LDLIBS = $(shell pkg-config --libs glib-2.0 gtk+-3.0)
+%.c:	%.vala
+	valac $(VALAFLAGS) -C $<
 
