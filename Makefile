@@ -54,8 +54,8 @@ ghello.o ghello2.o:	CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
 ghello ghello2:		LDLIBS += $(shell pkg-config --libs gtk+-3.0)
 xlibpng:	LDLIBS += $(shell pkg-config --libs libpng)
 
-CFLAGS += $(shell pkg-config --cflags glib-2.0) -rdynamic
-LDLIBS += $(shell pkg-config --libs glib-2.0) -rdynamic
+CFLAGS += $(shell pkg-config --cflags glib-2.0 gobject-2.0) -rdynamic
+LDLIBS += $(shell pkg-config --libs glib-2.0 gobject-2.0) -rdynamic
 vghello vgtext vglade:	VALAFLAGS += --pkg gtk+-3.0
 vglade:	VALAFLAGS += --pkg gmodule-2.0
 vghello vgtext vglade:	CFLAGS += $(shell pkg-config --cflags gtk+-3.0)

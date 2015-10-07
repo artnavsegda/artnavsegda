@@ -22,7 +22,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_button1_clicked" swapped="no"/>
+            <signal name="clicked" handler="text_file_viewer_on_button1_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -37,7 +37,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_button2_clicked" swapped="no"/>
+            <signal name="clicked" handler="text_file_viewer_on_button2_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>
