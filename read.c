@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "artnavsegda.h"
 
-main()
+int main()
 {
 	char r,g,b;
 	int x = 0;

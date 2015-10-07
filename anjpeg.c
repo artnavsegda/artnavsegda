@@ -15,7 +15,7 @@ void jpeg_error_exit (j_common_ptr cinfo) {
 	exit (EXIT_FAILURE);
 }
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int lineoffset;
 	register JSAMPARRAY lineBuf;

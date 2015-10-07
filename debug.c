@@ -7,7 +7,7 @@ int debug()
 }
 
 
-main()
+int main()
 {
 	s = 5;
 	debug();

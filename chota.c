@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #define MAXLENGTH 1000
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int minimum = 0;
 	int maximum = 0;

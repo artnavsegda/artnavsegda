@@ -2,7 +2,7 @@
 
 char *comms[] = {"one","two","three","four"};
 
-main()
+int main()
 {
 	int i;
 	char buf[100];
