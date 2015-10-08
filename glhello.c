@@ -20,7 +20,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 	switch (message)
 	{
 	case WM_MOUSEWHEEL:
-		switch (GET_KEYSTATE_WPARAM(wParam))
+		switch (LOWORD(wParam))
 		{
 		case MK_CONTROL|MK_SHIFT:
 			glScalef(1.0,GET_WHEEL_DELTA_WPARAM(wParam),1.0);
