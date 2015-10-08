@@ -2,13 +2,11 @@ using Gtk;
 
 public class TextFileViewer:Window
 {
-
 	private TextView text_view;
 	private FileChooserDialog file_chooser;
 
 	[CCode(instance_pos = -1)] public void on_open_clicked(ToolButton source)
 	{
-		//source.label = "Thank you!";
 		var file_chooser = new FileChooserDialog("Open File", this, FileChooserAction.OPEN, "_Cancel", ResponseType.CANCEL, "_Open", ResponseType.ACCEPT);
 		if (file_chooser.run() == ResponseType.ACCEPT)
 		{
@@ -30,14 +28,10 @@ public class TextFileViewer:Window
 		}
 	}
 
-
 	public TextFileViewer()
 	{
 		try
 		{
-			// If the UI contains custom widgets, their types must've been instantiated once
-			// Type type = typeof(Foo.BarEntry);
-			// assert(type != 0);
 			var builder = new Builder();
 			builder.add_from_file("vgtext.ui");
 			builder.connect_signals(this);
@@ -51,13 +45,11 @@ public class TextFileViewer:Window
 		}
 	}
 
-	public static int main(string[]args)
+	public static int main(string[] args)
 	{
 		Gtk.init(ref args);
-
 		new TextFileViewer();
 		Gtk.main();
-
 		return 0;
 	}
 
