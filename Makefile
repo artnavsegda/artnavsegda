@@ -4,19 +4,20 @@ WINCOMPILE.c = $(WINCC) $(WINCFLAGS) -c
 #CFLAGS = /FC
 CFLAGS="-std=gnu99"
 #LINK="user32.lib"
+WINDRES=x86_64-w64-mingw32-windres
 
 all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello vglade vgtext
 build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
 
 clean:
-	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello vglade vgtext
+	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello vglade vgtext *.exe
 	rm *.o
 
 winclean:
 	del *.obj *.exe *.res *~
 
 %.res:	%.rc
-	windres -O coff $*.rc $*.res
+	$(WINDRES) -O coff $*.rc $*.res
 #	rc $*.rc
 
 #%.o:	%.c
@@ -26,15 +27,9 @@ winclean:
 #	$(WINCC) $(WINLDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 
+%.exe:	CC = x86_64-w64-mingw32-gcc
 %.exe:	%.o
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
-
-
-winbmp.obj:	winbmp.c
-	cl /FC /c winbmp.c
-
-winbmp.exe:	winbmp.obj
-	link winbmp.obj user32.lib gdi32.lib
 
 winhello.exe:	LDLIBS = -luser32
 winhello.exe:	winhello.res
@@ -42,11 +37,12 @@ winhello.exe:	winhello.res
 winchota.exe:	LDLIBS = -luser32 -lgdi32 -lcomdlg32
 winchota.exe:	winchota.res
 
-glchota.exe:	LDLIBS = user32.lib gdi32.lib comdlg32.lib opengl32.lib glu32.lib
+glchota.exe:	LDLIBS = -luser32 -lgdi32 -lcomdlg32 -lopengl32 -lglu32
 glchota.exe:	glchota.res
 
 glhello.exe:	LDLIBS = -luser32 -lgdi32 -lopengl32 -lglu32
 gldouble.exe:	LDLIBS = user32.lib gdi32.lib opengl32.lib glu32.lib
+winbmp.exe:	LDLIBS = -luser32 -lgdi32
 
 xlibjpeg anjpeg xliban xlibstdin xlibpng:	LDLIBS += -lm
 xlibjpeg anjpeg:	LDLIBS += -ljpeg
@@ -61,8 +57,8 @@ ghello.o ghello2.o:	CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
 ghello ghello2:		LDLIBS += $(shell pkg-config --libs gtk+-3.0)
 xlibpng:	LDLIBS += $(shell pkg-config --libs libpng)
 
-#CFLAGS += $(shell pkg-config --cflags glib-2.0 gobject-2.0) -rdynamic
-#LDLIBS += $(shell pkg-config --libs glib-2.0 gobject-2.0)
+vhello vghello vgtext vglade:	CFLAGS += $(shell pkg-config --cflags glib-2.0 gobject-2.0) -rdynamic
+vhello vghello vgtext vglade:	LDLIBS += $(shell pkg-config --libs glib-2.0 gobject-2.0)
 vghello vgtext vglade:	VALAFLAGS += --pkg gtk+-3.0
 vglade:	VALAFLAGS += --pkg gmodule-2.0
 vghello vgtext vglade:	CFLAGS += $(shell pkg-config --cflags gtk+-3.0)

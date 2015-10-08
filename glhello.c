@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
-#include <gl\gl.h>
-#include <gl\glu.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "font.h"
 
 GLuint fontOffset;
