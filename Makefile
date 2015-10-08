@@ -2,7 +2,8 @@ WINCC = gcc
 WINCFLAGS="-std=gnu99"
 WINCOMPILE.c = $(WINCC) $(WINCFLAGS) -c
 #CFLAGS = /FC
-CFLAGS="-std=gnu99"
+CFLAGS=-std=gnu99 -mwindows
+LDFLAGS=-mwindows
 #LINK="user32.lib"
 WINDRES=x86_64-w64-mingw32-windres
 
@@ -14,7 +15,7 @@ clean:
 	rm *.o
 
 winclean:
-	del *.obj *.exe *.res *~
+	del *.o *.obj *.exe *.res *~
 
 %.res:	%.rc
 	$(WINDRES) -O coff $*.rc $*.res
