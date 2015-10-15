@@ -8,7 +8,7 @@ LDFLAGS=-mwindows
 WINDRES=x86_64-w64-mingw32-windres
 
 all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello vglade vgtext
-build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe
+build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glchota.exe
 
 clean:
 	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello vglade vgtext *.exe
@@ -29,21 +29,19 @@ winclean:
 
 
 %.exe:	CC = x86_64-w64-mingw32-gcc
+%.exe:	CXX = x86_64-w64-mingw32-gcc
 %.exe:	%.o
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-winhello.exe:	LDLIBS = -luser32
+winhello.exe winchota.exe glchota.exe gldouble.exe:	LDLIBS += -luser32
 winhello.exe:	winhello.res
 
-winchota.exe:	LDLIBS = -luser32 -lgdi32 -lcomdlg32
+winbmp.exe winchota.exe glchota.exe:	LDLIBS += -lgdi32
+winchota.exe glchota.exe:	LDLIBS += -lcomdlg32
 winchota.exe:	winchota.res
 
-glchota.exe:	LDLIBS = -luser32 -lgdi32 -lcomdlg32 -lopengl32 -lglu32
+glchota.exe glhello.exe gldouble.exe:	LDLIBS += -lopengl32 -lglu32
 glchota.exe:	glchota.res
-
-glhello.exe:	LDLIBS = -luser32 -lgdi32 -lopengl32 -lglu32
-gldouble.exe:	LDLIBS = user32.lib gdi32.lib opengl32.lib glu32.lib
-winbmp.exe:	LDLIBS = -luser32 -lgdi32
 
 xlibjpeg anjpeg xliban xlibstdin xlibpng:	LDLIBS += -lm
 xlibjpeg anjpeg:	LDLIBS += -ljpeg
