@@ -14,8 +14,7 @@ all:	hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive
 build:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glchota.exe wintouch.exe
 
 clean:
-	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello vglade vgtext *.exe
-	rm *.o
+	rm hello glxhello sdlhello xhello ghello xlibjpeg xliban sdlopengl interactive image xlibstdin anjpeg xchota ghello2 anjpeg chota count debug ghello ghello2 image interactive read sdlhello sdlopengl xchota xhello xliban xlibjpeg xlibpng xlibstdin sdldouble glxdouble vhello vghello vglade vgtext *.exe *.o *.obj *.res *~
 
 winclean:
 	del *.o *.obj *.exe *.res *~
