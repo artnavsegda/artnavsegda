@@ -1,8 +1,6 @@
-#WINCC = cl
-WINCC = clang-cl
-#WINCFLAGS="-std=gnu99"
-WINCOMPILE.c = $(WINCC) $(WINCFLAGS) /c
-LINK.o = link
+WINCC = gcc
+WINCFLAGS="-std=gnu99"
+WINCOMPILE.c = $(WINCC) $(WINCFLAGS) -c
 #CFLAGS = /FC
 CFLAGS=-std=gnu99 -mwindows
 LDFLAGS=-mwindows
@@ -21,31 +19,31 @@ winclean:
 	del *.o *.obj *.exe *.res *~
 
 %.res:	%.rc
-#	$(WINDRES) -O coff $*.rc $*.res
-	rc $*.rc
+	$(WINDRES) -O coff $*.rc $*.res
+#	rc $*.rc
 
-%.obj:	%.c
-	$(WINCOMPILE.c) $<
+#%.o:	%.c
+#	$(WINCOMPILE.c) $<
 
-%.exe:	%.obj
-	$(LINK.o) $(WINLDFLAGS) $^ $(LOADLIBES) $(LDLIBS) /out:$@
+#%.exe:	%.o
+#	$(WINCC) $(WINLDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 
 #%.exe:	CC = x86_64-w64-mingw32-gcc
 #%.exe:	CXX = x86_64-w64-mingw32-gcc
-#%.exe:	CC = i686-w64-mingw32-gcc
-#%.exe:	CXX = i686-w64-mingw32-gcc
-#%.exe:	%.o
-#	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) /out:$@
+%.exe:	CC = i686-w64-mingw32-gcc
+%.exe:	CXX = i686-w64-mingw32-gcc
+%.exe:	%.o
+	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-winhello.exe winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe wintouch.exe:	LDLIBS += user32.lib
+winhello.exe winchota.exe glchota.exe gldouble.exe wintouch.exe:	LDLIBS += -luser32
 winhello.exe wintouch.exe:	winhello.res
 
-winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe:	LDLIBS += gdi32.lib
-winchota.exe glchota.exe:	LDLIBS += comdlg32.lib
+winbmp.exe winchota.exe glchota.exe:	LDLIBS += -lgdi32
+winchota.exe glchota.exe:	LDLIBS += -lcomdlg32
 winchota.exe:	winchota.res
 
-glchota.exe glhello.exe gldouble.exe:	LDLIBS += opengl32.lib glu32.lib
+glchota.exe glhello.exe gldouble.exe:	LDLIBS += -lopengl32 -lglu32
 glchota.exe:	glchota.res
 
 xlibjpeg anjpeg xliban xlibstdin xlibpng:	LDLIBS += -lm

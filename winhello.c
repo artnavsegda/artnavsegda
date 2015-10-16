@@ -31,8 +31,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			PostQuitMessage(0);
 		break;
 		case WM_SIZE:
-			snprintf(swidth,10,"%d",LOWORD(lParam));
-			snprintf(sheight,10,"%d",HIWORD(lParam));
+			//snprintf(swidth,10,"%d",LOWORD(lParam));
+			//snprintf(sheight,10,"%d",HIWORD(lParam));
 		break;
 		default:
 			return DefWindowProc(hwnd, msg, wParam, lParam);

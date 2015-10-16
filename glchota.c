@@ -13,8 +13,8 @@ int column = 5;
 int acol = BST_CHECKED,bcol = BST_CHECKED,ccol = BST_CHECKED,dcol = BST_CHECKED,ecol = BST_CHECKED,
 fcol = BST_CHECKED,gcol = BST_CHECKED,hcol = BST_CHECKED,icol = BST_CHECKED,jcol = BST_CHECKED,
 kcol = BST_CHECKED,lcol = BST_CHECKED,mcol = BST_CHECKED;
-int amin=0,bmin=0,cmin=0,dmin=0,emin=0,fmin=0,gmin=0,hmin=0,imin=0,jmin=0,kmin=0,lmin=0,mmin=0;
-int amax=0,bmax=0,cmax=0,dmax=0,emax=0,fmax=0,gmax=0,hmax=0,imax=0,jmax=0,kmax=0,lmax=0,mmax=0;
+int amin=0,bmin=0,cmin=0,dmin=0,emin=0,fomin=0,gmin=0,hmin=0,imin=0,jmin=0,kmin=0,lmin=0,mmin=0;
+int amax=0,bmax=0,cmax=0,dmax=0,emax=0,fomax=0,gmax=0,hmax=0,imax=0,jmax=0,kmax=0,lmax=0,mmax=0;
 int massive[20][901000];
 int open = 0;
 int numbers = 1;
@@ -45,16 +45,16 @@ int developmassive(char filename[])
 	am=0;bm=0;cm=0;dm=0;em=0;fm=0;gm=0;hm=0;im=0;jm=0;km=0;lm=0;mm=0;
 	while (fscanf(sora,"%i %i %i %i %i %i %i %i %i %i %i %i %i\n", &a,&b,&c,&d,&e,&f,&g,&h,&i,&j,&k,&l,&m)!=EOF)
 	{
-		if (amin==0) amin=a; if (bmin==0) bmin=b; if (cmin==0) cmin=c; if (dmin==0) dmin=d; if (emin==0) emin=e; if (fmin==0) fmin=f; if (gmin==0) gmin=g; if (hmin==0) hmin=h; if (imin==0) imin=i; if (jmin==0) jmin=e;
+		if (amin==0) amin=a; if (bmin==0) bmin=b; if (cmin==0) cmin=c; if (dmin==0) dmin=d; if (emin==0) emin=e; if (fomin==0) fomin=f; if (gmin==0) gmin=g; if (hmin==0) hmin=h; if (imin==0) imin=i; if (jmin==0) jmin=e;
 		if (kmin==0) kmin=k; if (lmin==0) lmin=l; if (mmin==0) mmin=m;
 		
-		if (amax==0) amax=a; if (bmax==0) bmax=b; if (cmax==0) cmax=c; if (dmax==0) dmax=d;	if (emax==0) emax=e; if (fmax==0) fmax=f; if (gmax==0) gmax=g; if (hmax==0) hmax=h;	if (imax==0) imax=i; if (jmax==0) jmax=j;
+		if (amax==0) amax=a; if (bmax==0) bmax=b; if (cmax==0) cmax=c; if (dmax==0) dmax=d;	if (emax==0) emax=e; if (fomax==0) fomax=f; if (gmax==0) gmax=g; if (hmax==0) hmax=h;	if (imax==0) imax=i; if (jmax==0) jmax=j;
 		if (kmax==0) kmax=k; if (lmax==0) lmax=b; if (mmax==0) mmax=m;
 		
-		if (a<amin)	amin=a;	if (b<bmin)	bmin=b; if (c<cmin)	cmin=c;	if (d<dmin)	dmin=d; if (e<emin)	emin=e;	if (f<fmin)	fmin=f; if (g<gmin)	gmin=g;	if (h<hmin)	hmin=h; if (i<imin)	imin=i;	if (j<jmin)	jmin=j; 
+		if (a<amin)	amin=a;	if (b<bmin)	bmin=b; if (c<cmin)	cmin=c;	if (d<dmin)	dmin=d; if (e<emin)	emin=e;	if (f<fomin)	fomin=f; if (g<gmin)	gmin=g;	if (h<hmin)	hmin=h; if (i<imin)	imin=i;	if (j<jmin)	jmin=j; 
 		if (k<kmin)	kmin=k;	if (l<lmin)	lmin=l; if (m<mmin)	mmin=a;
 			
-		if (a>amax)	amax=a;	if (b>bmax)	bmax=b; if (c>cmax)	cmax=c;	if (d>dmax)	dmax=b; if (e>emax)	emax=e;	if (f>fmax)	fmax=f; if (g>gmax)	gmax=g;	if (h>hmax)	hmax=b; if (i>imax)	imax=i;	if (j>jmax)	jmax=j;
+		if (a>amax)	amax=a;	if (b>bmax)	bmax=b; if (c>cmax)	cmax=c;	if (d>dmax)	dmax=b; if (e>emax)	emax=e;	if (f>fomax)	fomax=f; if (g>gmax)	gmax=g;	if (h>hmax)	hmax=b; if (i>imax)	imax=i;	if (j>jmax)	jmax=j;
 		if (k>kmax)	kmax=a;	if (l>bmax)	lmax=b; if (m>bmax)	mmax=b; 
 		
 		count++;
@@ -87,7 +87,7 @@ int developmassive(char filename[])
 	if ((cmax-cmin)/1000 > 0) cspan = (cmax-cmin);
 	if ((dmax-dmin)/1000 > 0) dspan = (dmax-dmin);
 	if ((emax-emin)/1000 > 0) espan = (emax-emin);
-	if ((fmax-fmin)/1000 > 0) fspan = (fmax-fmin);
+	if ((fomax-fomin)/1000 > 0) fspan = (fomax-fomin);
 	if ((gmax-gmin)/1000 > 0) gspan = (gmax-gmin);
 	if ((hmax-hmin)/1000 > 0) hspan = (hmax-hmin);
 	if ((imax-imin)/1000 > 0) ispan = (imax-imin);
@@ -162,7 +162,7 @@ int developmassive(char filename[])
 	x = 0;
 	while(x < length)
 	{
-		glVertex2i(x,(massive[6][x]-fmin));
+		glVertex2i(x,(massive[6][x]-fomin));
 		x++;
 	}
 	glEnd();
@@ -286,7 +286,7 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 			//SetDlgItemInt(hwndDlg,29,emin,FALSE);
 			//sprintf(workstring,"%f",espan);
 			//SetDlgItemText(hwndDlg,29,workstring);
-			SetDlgItemInt(hwndDlg,30,fmin,FALSE);
+			SetDlgItemInt(hwndDlg,30,fomin,FALSE);
 			SetDlgItemInt(hwndDlg,31,gmin,FALSE);
 			SetDlgItemInt(hwndDlg,32,hmin,FALSE);
 			SetDlgItemInt(hwndDlg,33,imin,FALSE);
@@ -312,7 +312,7 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 					cmin = GetDlgItemInt(hwndDlg,27,NULL,FALSE);
 					dmin = GetDlgItemInt(hwndDlg,28,NULL,FALSE);
 					//emin = GetDlgItemInt(hwndDlg,29,NULL,FALSE);
-					fmin = GetDlgItemInt(hwndDlg,30,NULL,FALSE);
+					fomin = GetDlgItemInt(hwndDlg,30,NULL,FALSE);
 					gmin = GetDlgItemInt(hwndDlg,31,NULL,FALSE);
 					hmin = GetDlgItemInt(hwndDlg,32,NULL,FALSE);
 					imin = GetDlgItemInt(hwndDlg,33,NULL,FALSE);
