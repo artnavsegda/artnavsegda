@@ -37,14 +37,14 @@ winclean:
 #%.exe:	%.o
 #	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) /out:$@
 
-winhello.exe winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe wintouch.exe:	LDLIBS += user32.lib
+winhello.exe winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe wintouch.exe gltouch.exe:	LDLIBS += user32.lib
 winhello.exe wintouch.exe:	winhello.res
 
-winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe:	LDLIBS += gdi32.lib
+winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe gltouch.exe:	LDLIBS += gdi32.lib
 winchota.exe glchota.exe:	LDLIBS += comdlg32.lib
 winchota.exe:	winchota.res
 
-glchota.exe glhello.exe gldouble.exe:	LDLIBS += opengl32.lib glu32.lib
+glchota.exe glhello.exe gldouble.exe gltouch.exe:	LDLIBS += opengl32.lib glu32.lib
 glchota.exe:	glchota.res
 
 xlibjpeg anjpeg xliban xlibstdin xlibpng:	LDLIBS += -lm
