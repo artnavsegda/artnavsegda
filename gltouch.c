@@ -72,6 +72,11 @@ POINT first, second;
 				secondy = gi.ptsLocation.y;
 				second.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd,&second);
+				glTranslatef(second.x-first.x,first.y-second.y,0.0);
+				InvalidateRect(hWnd, NULL, TRUE);
+				first=second;
+				firstx=secondx;
+				firsty=secondy;
 				break;
 		}
                bHandled = TRUE;
@@ -112,6 +117,11 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 	static HDC hDC;
 	switch (message)
 	{
+	case WM_GESTURENOTIFY:
+		GESTURECONFIG gc = {0,GC_ALLGESTURES,0};
+		SetGestureConfig(hWnd,0,1,&gc,sizeof(GESTURECONFIG));
+		return DefWindowProc(hWnd, WM_GESTURENOTIFY, wParam, lParam);
+		break;
 	case WM_GESTURE:
 		return DecodeGesture(hWnd,message,wParam,lParam);
 		break;

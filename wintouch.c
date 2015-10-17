@@ -29,6 +29,7 @@ char sheight[10] = "300";
                break;
            case GID_PAN:
                // Code for panning goes here
+            	MessageBoxW(hWnd, L"Weehee!", L"pan recieved", MB_OK);
                bHandled = TRUE;
                break;
            case GID_ROTATE:
@@ -67,6 +68,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	HDC hdc;
 	switch(msg)
 	{
+		case WM_GESTURENOTIFY:
+			GESTURECONFIG gc = {0,GC_ALLGESTURES,0};
+			SetGestureConfig(hwnd,0,1,&gc,sizeof(GESTURECONFIG));
+			return DefWindowProc(hwnd, WM_GESTURENOTIFY, wParam, lParam);
+		break;
 		case WM_GESTURE:
 			return DecodeGesture(hwnd, msg, wParam, lParam);
 		break;

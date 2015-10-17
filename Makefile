@@ -1,5 +1,5 @@
-#WINCC = cl
-WINCC = clang-cl
+WINCC = cl
+#WINCC = clang-cl
 #WINCFLAGS="-std=gnu99"
 WINCOMPILE.c = $(WINCC) $(WINCFLAGS) /c
 LINK.o = link
