@@ -83,6 +83,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM	wParam,LPARAM	lParam)
 		break;
 	case WM_SIZE:
 		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
+		//gluOrtho2D(-1.0,1.0,-1.0,1.0);
 		break;
 	default:
 		return (DefWindowProc(hWnd, message, wParam, lParam));

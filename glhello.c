@@ -32,7 +32,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 			glTranslatef(0.0,GET_WHEEL_DELTA_WPARAM(wParam),0.0);
 			break;
 		default:
-			glTranslatef(GET_WHEEL_DELTA_WPARAM(wParam),0.0,0.0);
+			glTranslatef(GET_WHEEL_DELTA_WPARAM(wParam)/10,0.0,0.0);
 			break;
 		}
 		InvalidateRect(hWnd,NULL,TRUE);
@@ -106,7 +106,9 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 		snprintf(sheight,10,"%d",HIWORD(lParam));
 		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 		glLoadIdentity();
-		gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
+		//gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
+		gluOrtho2D((GLdouble)LOWORD(lParam)/-2,(GLdouble)LOWORD(lParam)/2,(GLdouble)HIWORD(lParam)/-2,(GLdouble)LOWORD(lParam)/2);
+		//glOrtho(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam),-1.0,1.0);
 		InvalidateRect(hWnd,NULL,TRUE);
 		break;
 	case WM_PAINT:
