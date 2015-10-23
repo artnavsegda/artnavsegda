@@ -19,6 +19,7 @@ int firsty = 0;
 int secondy = 0;
 
 POINT first, second;
+DWORD dwarg;
 
 LRESULT
 DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -43,6 +44,7 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch (gi.dwFlags)
 			{
 			case GF_BEGIN:
+				dwarg = LOWORD(gi.ullArguments);
 				firstx = gi.ptsLocation.x;
 				first.x = gi.ptsLocation.x;
 				firsty = gi.ptsLocation.y;
