@@ -1,7 +1,9 @@
 WINCC = cl
 #WINCC = clang-cl
 #WINCFLAGS="-std=gnu99"
+WINCFLAGS="/DUNICODE /D_UNICODE"
 WINCOMPILE.c = $(WINCC) $(WINCFLAGS) /c
+WINCOMPILE.cpp = $(WINCC) $(WINCFLAGS) /c
 LINK.o = link
 #CFLAGS = /FC
 #CFLAGS=-std=gnu99 -mwindows
@@ -13,7 +15,7 @@ WINDRES=i686-w64-mingw32-windres
 
 all:	hello interactive image anjpeg chota count debug read x glx sdl
 
-win:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glchota.exe wintouch.exe
+win:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glchota.exe wintouch.exe xinput.exe
 
 x:	xhello xchota xliban xlibjpeg xlibpng xlibstdin
 glx:	glxhello glxdouble
@@ -34,6 +36,9 @@ winclean:
 %.obj:	%.c
 	$(WINCOMPILE.c) $<
 
+%.obj:	%.cpp
+	$(WINCOMPILE.cpp) $<
+
 %.exe:	%.obj
 	$(LINK.o) $(WINLDFLAGS) $^ $(LOADLIBES) $(LDLIBS) /out:$@
 
@@ -45,14 +50,14 @@ winclean:
 #%.exe:	%.o
 #	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) /out:$@
 
-winhello.exe winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe wintouch.exe gltouch.exe:	LDLIBS += user32.lib
-winhello.exe wintouch.exe:	winhello.res
-
-winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe gltouch.exe:	LDLIBS += gdi32.lib
+winhello.exe winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe wintouch.exe gltouch.exe xinput.exe:	LDLIBS += user32.lib
+winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe gltouch.exe xinput.exe:	LDLIBS += gdi32.lib
 winchota.exe glchota.exe:	LDLIBS += comdlg32.lib
-winchota.exe:	winchota.res
-
 glchota.exe glhello.exe gldouble.exe gltouch.exe:	LDLIBS += opengl32.lib glu32.lib
+xinput.exe:	LDLIBS += ole32.lib
+
+winhello.exe wintouch.exe:	winhello.res
+winchota.exe:	winchota.res
 glchota.exe:	glchota.res
 
 xlibjpeg anjpeg xliban xlibstdin xlibpng:	LDLIBS += -lm
