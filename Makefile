@@ -13,12 +13,12 @@ CFLAGS=-std=gnu99
 #WINDRES=x86_64-w64-mingw32-windres
 WINDRES=i686-w64-mingw32-windres
 
-all:	hello interactive image anjpeg chota count debug read x glx sdl
+all:	hello interactive image anjpeg chota count debug read x sdl
 
 win:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glchota.exe wintouch.exe xinput.exe
 
 x:	xhello xchota xliban xlibjpeg xlibpng xlibstdin
-glx:	glxhello glxdouble
+#glx:	glxhello glxdouble
 vala:	vhello vghello vglade vgtext
 gtk:	ghello ghello2
 sdl:	sdlhello sdlopengl sdldouble
