@@ -21,7 +21,7 @@ win:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glc
 x:	xlibjpeg xlibpng 
 #glx:	glxhello glxdouble
 vala:	vhello vghello vglade vgtext
-gtk:	ghello ghello2
+#gtk:	ghello ghello2
 #sdl:	sdlhello sdlopengl sdldouble
 
 clean:
@@ -70,8 +70,8 @@ glxhello glxdouble xhello xchota xlibjpeg xliban xlibstdin xlibpng:	LDLIBS += $(
 #sdlhello sdldouble sdlopengl:	LDLIBS += $(shell pkg-config --libs glu)
 #sdlhello sdldouble sdlopengl:	LDLIBS += $(shell pkg-config --libs sdl) 
 #sdlhello.o sdldouble.o sdlopengl.o:	CFLAGS = $(shell sdl-config --cflags)
-ghello.o ghello2.o:	CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
-ghello ghello2:		LDLIBS += $(shell pkg-config --libs gtk+-3.0)
+#ghello.o ghello2.o:	CFLAGS += $(shell pkg-config --cflags gtk+-3.0)
+#ghello ghello2:		LDLIBS += $(shell pkg-config --libs gtk+-3.0)
 xlibpng:	LDLIBS += $(shell pkg-config --libs libpng)
 
 vhello vghello vgtext vglade:	CFLAGS += $(shell pkg-config --cflags glib-2.0 gobject-2.0) -rdynamic
