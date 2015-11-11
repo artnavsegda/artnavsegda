@@ -131,9 +131,7 @@ WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_GESTURENOTIFY:
-		GESTURECONFIG gc =
-		{
-		0, GC_ALLGESTURES, 0};
+		GESTURECONFIG gc =	{0, GC_ALLGESTURES, 0};
 		SetGestureConfig(hWnd, 0, 1, &gc, sizeof(GESTURECONFIG));
 		return DefWindowProc(hWnd, WM_GESTURENOTIFY, wParam, lParam);
 		break;
