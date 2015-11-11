@@ -7,7 +7,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6521B0CC-BCCD-435E-9029-1A2D8524E6A1}</ProjectGuid>
+    <ProjectGuid>{5AC5792C-ECA1-48C5-B48D-30FCB1EEBF90}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.default.props" />
   <PropertyGroup>
@@ -22,10 +22,10 @@
     <Library Include="glu32.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glhello.c" />
+    <ClCompile Include="gldouble.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="glhello.rc" />
+    <ClInclude Include="gldouble.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Targets" />
 </Project>
