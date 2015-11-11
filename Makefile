@@ -15,7 +15,7 @@ WINDRES=i686-w64-mingw32-windres
 
 #all:	hello interactive image anjpeg chota count debug read x
 
-win:	hello.exe winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glchota.exe wintouch.exe xinput.exe
+win:	winhello.exe glhello.exe winbmp.exe winchota.exe settings.exe glchota.exe wintouch.exe xinput.exe
 
 #x:	xhello xchota xliban xlibjpeg xlibpng xlibstdin
 x:	xlibjpeg xlibpng 
