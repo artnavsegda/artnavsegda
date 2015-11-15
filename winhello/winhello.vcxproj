@@ -19,7 +19,11 @@
     <ClCompile Include="winhello.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="winhello.rc" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="winhello.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="winhello.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Targets" />
 </Project>

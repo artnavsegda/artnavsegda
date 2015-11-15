@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "winhello.h"
+#include "glhello.h"
 
 Menu MENU
 {

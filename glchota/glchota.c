@@ -37,6 +37,8 @@ int l;
 float xspan = 0.0;
 int xwidth, yheight;
 //double xscale = 1.0;
+int mousex, mousey;
+int deltax, deltay;
 
 int developmassive(char filename[])
 {
@@ -183,11 +185,62 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
     return FALSE; 
 } 
 
+int scrollx(int amount)
+{
+	if (amount < 0)
+		if (xspan + ((float)amount / xscale) < 0)
+			return 1;
+	if (amount > 0)
+		if (((l - (xspan + ((double)amount / xscale)))   *xscale) <= xwidth)
+			return 1;
+	xspan = xspan + ((float)amount / xscale);
+	return 0;
+}
+
+int scrollleft(int amount)
+{
+	if (((l - (xspan + ((double)amount / xscale)))   *xscale)     > xwidth)
+		xspan = xspan + ((double)amount / xscale);
+	return 0;
+}
+
+int scrollright(int amount)
+{
+	if (xspan - ((double)amount / xscale) >= 0)
+		xspan = xspan - ((double)amount / xscale);
+	return 0;
+}
+
+int scaledown(int amount)
+{
+	if (xscale / (double)amount>(double)xwidth / l)
+		xscale = xscale / (double)amount;
+	else
+		xscale = (double)xwidth / l;
+	return 0;
+}
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	char text[100];
 	switch(msg)
 	{
+	case WM_LBUTTONDOWN:
+		mousex = GET_X_LPARAM(lParam);
+		mousey = GET_Y_LPARAM(lParam);
+		break;
+	case WM_MOUSEMOVE:
+		if (LOWORD(wParam) == MK_LBUTTON)
+		{
+			deltax = mousex - GET_X_LPARAM(lParam);
+			mousex = GET_X_LPARAM(lParam);
+			deltay = mousey - GET_Y_LPARAM(lParam);
+			mousey = GET_Y_LPARAM(lParam);
+			scrollx(deltax);
+			glTranslatef(0.0, deltay, 0.0);
+			InvalidateRect(hwnd, NULL, TRUE);
+		}
+		break;
 	case WM_MOUSEWHEEL:
 		switch (LOWORD(wParam))
 		{
@@ -247,15 +300,22 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 				case VK_RIGHT:
 					//glTranslatef(-100.0,0.0,0.0);
-					if (xspan-(1.0/xscale)>=0)
-						xspan=xspan-(1.0/xscale);
+					/*if (xspan-(1.0/xscale)>=0)
+						xspan=xspan-(1.0/xscale);*/
+
+						//if (xspan+(-1.0/xscale)>=0)
+						//xspan=xspan+(-1.0/xscale);
+					scrollx(-1);
+					//scrollright(1);
 					//xpos=xpos-(1.0*dscale);
 					InvalidateRect(hwnd,NULL,TRUE);
 					break;
 				case VK_LEFT:
 					//glTranslatef(100.0,0.0,0.0);
-					if ((   (l-xspan)   *xscale)     > xwidth)
-						xspan=xspan+(1.0/xscale);
+					/*if ((   (l-xspan)   *xscale)     > xwidth)
+						xspan=xspan+(1.0/xscale);*/
+					//scrollleft(1);
+					scrollx(1);
 					//xpos=xpos+(1.0*dscale);
 					InvalidateRect(hwnd,NULL,TRUE);
 					break;

@@ -107,21 +107,32 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 		glLoadIdentity();
 		//gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
-		gluOrtho2D((GLdouble)LOWORD(lParam)/-2,(GLdouble)LOWORD(lParam)/2,(GLdouble)HIWORD(lParam)/-2,(GLdouble)LOWORD(lParam)/2);
+		gluOrtho2D(0.0, (GLdouble)LOWORD(lParam), (GLdouble)HIWORD(lParam), 0.0);
+		//gluOrtho2D((GLdouble)LOWORD(lParam)/-2,(GLdouble)LOWORD(lParam)/2,(GLdouble)HIWORD(lParam)/-2,(GLdouble)LOWORD(lParam)/2);
 		//glOrtho(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam),-1.0,1.0);
 		InvalidateRect(hWnd,NULL,TRUE);
 		break;
 	case WM_PAINT:
 		glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();
-		glScalef(xscale,yscale,1.0);
+		//glScalef(xscale,yscale,1.0);
 		glRectf(10, 10, 20, 20);
-		glRasterPos2f(50,50);
-		glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
+		//glRasterPos2f(50,50);
+		//glCallLists(5, GL_UNSIGNED_BYTE,(GLubyte *)"hello");
 		glPopMatrix();
 		glFlush();
 		SwapBuffers(hDC);
 		ValidateRect(hWnd,NULL);
+		break;
+	case WM_MOUSEMOVE:
+		//glBegin(GL_POINTS);
+		//glVertex2f(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		//glEnd();
+		//InvalidateRect(hWnd, NULL, TRUE);
+		break;
+	case WM_LBUTTONDOWN:
+		break;
+	case WM_LBUTTONUP:
 		break;
 	default:
 		return (DefWindowProc(hWnd, message, wParam, lParam));
