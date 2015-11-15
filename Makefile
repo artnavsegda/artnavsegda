@@ -15,7 +15,8 @@ WINDRES=i686-w64-mingw32-windres
 
 #all:	hello interactive image anjpeg chota count debug read x
 
-win:	winhello.exe glhello.exe gldouble.exe winbmp.exe winchota.exe settings.exe glchota.exe gltouch.exe wintouch.exe xinput.exe winsettings.exe
+#win:	winhello.exe glhello.exe gldouble.exe winbmp.exe winchota.exe settings.exe glchota.exe gltouch.exe wintouch.exe xinput.exe winsettings.exe
+win:	glchota2.exe
 
 #x:	xhello xchota xliban xlibjpeg xlibpng xlibstdin
 x:	xlibjpeg xlibpng 
@@ -51,15 +52,15 @@ winclean:
 #%.exe:	%.o
 #	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) /out:$@
 
-winsettings.exe winhello.exe winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe wintouch.exe gltouch.exe xinput.exe:	LDLIBS += user32.lib
-winbmp.exe winchota.exe glchota.exe glhello.exe gldouble.exe gltouch.exe xinput.exe:	LDLIBS += gdi32.lib
-winchota.exe glchota.exe:	LDLIBS += comdlg32.lib
-glchota.exe glhello.exe gldouble.exe gltouch.exe:	LDLIBS += opengl32.lib glu32.lib
+winsettings.exe winhello.exe winbmp.exe winchota.exe glchota2.exe glhello.exe gldouble.exe wintouch.exe gltouch.exe xinput.exe:	LDLIBS += user32.lib
+winbmp.exe winchota.exe glchota2.exe glhello.exe gldouble.exe gltouch.exe xinput.exe:	LDLIBS += gdi32.lib
+winchota.exe glchota2.exe:	LDLIBS += comdlg32.lib
+glchota2.exe glhello.exe gldouble.exe gltouch.exe:	LDLIBS += opengl32.lib glu32.lib
 xinput.exe:	LDLIBS += ole32.lib
 
 winhello.exe wintouch.exe:	winhello.res
 winchota.exe:	winchota.res
-glchota.exe:	glchota.res
+glchota2.exe:	glchota.res
 
 xlibjpeg anjpeg xliban xlibstdin xlibpng:	LDLIBS += -lm
 xlibjpeg anjpeg:	LDLIBS += -ljpeg

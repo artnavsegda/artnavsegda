@@ -13,25 +13,68 @@ int column = 5;
 int acol = BST_CHECKED,bcol = BST_CHECKED,ccol = BST_CHECKED,dcol = BST_CHECKED,ecol = BST_CHECKED,
 fcol = BST_CHECKED,gcol = BST_CHECKED,hcol = BST_CHECKED,icol = BST_CHECKED,jcol = BST_CHECKED,
 kcol = BST_CHECKED,lcol = BST_CHECKED,mcol = BST_CHECKED;
-int amin=0,bmin=0,cmin=0,dmin=0,emin=0,fomin=0,gmin=0,hmin=0,imin=0,jmin=0,kmin=0,lmin=0,mmin=0;
-int amax=0,bmax=0,cmax=0,dmax=0,emax=0,fomax=0,gmax=0,hmax=0,imax=0,jmax=0,kmax=0,lmax=0,mmax=0;
-int massive[20][901000];
+//int amin=0,bmin=0,cmin=0,dmin=0,emin=0,fomin=0,gmin=0,hmin=0,imin=0,jmin=0,kmin=0,lmin=0,mmin=0;
+//int amax=0,bmax=0,cmax=0,dmax=0,emax=0,fomax=0,gmax=0,hmax=0,imax=0,jmax=0,kmax=0,lmax=0,mmax=0;
+//int massive[20][901000];
 int open = 0;
 int numbers = 1;
 int startsector = 0;
 int length = 0;
 int slip = 1;
 int vslip = 1;
-float aspan=1.0,bspan=1.0,cspan=1.0,dspan=1.0,espan=1.0,fspan=1.0,gspan=1.0,hspan=1.0,ispan=1.0,jspan=1.0,kspan=1.0,lspan=1.0,mspan=1.0;
+//float aspan=1.0,bspan=1.0,cspan=1.0,dspan=1.0,espan=1.0,fspan=1.0,gspan=1.0,hspan=1.0,ispan=1.0,jspan=1.0,kspan=1.0,lspan=1.0,mspan=1.0;
 int screenwidth = 2700;
 GLfloat xscale = 1.0;
 GLfloat yscale = 1.0;
 double xpos = 0.0;
 float dscale = 1.0;
 
-GLuint alist,blist,clist,dlist,elist,flist,glist,hlist,ilist,jlist,klist,llist,mlist;
+int m[20][901000];
+int max[20];
+int min[20];
+int l;
+
+float xspan = 0.0;
+int xwidth, yheight;
+//double xscale = 1.0;
+
+
+//GLuint alist,blist,clist,dlist,elist,flist,glist,hlist,ilist,jlist,klist,llist,mlist;
 
 int developmassive(char filename[])
+{
+	l = 0;
+	FILE *sora;
+//	sora = fopen("./chota.txt","r");
+	sora = fopen(filename,"r");
+	if (sora == NULL)
+	{
+		printf("fucking error");
+		exit(0);
+	}
+	memset(max,0,sizeof(max));
+	memset(max,0,sizeof(min));
+	while (fscanf(sora,"%d %d %d %d %d %d %d %d %d %d %d %d %d\n", &m[1][l],&m[2][l],&m[3][l],&m[4][l],&m[5][l],&m[6][l],&m[7][l],&m[8][l],&m[9][l],&m[10][l],&m[11][l],&m[12][l],&m[13][l])!=EOF)
+	{
+		for(int i=1;i!=12;i++)
+		{
+			if (min[i]==0) min[i]=m[i][l];
+			if (max[i]==0) max[i]=m[i][l];
+			if (m[i][l]<min[i]) min[i]=m[i][l];
+			if (m[i][l]>max[i]) max[i]=m[i][l];
+		}
+		if (l++ > MAXLENGTH)
+			break;
+	}
+	printf("length is %d\n",l);
+	for(int i=1;i!=12;i++)
+		printf("%d: min %d, max %d, span %d\n",i,min[i],max[i],max[i]-min[i]);
+	return 0;
+}
+
+
+
+/*int developmassive2(char filename[])
 {
 	int count = 0;
 	int a, b, c, d, e, f, g, h, i, j, k, l, m;
@@ -254,7 +297,7 @@ int developmassive(char filename[])
 	glEnd();
 	glEndList();
 	return 0;
-}
+}*/
 
 BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam) 
 { 
@@ -276,26 +319,26 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 			CheckDlgButton(hwndDlg,16,lcol);
 			CheckDlgButton(hwndDlg,17,mcol);
 			SetDlgItemInt(hwndDlg,3,slip,FALSE);
-			SetDlgItemInt(hwndDlg,25,amin,FALSE);
+			SetDlgItemInt(hwndDlg,25,min[1],FALSE);
 			//SendDlgItemMessage(hwndDlg,3,WM_SETTEXT,(WPARAM)0,(LPARAM)"0");
 			//sprintf(workstring,"%f",aspan);
 			//SetDlgItemText(hwndDlg,25,workstring);
-			SetDlgItemInt(hwndDlg,26,bmin,FALSE);
-			SetDlgItemInt(hwndDlg,27,cmin,FALSE);
-			SetDlgItemInt(hwndDlg,28,dmin,FALSE);
+			SetDlgItemInt(hwndDlg,26,min[2],FALSE);
+			SetDlgItemInt(hwndDlg,27,min[3],FALSE);
+			SetDlgItemInt(hwndDlg,28,min[4],FALSE);
 			//sprintf(workstring,"%f",dspan);
 			//SetDlgItemText(hwndDlg,28,workstring);
 			//SetDlgItemInt(hwndDlg,29,emin,FALSE);
 			//sprintf(workstring,"%f",espan);
 			//SetDlgItemText(hwndDlg,29,workstring);
-			SetDlgItemInt(hwndDlg,30,fomin,FALSE);
-			SetDlgItemInt(hwndDlg,31,gmin,FALSE);
-			SetDlgItemInt(hwndDlg,32,hmin,FALSE);
-			SetDlgItemInt(hwndDlg,33,imin,FALSE);
-			SetDlgItemInt(hwndDlg,34,jmin,FALSE);
-			SetDlgItemInt(hwndDlg,35,kmin,FALSE);
-			SetDlgItemInt(hwndDlg,36,lmin,FALSE);
-			SetDlgItemInt(hwndDlg,37,mmin,FALSE);
+			SetDlgItemInt(hwndDlg,30,min[6],FALSE);
+			SetDlgItemInt(hwndDlg,31,min[7],FALSE);
+			SetDlgItemInt(hwndDlg,32,min[8],FALSE);
+			SetDlgItemInt(hwndDlg,33,min[9],FALSE);
+			SetDlgItemInt(hwndDlg,34,min[10],FALSE);
+			SetDlgItemInt(hwndDlg,35,min[11],FALSE);
+			SetDlgItemInt(hwndDlg,36,min[12],FALSE);
+			SetDlgItemInt(hwndDlg,37,min[13],FALSE);
 		break;
         case WM_COMMAND: 
             switch (LOWORD(wParam)) 
@@ -309,19 +352,19 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 					//startsector = atoi(startsectorstring);
 					//sscanf(startsectorstring,"%d",&startsector);
 					slip = GetDlgItemInt(hwndDlg,3,NULL,FALSE);
-					amin = GetDlgItemInt(hwndDlg,25,NULL,FALSE);
-					bmin = GetDlgItemInt(hwndDlg,26,NULL,FALSE);
-					cmin = GetDlgItemInt(hwndDlg,27,NULL,FALSE);
-					dmin = GetDlgItemInt(hwndDlg,28,NULL,FALSE);
+					min[1] = GetDlgItemInt(hwndDlg,25,NULL,FALSE);
+					min[2] = GetDlgItemInt(hwndDlg,26,NULL,FALSE);
+					min[3] = GetDlgItemInt(hwndDlg,27,NULL,FALSE);
+					min[4] = GetDlgItemInt(hwndDlg,28,NULL,FALSE);
 					//emin = GetDlgItemInt(hwndDlg,29,NULL,FALSE);
-					fomin = GetDlgItemInt(hwndDlg,30,NULL,FALSE);
-					gmin = GetDlgItemInt(hwndDlg,31,NULL,FALSE);
-					hmin = GetDlgItemInt(hwndDlg,32,NULL,FALSE);
-					imin = GetDlgItemInt(hwndDlg,33,NULL,FALSE);
-					jmin = GetDlgItemInt(hwndDlg,34,NULL,FALSE);
-					kmin = GetDlgItemInt(hwndDlg,35,NULL,FALSE);
-					lmin = GetDlgItemInt(hwndDlg,36,NULL,FALSE);
-					mmin = GetDlgItemInt(hwndDlg,37,NULL,FALSE);
+					min[6] = GetDlgItemInt(hwndDlg,30,NULL,FALSE);
+					min[7] = GetDlgItemInt(hwndDlg,31,NULL,FALSE);
+					min[8] = GetDlgItemInt(hwndDlg,32,NULL,FALSE);
+					min[9] = GetDlgItemInt(hwndDlg,33,NULL,FALSE);
+					min[10] = GetDlgItemInt(hwndDlg,34,NULL,FALSE);
+					min[11] = GetDlgItemInt(hwndDlg,35,NULL,FALSE);
+					min[12] = GetDlgItemInt(hwndDlg,36,NULL,FALSE);
+					min[13] = GetDlgItemInt(hwndDlg,37,NULL,FALSE);
                     EndDialog(hwndDlg, wParam); 
                     return TRUE; 
 				break;
@@ -385,7 +428,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					//glScalef(2.0,1.0,1.0);
 					break;
 				case VK_LEFT:
-					xscale = xscale * 0.5;
+					if (xscale/2.0>(double)xwidth/l)
+						xscale = xscale/2.0;
+					else
+						xscale = (double)xwidth/l;
+					//xscale = xscale * 0.5;
 					dscale = dscale * 2;
 					//glScalef(0.5,1.0,1.0);
 					break;
@@ -395,11 +442,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 				case VK_RIGHT:
 					//glTranslatef(-100.0,0.0,0.0);
+					if (xspan-(1.0/xscale)>=0)
+						xspan=xspan-(1.0/xscale);
 					xpos=xpos-(1.0*dscale);
 					InvalidateRect(hwnd,NULL,TRUE);
 					break;
 				case VK_LEFT:
 					//glTranslatef(100.0,0.0,0.0);
+					if ((   (l-xspan)   *xscale)     > xwidth)
+						xspan=xspan+(1.0/xscale);
 					xpos=xpos+(1.0*dscale);
 					InvalidateRect(hwnd,NULL,TRUE);
 					break;
@@ -423,6 +474,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			SendMessage(hwnd, WM_COMMAND,3,0);
 		break;
 		case WM_SIZE:
+			xwidth = LOWORD(lParam);
+			yheight = HIWORD(lParam);
 			glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 			glLoadIdentity();
 			gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
@@ -432,11 +485,21 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_PAINT:
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
+			glColor3f(1.0,1.0,1.0);
 			glPushMatrix();
 			glScalef(xscale,yscale,1.0);
-			if (open == 1)
-				{
-					int x,fx, num=1;
+			//if (open == 1)
+			//	{
+					glBegin(GL_LINE_STRIP);
+					for(int i=0;i<xwidth/xscale;i++)
+					{
+						glVertex2i(i,m[5][i+(int)xspan]);
+						if (i+xspan>l)
+							break;
+					}
+					glEnd();
+			
+					/*int x,fx, num=1;
 					glColor3f(1.0,1.0,1.0);
 					while (num<13)
 					{
@@ -452,7 +515,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						}
 						glEnd();
 						num++;
-					}
+					}*/
 					/*glColor3f(0.0,0.5,1.0);
 					glCallList(alist);
 					glColor3f(1.0,0.0,0.0);
@@ -479,7 +542,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					glCallList(llist);
 					glColor3f(0.0,1.0,0.5);
 					glCallList(mlist);*/
-				}
+			//	}
 			glPopMatrix();
 			glFlush();
 			SwapBuffers(hDC);
@@ -517,6 +580,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 					GetOpenFileName(&ofn);
 					developmassive(ofn.lpstrFile);
+					//developmassive2(ofn.lpstrFile);
 					open = 1;
 					InvalidateRect(hwnd,NULL,TRUE);
 				}
