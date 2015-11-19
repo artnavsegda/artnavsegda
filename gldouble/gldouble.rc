@@ -1,5 +1,4 @@
 #include <windows.h>
-#include "winhello.h"
 
 Menu MENU
 {
@@ -7,7 +6,7 @@ Menu MENU
     {
         MENUITEM "&Open", 3
         MENUITEM "&Dialog", 1
-        MENUITEM "&Exit", ID_EXIT
+        MENUITEM "&Exit", 0
     }
     POPUP "&View"
     {
