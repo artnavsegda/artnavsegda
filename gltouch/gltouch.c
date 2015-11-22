@@ -4,6 +4,8 @@
 #include <GL/glu.h>
 #include "font.h"
 
+#define LODWORD(ull) ((DWORD)((ULONGLONG)(ull) & 0x00000000ffffffff))
+
 GLuint fontOffset;
 char configfile[] = ".\\glhello.ini";
 char swidth[10] = "300";
@@ -24,6 +26,7 @@ DWORD dwarg;
 LRESULT
 DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	double k;
 	// Create a structure to populate and retrieve the extra message info.
 	GESTUREINFO gi;
 
@@ -44,7 +47,7 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch (gi.dwFlags)
 			{
 			case GF_BEGIN:
-				dwarg = LOWORD(gi.ullArguments);
+				dwarg = LODWORD(gi.ullArguments);
 				firstx = gi.ptsLocation.x;
 				first.x = gi.ptsLocation.x;
 				firsty = gi.ptsLocation.y;
@@ -57,6 +60,13 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				secondy = gi.ptsLocation.y;
 				second.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &second);
+				k = (double)(LODWORD(gi.ullArguments)) / (double)(dwarg);
+				glScalef(k, k, 1.0);
+				InvalidateRect(hWnd, NULL, TRUE);
+				first = second;
+				firstx = secondx;
+				firsty = secondy;
+				dwarg = LODWORD(gi.ullArguments);
 				break;
 			}
 			bHandled = TRUE;
