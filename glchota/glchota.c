@@ -4,6 +4,12 @@
 #include <gl\gl.h>
 #include <gl\glu.h>
 
+#define LODWORD(ull) ((DWORD)((ULONGLONG)(ull) & 0x00000000ffffffff))
+
+char configfile[] = ".\\winhello.ini";
+char swidth[10] = "300";
+char sheight[10] = "300";
+
 HMENU menu;
 HDC hDC;
 HGLRC hRC;
@@ -32,6 +38,7 @@ float dscale = 1.0;
 int m[20][901000];
 int max[20];
 int min[20];
+int col[20];
 int l;
 
 float xspan = 0.0;
@@ -77,7 +84,9 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
     switch (message) 
     {
 		case WM_INITDIALOG:
-			CheckDlgButton(hwndDlg,5,acol);
+			for (int i = 1; i != 12; i++)
+				CheckDlgButton(hwndDlg, 4 + i, col[i]);
+			/*CheckDlgButton(hwndDlg,5,acol);
 			CheckDlgButton(hwndDlg,6,bcol);
 			CheckDlgButton(hwndDlg,7,ccol);
 			CheckDlgButton(hwndDlg,8,dcol);
@@ -89,8 +98,11 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 			CheckDlgButton(hwndDlg,14,jcol);
 			CheckDlgButton(hwndDlg,15,kcol);
 			CheckDlgButton(hwndDlg,16,lcol);
-			CheckDlgButton(hwndDlg,17,mcol);
-			SetDlgItemInt(hwndDlg,3,slip,FALSE);
+			CheckDlgButton(hwndDlg,17,mcol);*/
+			for (int i = 1; i != 12; i++)
+				SetDlgItemInt(hwndDlg, 24+i, min[i], FALSE);
+
+			/*SetDlgItemInt(hwndDlg,3,slip,FALSE);
 			SetDlgItemInt(hwndDlg,25,min[1],FALSE);
 			//SendDlgItemMessage(hwndDlg,3,WM_SETTEXT,(WPARAM)0,(LPARAM)"0");
 			//sprintf(workstring,"%f",aspan);
@@ -110,7 +122,7 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 			SetDlgItemInt(hwndDlg,34,min[10],FALSE);
 			SetDlgItemInt(hwndDlg,35,min[11],FALSE);
 			SetDlgItemInt(hwndDlg,36,min[12],FALSE);
-			SetDlgItemInt(hwndDlg,37,min[13],FALSE);
+			SetDlgItemInt(hwndDlg,37,min[13],FALSE);*/
 		break;
         case WM_COMMAND: 
             switch (LOWORD(wParam)) 
@@ -123,8 +135,10 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 					//SendDlgItemMessage(hwndDlg,3,EM_GETLINE,(WPARAM)0,(LPARAM)startsectorstring);
 					//startsector = atoi(startsectorstring);
 					//sscanf(startsectorstring,"%d",&startsector);
-					slip = GetDlgItemInt(hwndDlg,3,NULL,FALSE);
-					min[1] = GetDlgItemInt(hwndDlg,25,NULL,FALSE);
+					//slip = GetDlgItemInt(hwndDlg,3,NULL,FALSE);
+					for (int i = 1; i != 12; i++)
+						min[i] = GetDlgItemInt(hwndDlg, 24+i, NULL, FALSE);
+					/*min[1] = GetDlgItemInt(hwndDlg,25,NULL,FALSE);
 					min[2] = GetDlgItemInt(hwndDlg,26,NULL,FALSE);
 					min[3] = GetDlgItemInt(hwndDlg,27,NULL,FALSE);
 					min[4] = GetDlgItemInt(hwndDlg,28,NULL,FALSE);
@@ -136,49 +150,53 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 					min[10] = GetDlgItemInt(hwndDlg,34,NULL,FALSE);
 					min[11] = GetDlgItemInt(hwndDlg,35,NULL,FALSE);
 					min[12] = GetDlgItemInt(hwndDlg,36,NULL,FALSE);
-					min[13] = GetDlgItemInt(hwndDlg,37,NULL,FALSE);
-                    EndDialog(hwndDlg, wParam); 
+					min[13] = GetDlgItemInt(hwndDlg,37,NULL,FALSE);*/
+                    EndDialog(hwndDlg, wParam);
                     return TRUE; 
 				break;
 				case 5:
-					acol = IsDlgButtonChecked(hwndDlg,5);
-				break;
+					//col[1] = IsDlgButtonChecked(hwndDlg,5);
+				//break;
 				case 6:
-					bcol = IsDlgButtonChecked(hwndDlg,6);
-				break;
+				//	bcol = IsDlgButtonChecked(hwndDlg,6);
+				//break;
 				case 7:
-					ccol = IsDlgButtonChecked(hwndDlg,7);
-				break;
+				//	ccol = IsDlgButtonChecked(hwndDlg,7);
+				//break;
 				case 8:
-					dcol = IsDlgButtonChecked(hwndDlg,8);
-				break;
+//					dcol = IsDlgButtonChecked(hwndDlg,8);
+//				break;
 				case 9:
-					ecol = IsDlgButtonChecked(hwndDlg,9);
-				break;
+					//col[5] = IsDlgButtonChecked(hwndDlg,9);
+					//col[LOWORD(wParam) - 4] = IsDlgButtonChecked(hwndDlg, LOWORD(wParam));
+				//break;
 				case 10:
-					fcol = IsDlgButtonChecked(hwndDlg,10);
-				break;
+//					fcol = IsDlgButtonChecked(hwndDlg,10);
+//				break;
 				case 11:
-					gcol = IsDlgButtonChecked(hwndDlg,11);
-				break;
+//					gcol = IsDlgButtonChecked(hwndDlg,11);
+//				break;
 				case 12:
-					hcol = IsDlgButtonChecked(hwndDlg,12);
-				break;
+//					hcol = IsDlgButtonChecked(hwndDlg,12);
+//				break;
 				case 13:
-					icol = IsDlgButtonChecked(hwndDlg,13);
-				break;
+//					icol = IsDlgButtonChecked(hwndDlg,13);
+//				break;
 				case 14:
-					jcol = IsDlgButtonChecked(hwndDlg,14);
-				break;
+//					jcol = IsDlgButtonChecked(hwndDlg,14);
+//				break;
 				case 15:
-					kcol = IsDlgButtonChecked(hwndDlg,15);
-				break;
+//					kcol = IsDlgButtonChecked(hwndDlg,15);
+//				break;
 				case 16:
-					lcol = IsDlgButtonChecked(hwndDlg,16);
-				break;
+//					lcol = IsDlgButtonChecked(hwndDlg,16);
+//				break;
 				case 17:
-					mcol = IsDlgButtonChecked(hwndDlg,17);
-				break;
+//					mcol = IsDlgButtonChecked(hwndDlg,17);
+//				break;
+				//default:
+					col[LOWORD(wParam) - 4] = IsDlgButtonChecked(hwndDlg, LOWORD(wParam));
+					break;
             }
 		break;
     } 
@@ -220,11 +238,139 @@ int scaledown(int amount)
 	return 0;
 }
 
+int firstx = 0;
+int secondx = 0;
+int firsty = 0;
+int secondy = 0;
+
+POINT first, second;
+DWORD dwarg;
+
+LRESULT
+DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	double k;
+	// Create a structure to populate and retrieve the extra message info.
+	GESTUREINFO gi;
+
+	ZeroMemory(&gi, sizeof(GESTUREINFO));
+
+	gi.cbSize = sizeof(GESTUREINFO);
+
+	BOOL bResult = GetGestureInfo((HGESTUREINFO)lParam, &gi);
+	BOOL bHandled = FALSE;
+
+	if (bResult)
+	{
+		// now interpret the gesture
+		switch (gi.dwID)
+		{
+		case GID_ZOOM:
+			// Code for zooming goes here     
+			switch (gi.dwFlags)
+			{
+			case GF_BEGIN:
+				dwarg = LODWORD(gi.ullArguments);
+				firstx = gi.ptsLocation.x;
+				first.x = gi.ptsLocation.x;
+				firsty = gi.ptsLocation.y;
+				first.y = gi.ptsLocation.y;
+				ScreenToClient(hWnd, &first);
+				break;
+			default:
+				secondx = gi.ptsLocation.x;
+				second.x = gi.ptsLocation.x;
+				secondy = gi.ptsLocation.y;
+				second.y = gi.ptsLocation.y;
+				ScreenToClient(hWnd, &second);
+				k = (double)(LODWORD(gi.ullArguments)) / (double)(dwarg);
+				//glScalef(k, k, 1.0);
+				xscale = xscale * k;
+				yscale = yscale * k;
+				InvalidateRect(hWnd, NULL, TRUE);
+				first = second;
+				firstx = secondx;
+				firsty = secondy;
+				dwarg = LODWORD(gi.ullArguments);
+				break;
+			}
+			bHandled = TRUE;
+			break;
+		case GID_PAN:
+			// Code for panning goes here
+			switch (gi.dwFlags)
+			{
+			case GF_BEGIN:
+				firstx = gi.ptsLocation.x;
+				first.x = gi.ptsLocation.x;
+				firsty = gi.ptsLocation.y;
+				first.y = gi.ptsLocation.y;
+				ScreenToClient(hWnd, &first);
+				break;
+			default:
+				secondx = gi.ptsLocation.x;
+				second.x = gi.ptsLocation.x;
+				secondy = gi.ptsLocation.y;
+				second.y = gi.ptsLocation.y;
+				ScreenToClient(hWnd, &second);
+				glTranslatef(second.x - first.x, first.y - second.y, 0.0);
+				InvalidateRect(hWnd, NULL, TRUE);
+				first = second;
+				firstx = secondx;
+				firsty = secondy;
+				break;
+			}
+			bHandled = TRUE;
+			break;
+		case GID_ROTATE:
+			// Code for rotation goes here
+			bHandled = TRUE;
+			break;
+		case GID_TWOFINGERTAP:
+			// Code for two-finger tap goes here
+			MessageBoxW(hWnd, L"Weehee!", L"two finger tap recieved", MB_OK);
+			bHandled = TRUE;
+			break;
+		case GID_PRESSANDTAP:
+			// Code for roll over goes here
+			bHandled = TRUE;
+			break;
+		default:
+			// A gesture was not recognized
+			break;
+		}
+	}
+	else
+	{
+		DWORD dwErr = GetLastError();
+		if (dwErr > 0)
+		{
+			//MessageBoxW(hWnd, L"Error!", L"Could not retrieve a GESTUREINFO structure.", MB_OK);
+		}
+	}
+	if (bHandled)
+	{
+		return 0;
+	}
+	else
+	{
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+}
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	char text[100];
 	switch(msg)
 	{
+	case WM_GESTURENOTIFY:
+		GESTURECONFIG gc = { 0, GC_ALLGESTURES, 0 };
+		SetGestureConfig(hwnd, 0, 1, &gc, sizeof(GESTURECONFIG));
+		return DefWindowProc(hwnd, WM_GESTURENOTIFY, wParam, lParam);
+		break;
+	case WM_GESTURE:
+		return DecodeGesture(hwnd, msg, wParam, lParam);
+		break;
 	case WM_LBUTTONDOWN:
 		mousex = GET_X_LPARAM(lParam);
 		mousey = GET_Y_LPARAM(lParam);
@@ -237,7 +383,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			deltay = mousey - GET_Y_LPARAM(lParam);
 			mousey = GET_Y_LPARAM(lParam);
 			scrollx(deltax);
-			glTranslatef(0.0, deltay, 0.0);
+			glTranslatef(0.0, deltay/yscale, 0.0);
 			InvalidateRect(hwnd, NULL, TRUE);
 		}
 		break;
@@ -256,15 +402,23 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					xscale = (double)xwidth / l;
 			break;
 		case MK_SHIFT:
-			if (GET_WHEEL_DELTA_WPARAM(wParam)>0)
+			if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+				//{
+				//	if (xspan - (1.0 / xscale) >= 0)
+				//		xspan = xspan - (1.0 / xscale);
+				//}
 			{
-				if (xspan - (1.0 / xscale) >= 0)
-					xspan = xspan - (1.0 / xscale);
+				yscale = yscale * 2;
+				glScalef(1.0, 2.0, 1.0);
 			}
 			else
+				//{
+				//	if (((l - xspan)   *xscale)     > xwidth)
+				//		xspan = xspan + (1.0 / xscale);
+				//}
 			{
-				if (((l - xspan)   *xscale)     > xwidth)
-					xspan = xspan + (1.0 / xscale);
+				yscale = yscale * 0.5;
+				glScalef(1.0, 0.5, 1.0);
 			}
 			break;
 		default:
@@ -286,8 +440,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					//glScalef(2.0,1.0,1.0);
 					break;
 				case VK_DOWN:
-					if (xscale/2.0>(double)xwidth/l)
-						xscale = xscale/2.0;
+					if (xscale * 0.5>(double)xwidth/l)
+						xscale = xscale * 0.5;
 					else
 						xscale = (double)xwidth/l;
 					//xscale = xscale * 0.5;
@@ -341,6 +495,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE:
 			xwidth = LOWORD(lParam);
 			yheight = HIWORD(lParam);
+			snprintf(swidth, 10, "%d", LOWORD(lParam));
+			snprintf(sheight, 10, "%d", HIWORD(lParam));
 			glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 			glLoadIdentity();
 			gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
@@ -353,16 +509,23 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			glColor3f(1.0,1.0,1.0);
 			glPushMatrix();
 			glScalef(xscale,yscale,1.0);
-			//if (open == 1)
-			//	{
-					glBegin(GL_LINE_STRIP);
-					for(int i=0;i<xwidth/xscale;i++)
+			if (open == 1)
+				{
+					for (int iz = 1; iz != 12; iz++)
 					{
-						glVertex2i(i,m[5][i+(int)xspan]);
-						if (i+xspan>l)
-							break;
+						if (GetMenuState(GetMenu(hwnd), iz+10, MF_BYCOMMAND) & MF_CHECKED)
+						//if (col[iz] == BST_CHECKED)
+						{
+							glBegin(GL_LINE_STRIP);
+							for (int i = 0; i < xwidth / xscale; i++)
+							{
+								glVertex2i(i, m[iz][i + (int)xspan]);
+								if (i + xspan > l)
+									break;
+							}
+							glEnd();
+						}
 					}
-					glEnd();
 			
 					/*int x,fx, num=1;
 					glColor3f(1.0,1.0,1.0);
@@ -407,7 +570,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					glCallList(llist);
 					glColor3f(0.0,1.0,0.5);
 					glCallList(mlist);*/
-			//	}
+				}
 			glPopMatrix();
 			glFlush();
 			SwapBuffers(hDC);
@@ -427,6 +590,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					DialogBox(GetModuleHandle(NULL),"MainDialog",hwnd,(DLGPROC)DialogFunc);
 					InvalidateRect(hwnd,NULL,TRUE);
 				break;
+				case 2:
+					WritePrivateProfileStringA("window", "height", sheight, configfile);
+					WritePrivateProfileStringA("window", "width", swidth, configfile);
+				break;
 				case 3:
 				{
 					OPENFILENAME ofn;
@@ -442,17 +609,40 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					ofn.lpstrFileTitle = NULL;
 					ofn.nMaxFileTitle = 0;
 					ofn.lpstrInitialDir = NULL;
-					ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-					GetOpenFileName(&ofn);
-					developmassive(ofn.lpstrFile);
-					//developmassive2(ofn.lpstrFile);
-					open = 1;
-					InvalidateRect(hwnd,NULL,TRUE);
+					ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+					if (GetOpenFileName(&ofn) == TRUE)
+					{
+						developmassive(ofn.lpstrFile);
+						for (int i = 1; i != 12; i++)
+							col[i] = BST_CHECKED;
+						open = 1;
+						InvalidateRect(hwnd, NULL, TRUE);
+					}
+					//else
+					//	DestroyWindow(hwnd);
 				}
+				break;
+				case 11:
+				case 12:
+				case 13:
+				case 14:
+				case 15:
+				case 16:
+				case 17:
+				case 18:
+				case 19:
+				case 20:
+					if (GetMenuState(GetMenu(hwnd), LOWORD(wParam), MF_BYCOMMAND) & MF_CHECKED)
+						CheckMenuItem(GetMenu(hwnd), LOWORD(wParam), MF_BYCOMMAND | MF_UNCHECKED);
+					else
+						CheckMenuItem(GetMenu(hwnd), LOWORD(wParam), MF_BYCOMMAND | MF_CHECKED);
+					InvalidateRect(hwnd, NULL, TRUE);
 				break;
 			}
 		break;
 	case WM_DESTROY:
+			WritePrivateProfileString("window", "height", sheight, configfile);
+			WritePrivateProfileString("window", "width", swidth, configfile);
 			wglMakeCurrent(hDC,NULL);
 			wglDeleteContext(hRC);
 			PostQuitMessage(0);
@@ -470,7 +660,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	WNDCLASS wc = {0,WindowProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),CreateSolidBrush(RGB(0,0,0)),"Menu","MainWindowClass"};
 	RegisterClass(&wc);
 	menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
-	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,CW_USEDEFAULT,NULL,NULL,hInstance,NULL);
+	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,GetPrivateProfileInt("window","width",300,configfile),GetPrivateProfileInt("window","height",300,configfile),NULL,NULL,hInstance,NULL);
 //	developmassive();
 	ShowWindow(hwnd,SW_SHOWDEFAULT);
 	while(GetMessage(&Msg, NULL, 0, 0) > 0)
