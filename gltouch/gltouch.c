@@ -61,7 +61,9 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				second.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &second);
 				k = (double)(LODWORD(gi.ullArguments)) / (double)(dwarg);
-				glScalef(k, k, 1.0);
+				//glScalef(k, k, 1.0);
+				xscale = xscale * k;
+				yscale = yscale * k;
 				InvalidateRect(hWnd, NULL, TRUE);
 				first = second;
 				firstx = secondx;
