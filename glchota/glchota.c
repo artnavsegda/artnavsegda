@@ -44,6 +44,7 @@ int l;
 float xspan = 0.0;
 int xwidth, yheight;
 //double xscale = 1.0;
+POINT mouse;
 int mousex, mousey;
 int deltax, deltay;
 
@@ -358,6 +359,19 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 }
 
+float mousexprev = 0;
+float xscaleprev = 1.0;
+float sourcexprev = 0;
+
+int sourcetodest(int source)
+{
+	if (sourcexprev == 0)
+		return l / ((float)xwidth / (float)mousex);
+	else
+		return sourcexprev - ((mousexprev - mousex)/xscaleprev);
+}
+
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	char text[100];
@@ -383,21 +397,27 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			deltay = mousey - GET_Y_LPARAM(lParam);
 			mousey = GET_Y_LPARAM(lParam);
 			scrollx(deltax);
+			sourcexprev = sourcexprev + (deltax/xscaleprev);
 			glTranslatef(0.0, deltay/yscale, 0.0);
 			InvalidateRect(hwnd, NULL, TRUE);
 		}
 		break;
 	case WM_MOUSEWHEEL:
+		mouse.x = GET_X_LPARAM(lParam);
+		mouse.y = GET_Y_LPARAM(lParam);
+		ScreenToClient(hwnd, &mouse);
+		mousex = mouse.x;
+		mousey = mouse.y;
 		switch (LOWORD(wParam))
 		{
 		case MK_CONTROL | MK_SHIFT:
 			break;
 		case MK_CONTROL:
 			if (GET_WHEEL_DELTA_WPARAM(wParam)>0)
-				xscale = xscale * 2.0;
+				xscale = xscale * 1.1;
 			else
-				if (xscale / 2.0>(double)xwidth / l)
-					xscale = xscale / 2.0;
+				if (xscale / 1.1>(double)xwidth / l)
+					xscale = xscale / 1.1;
 				else
 					xscale = (double)xwidth / l;
 			break;
@@ -430,7 +450,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 		InvalidateRect(hwnd, NULL, TRUE);
 		break;
-	case WM_KEYDOWN:
+	/*case WM_KEYDOWN:
 			if (GetKeyState(VK_CONTROL)<0)
 				switch (wParam)
 				{
@@ -454,8 +474,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				{
 				case VK_RIGHT:
 					//glTranslatef(-100.0,0.0,0.0);
-					/*if (xspan-(1.0/xscale)>=0)
-						xspan=xspan-(1.0/xscale);*/
+					//if (xspan-(1.0/xscale)>=0)
+						//xspan=xspan-(1.0/xscale);
 
 						//if (xspan+(-1.0/xscale)>=0)
 						//xspan=xspan+(-1.0/xscale);
@@ -466,8 +486,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					break;
 				case VK_LEFT:
 					//glTranslatef(100.0,0.0,0.0);
-					/*if ((   (l-xspan)   *xscale)     > xwidth)
-						xspan=xspan+(1.0/xscale);*/
+					//if ((   (l-xspan)   *xscale)     > xwidth)
+						//xspan=xspan+(1.0/xscale);
 					//scrollleft(1);
 					scrollx(1);
 					//xpos=xpos+(1.0*dscale);
@@ -483,7 +503,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					break;
 				}
 			InvalidateRect(hwnd,NULL,TRUE);	
-		break;
+		break;*/
 	case WM_CREATE:
 			hDC = GetDC(hwnd);
 			PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
@@ -501,14 +521,31 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			glLoadIdentity();
 			gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
 			screenwidth = LOWORD(lParam);
+			xscale = (float)xwidth / (float)l;
 			InvalidateRect(hwnd,NULL,TRUE);
 		break;
 	case WM_PAINT:
 		{
+			float scaleX = (float)xwidth / (float)l;
+			float scaleY = 300 / yheight;
+			//float destx = xwidth / 2;
+			float destx = mousex;
+			float desty = yheight / 2;
+//			float sourcex = l / ((float)xwidth / (float)mousex);
+			float sourcex = sourcetodest(destx);
+			float sourcey = 150;
+
+			mousexprev = mousex;
+			xscaleprev = xscale;
+			sourcexprev = sourcex;
+
 			glClear(GL_COLOR_BUFFER_BIT);
 			glColor3f(1.0,1.0,1.0);
 			glPushMatrix();
-			glScalef(xscale,yscale,1.0);
+			glTranslatef(destx, desty, 0.0);
+			glScalef(xscale, yscale, 1.0);
+			glTranslatef(sourcex * -1.0, sourcey * -1.0, 0.0);
+
 			if (open == 1)
 				{
 					for (int iz = 1; iz != 12; iz++)
@@ -517,13 +554,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						//if (col[iz] == BST_CHECKED)
 						{
 							glBegin(GL_LINE_STRIP);
+							for (int i = 0; i<l; i++)
+								glVertex2i(i, m[iz][i]);
+							glEnd();
+							/*glBegin(GL_LINE_STRIP);
 							for (int i = 0; i < xwidth / xscale; i++)
 							{
 								glVertex2i(i, m[iz][i + (int)xspan]);
 								if (i + xspan > l)
 									break;
 							}
-							glEnd();
+							glEnd();*/
 						}
 					}
 			

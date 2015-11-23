@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <windows.h>
+#include <windowsx.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "font.h"
@@ -113,7 +114,7 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 		InvalidateRect(hWnd,NULL,TRUE);
 		break;
 	case WM_PAINT:
-		glClear(GL_COLOR_BUFFER_BIT);
+		//glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();
 		//glScalef(xscale,yscale,1.0);
 		glRectf(10, 10, 20, 20);
@@ -125,10 +126,10 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 		ValidateRect(hWnd,NULL);
 		break;
 	case WM_MOUSEMOVE:
-		//glBegin(GL_POINTS);
-		//glVertex2f(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
-		//glEnd();
-		//InvalidateRect(hWnd, NULL, TRUE);
+		glBegin(GL_POINTS);
+		glVertex2f(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		glEnd();
+		InvalidateRect(hWnd, NULL, TRUE);
 		break;
 	case WM_LBUTTONDOWN:
 		break;
