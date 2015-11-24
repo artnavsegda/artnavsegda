@@ -305,9 +305,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			break;
 		default:
 			if (GET_WHEEL_DELTA_WPARAM(wParam)>0)
-				glTranslatef(0.0, 10.0, 0.0);
-			else
 				glTranslatef(0.0, -10.0, 0.0);
+			else
+				glTranslatef(0.0, 10.0, 0.0);
 			break;
 		}
 		InvalidateRect(hwnd, NULL, TRUE);
