@@ -15,21 +15,7 @@ HDC hDC;
 HGLRC hRC;
 
 #define MAXLENGTH 900000
-int column = 5;
-int acol = BST_CHECKED,bcol = BST_CHECKED,ccol = BST_CHECKED,dcol = BST_CHECKED,ecol = BST_CHECKED,
-fcol = BST_CHECKED,gcol = BST_CHECKED,hcol = BST_CHECKED,icol = BST_CHECKED,jcol = BST_CHECKED,
-kcol = BST_CHECKED,lcol = BST_CHECKED,mcol = BST_CHECKED;
-//int amin=0,bmin=0,cmin=0,dmin=0,emin=0,fomin=0,gmin=0,hmin=0,imin=0,jmin=0,kmin=0,lmin=0,mmin=0;
-//int amax=0,bmax=0,cmax=0,dmax=0,emax=0,fomax=0,gmax=0,hmax=0,imax=0,jmax=0,kmax=0,lmax=0,mmax=0;
-//int massive[20][901000];
 int open = 0;
-int numbers = 1;
-int startsector = 0;
-int length = 0;
-int slip = 1;
-int vslip = 1;
-//float aspan=1.0,bspan=1.0,cspan=1.0,dspan=1.0,espan=1.0,fspan=1.0,gspan=1.0,hspan=1.0,ispan=1.0,jspan=1.0,kspan=1.0,lspan=1.0,mspan=1.0;
-int screenwidth = 2700;
 GLfloat xscale = 1.0;
 GLfloat yscale = 1.0;
 double xpos = 0.0;
@@ -87,43 +73,9 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 		case WM_INITDIALOG:
 			for (int i = 1; i != 12; i++)
 				CheckDlgButton(hwndDlg, 4 + i, col[i]);
-			/*CheckDlgButton(hwndDlg,5,acol);
-			CheckDlgButton(hwndDlg,6,bcol);
-			CheckDlgButton(hwndDlg,7,ccol);
-			CheckDlgButton(hwndDlg,8,dcol);
-			CheckDlgButton(hwndDlg,9,ecol);
-			CheckDlgButton(hwndDlg,10,fcol);
-			CheckDlgButton(hwndDlg,11,gcol);
-			CheckDlgButton(hwndDlg,12,hcol);
-			CheckDlgButton(hwndDlg,13,icol);
-			CheckDlgButton(hwndDlg,14,jcol);
-			CheckDlgButton(hwndDlg,15,kcol);
-			CheckDlgButton(hwndDlg,16,lcol);
-			CheckDlgButton(hwndDlg,17,mcol);*/
 			for (int i = 1; i != 12; i++)
 				SetDlgItemInt(hwndDlg, 24+i, min[i], FALSE);
 
-			/*SetDlgItemInt(hwndDlg,3,slip,FALSE);
-			SetDlgItemInt(hwndDlg,25,min[1],FALSE);
-			//SendDlgItemMessage(hwndDlg,3,WM_SETTEXT,(WPARAM)0,(LPARAM)"0");
-			//sprintf(workstring,"%f",aspan);
-			//SetDlgItemText(hwndDlg,25,workstring);
-			SetDlgItemInt(hwndDlg,26,min[2],FALSE);
-			SetDlgItemInt(hwndDlg,27,min[3],FALSE);
-			SetDlgItemInt(hwndDlg,28,min[4],FALSE);
-			//sprintf(workstring,"%f",dspan);
-			//SetDlgItemText(hwndDlg,28,workstring);
-			//SetDlgItemInt(hwndDlg,29,emin,FALSE);
-			//sprintf(workstring,"%f",espan);
-			//SetDlgItemText(hwndDlg,29,workstring);
-			SetDlgItemInt(hwndDlg,30,min[6],FALSE);
-			SetDlgItemInt(hwndDlg,31,min[7],FALSE);
-			SetDlgItemInt(hwndDlg,32,min[8],FALSE);
-			SetDlgItemInt(hwndDlg,33,min[9],FALSE);
-			SetDlgItemInt(hwndDlg,34,min[10],FALSE);
-			SetDlgItemInt(hwndDlg,35,min[11],FALSE);
-			SetDlgItemInt(hwndDlg,36,min[12],FALSE);
-			SetDlgItemInt(hwndDlg,37,min[13],FALSE);*/
 		break;
         case WM_COMMAND: 
             switch (LOWORD(wParam)) 
@@ -139,63 +91,22 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 					//slip = GetDlgItemInt(hwndDlg,3,NULL,FALSE);
 					for (int i = 1; i != 12; i++)
 						min[i] = GetDlgItemInt(hwndDlg, 24+i, NULL, FALSE);
-					/*min[1] = GetDlgItemInt(hwndDlg,25,NULL,FALSE);
-					min[2] = GetDlgItemInt(hwndDlg,26,NULL,FALSE);
-					min[3] = GetDlgItemInt(hwndDlg,27,NULL,FALSE);
-					min[4] = GetDlgItemInt(hwndDlg,28,NULL,FALSE);
-					//emin = GetDlgItemInt(hwndDlg,29,NULL,FALSE);
-					min[6] = GetDlgItemInt(hwndDlg,30,NULL,FALSE);
-					min[7] = GetDlgItemInt(hwndDlg,31,NULL,FALSE);
-					min[8] = GetDlgItemInt(hwndDlg,32,NULL,FALSE);
-					min[9] = GetDlgItemInt(hwndDlg,33,NULL,FALSE);
-					min[10] = GetDlgItemInt(hwndDlg,34,NULL,FALSE);
-					min[11] = GetDlgItemInt(hwndDlg,35,NULL,FALSE);
-					min[12] = GetDlgItemInt(hwndDlg,36,NULL,FALSE);
-					min[13] = GetDlgItemInt(hwndDlg,37,NULL,FALSE);*/
                     EndDialog(hwndDlg, wParam);
                     return TRUE; 
 				break;
 				case 5:
-					//col[1] = IsDlgButtonChecked(hwndDlg,5);
-				//break;
 				case 6:
-				//	bcol = IsDlgButtonChecked(hwndDlg,6);
-				//break;
 				case 7:
-				//	ccol = IsDlgButtonChecked(hwndDlg,7);
-				//break;
 				case 8:
-//					dcol = IsDlgButtonChecked(hwndDlg,8);
-//				break;
 				case 9:
-					//col[5] = IsDlgButtonChecked(hwndDlg,9);
-					//col[LOWORD(wParam) - 4] = IsDlgButtonChecked(hwndDlg, LOWORD(wParam));
-				//break;
 				case 10:
-//					fcol = IsDlgButtonChecked(hwndDlg,10);
-//				break;
 				case 11:
-//					gcol = IsDlgButtonChecked(hwndDlg,11);
-//				break;
 				case 12:
-//					hcol = IsDlgButtonChecked(hwndDlg,12);
-//				break;
 				case 13:
-//					icol = IsDlgButtonChecked(hwndDlg,13);
-//				break;
 				case 14:
-//					jcol = IsDlgButtonChecked(hwndDlg,14);
-//				break;
 				case 15:
-//					kcol = IsDlgButtonChecked(hwndDlg,15);
-//				break;
 				case 16:
-//					lcol = IsDlgButtonChecked(hwndDlg,16);
-//				break;
 				case 17:
-//					mcol = IsDlgButtonChecked(hwndDlg,17);
-//				break;
-				//default:
 					col[LOWORD(wParam) - 4] = IsDlgButtonChecked(hwndDlg, LOWORD(wParam));
 					break;
             }
@@ -203,46 +114,6 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
     } 
     return FALSE; 
 } 
-
-int scrollx(int amount)
-{
-	if (amount < 0)
-		if (xspan + ((float)amount / xscale) < 0)
-			return 1;
-	if (amount > 0)
-		if (((l - (xspan + ((double)amount / xscale)))   *xscale) <= xwidth)
-			return 1;
-	xspan = xspan + ((float)amount / xscale);
-	return 0;
-}
-
-int scrollleft(int amount)
-{
-	if (((l - (xspan + ((double)amount / xscale)))   *xscale)     > xwidth)
-		xspan = xspan + ((double)amount / xscale);
-	return 0;
-}
-
-int scrollright(int amount)
-{
-	if (xspan - ((double)amount / xscale) >= 0)
-		xspan = xspan - ((double)amount / xscale);
-	return 0;
-}
-
-int scaledown(int amount)
-{
-	if (xscale / (double)amount>(double)xwidth / l)
-		xscale = xscale / (double)amount;
-	else
-		xscale = (double)xwidth / l;
-	return 0;
-}
-
-int firstx = 0;
-int secondx = 0;
-int firsty = 0;
-int secondy = 0;
 
 POINT first, second;
 DWORD dwarg;
@@ -272,16 +143,12 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 			case GF_BEGIN:
 				dwarg = LODWORD(gi.ullArguments);
-				firstx = gi.ptsLocation.x;
 				first.x = gi.ptsLocation.x;
-				firsty = gi.ptsLocation.y;
 				first.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &first);
 				break;
 			default:
-				secondx = gi.ptsLocation.x;
 				second.x = gi.ptsLocation.x;
-				secondy = gi.ptsLocation.y;
 				second.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &second);
 				k = (double)(LODWORD(gi.ullArguments)) / (double)(dwarg);
@@ -290,8 +157,6 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				yscale = yscale * k;
 				InvalidateRect(hWnd, NULL, TRUE);
 				first = second;
-				firstx = secondx;
-				firsty = secondy;
 				dwarg = LODWORD(gi.ullArguments);
 				break;
 			}
@@ -302,23 +167,17 @@ DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch (gi.dwFlags)
 			{
 			case GF_BEGIN:
-				firstx = gi.ptsLocation.x;
 				first.x = gi.ptsLocation.x;
-				firsty = gi.ptsLocation.y;
 				first.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &first);
 				break;
 			default:
-				secondx = gi.ptsLocation.x;
 				second.x = gi.ptsLocation.x;
-				secondy = gi.ptsLocation.y;
 				second.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &second);
 				glTranslatef(second.x - first.x, first.y - second.y, 0.0);
 				InvalidateRect(hWnd, NULL, TRUE);
 				first = second;
-				firstx = secondx;
-				firsty = secondy;
 				break;
 			}
 			bHandled = TRUE;
@@ -396,7 +255,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			mousex = GET_X_LPARAM(lParam);
 			deltay = mousey - GET_Y_LPARAM(lParam);
 			mousey = GET_Y_LPARAM(lParam);
-			scrollx(deltax);
 			sourcexprev = sourcexprev + (deltax/xscaleprev);
 			glTranslatef(0.0, deltay/yscale, 0.0);
 			InvalidateRect(hwnd, NULL, TRUE);
@@ -423,19 +281,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			break;
 		case MK_SHIFT:
 			if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
-				//{
-				//	if (xspan - (1.0 / xscale) >= 0)
-				//		xspan = xspan - (1.0 / xscale);
-				//}
 			{
 				yscale = yscale * 2;
 				glScalef(1.0, 2.0, 1.0);
 			}
 			else
-				//{
-				//	if (((l - xspan)   *xscale)     > xwidth)
-				//		xspan = xspan + (1.0 / xscale);
-				//}
 			{
 				yscale = yscale * 0.5;
 				glScalef(1.0, 0.5, 1.0);
@@ -450,23 +300,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 		InvalidateRect(hwnd, NULL, TRUE);
 		break;
-	/*case WM_KEYDOWN:
+	case WM_KEYDOWN:
 			if (GetKeyState(VK_CONTROL)<0)
 				switch (wParam)
 				{
 				case VK_UP:
 					xscale = xscale * 2.0;
-					//dscale = dscale / 2;
-					//glScalef(2.0,1.0,1.0);
 					break;
 				case VK_DOWN:
 					if (xscale * 0.5>(double)xwidth/l)
 						xscale = xscale * 0.5;
 					else
 						xscale = (double)xwidth/l;
-					//xscale = xscale * 0.5;
-					//dscale = dscale * 2;
-					//glScalef(0.5,1.0,1.0);
 					break;
 				}
 			else
@@ -479,7 +324,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 						//if (xspan+(-1.0/xscale)>=0)
 						//xspan=xspan+(-1.0/xscale);
-					scrollx(-1);
 					//scrollright(1);
 					//xpos=xpos-(1.0*dscale);
 					InvalidateRect(hwnd,NULL,TRUE);
@@ -489,7 +333,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					//if ((   (l-xspan)   *xscale)     > xwidth)
 						//xspan=xspan+(1.0/xscale);
 					//scrollleft(1);
-					scrollx(1);
 					//xpos=xpos+(1.0*dscale);
 					InvalidateRect(hwnd,NULL,TRUE);
 					break;
@@ -503,7 +346,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					break;
 				}
 			InvalidateRect(hwnd,NULL,TRUE);	
-		break;*/
+		break;
 	case WM_CREATE:
 			hDC = GetDC(hwnd);
 			PIXELFORMATDESCRIPTOR pfd = {sizeof(PIXELFORMATDESCRIPTOR),1,PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,8,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0 };
@@ -520,7 +363,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 			glLoadIdentity();
 			gluOrtho2D(0.0,(GLdouble)LOWORD(lParam),0.0,(GLdouble)HIWORD(lParam));
-			screenwidth = LOWORD(lParam);
 			xscale = (float)xwidth / (float)l;
 			InvalidateRect(hwnd,NULL,TRUE);
 		break;
@@ -557,60 +399,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 							for (int i = 0; i<l; i++)
 								glVertex2i(i, m[iz][i]);
 							glEnd();
-							/*glBegin(GL_LINE_STRIP);
-							for (int i = 0; i < xwidth / xscale; i++)
-							{
-								glVertex2i(i, m[iz][i + (int)xspan]);
-								if (i + xspan > l)
-									break;
-							}
-							glEnd();*/
 						}
 					}
 			
-					/*int x,fx, num=1;
-					glColor3f(1.0,1.0,1.0);
-					while (num<13)
-					{
-						glBegin(GL_LINE_STRIP);
-						x = xpos;
-						fx = 0;
-						while(x < length)
-						{
-							glVertex2i(fx,(massive[num][x]-amin));
-							x++;
-							fx++;
-							
-						}
-						glEnd();
-						num++;
-					}*/
-					/*glColor3f(0.0,0.5,1.0);
-					glCallList(alist);
-					glColor3f(1.0,0.0,0.0);
-					glCallList(blist);
-					glColor3f(0.0,1.0,0.0);
-					glCallList(clist);
-					glColor3f(0.0,0.0,1.0);
-					glCallList(dlist);
-					glColor3f(1.0,1.0,0.0);
-					glCallList(elist);
-					glColor3f(0.0,1.0,1.0);
-					glCallList(flist);
-					glColor3f(1.0,0.0,1.0);
-					glCallList(glist);
-					glColor3f(0.5,0.0,1.0);
-					glCallList(hlist);
-					glColor3f(1.0,0.0,0.5);
-					glCallList(ilist);
-					glColor3f(0.5,1.0,0.0);
-					glCallList(jlist);
-					glColor3f(0.0,0.5,0.1);
-					glCallList(klist);
-					glColor3f(1.0,0.0,0.5);
-					glCallList(llist);
-					glColor3f(0.0,1.0,0.5);
-					glCallList(mlist);*/
 				}
 			glPopMatrix();
 			glFlush();
@@ -702,7 +493,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	RegisterClass(&wc);
 	menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
 	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,GetPrivateProfileInt("window","width",300,configfile),GetPrivateProfileInt("window","height",300,configfile),NULL,NULL,hInstance,NULL);
-//	developmassive();
 	ShowWindow(hwnd,SW_SHOWDEFAULT);
 	while(GetMessage(&Msg, NULL, 0, 0) > 0)
 	{
