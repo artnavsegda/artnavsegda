@@ -248,6 +248,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		mousex = GET_X_LPARAM(lParam);
 		mousey = GET_Y_LPARAM(lParam);
 		break;
+	case WM_LBUTTONDBLCLK:
+		mousex = GET_X_LPARAM(lParam);
+		mousey = GET_Y_LPARAM(lParam);
+		xscale = xscale * 2.0;
+		InvalidateRect(hwnd, NULL, TRUE);
+		break;
 	case WM_MOUSEMOVE:
 		if (LOWORD(wParam) == MK_LBUTTON)
 		{
@@ -503,7 +509,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 {
 	MSG Msg;
 	HWND hwnd;
-	WNDCLASS wc = {0,WindowProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),CreateSolidBrush(RGB(0,0,0)),"Menu","MainWindowClass"};
+	WNDCLASS wc = {CS_DBLCLKS,WindowProc,0,0,hInstance,LoadIcon(hInstance, "Window"),LoadCursor(NULL, IDC_ARROW),CreateSolidBrush(RGB(0,0,0)),"Menu","MainWindowClass"};
 	RegisterClass(&wc);
 	menu = GetSubMenu(LoadMenu(hInstance,"Menu"),0);
 	hwnd = CreateWindow("MainWindowClass","Window",WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,GetPrivateProfileInt("window","width",300,configfile),GetPrivateProfileInt("window","height",300,configfile),NULL,NULL,hInstance,NULL);
