@@ -260,6 +260,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			InvalidateRect(hwnd, NULL, TRUE);
 		}
 		break;
+	case WM_MOUSEHWHEEL:
+		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+		{
+			sourcexprev = sourcexprev + (10 / xscaleprev);
+			InvalidateRect(hwnd, NULL, TRUE);
+		}
+		else
+		{
+			sourcexprev = sourcexprev - (10 / xscaleprev);
+			InvalidateRect(hwnd, NULL, TRUE);
+		}
+		break;
 	case WM_MOUSEWHEEL:
 		mouse.x = GET_X_LPARAM(lParam);
 		mouse.y = GET_Y_LPARAM(lParam);
@@ -326,6 +338,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						//xspan=xspan+(-1.0/xscale);
 					//scrollright(1);
 					//xpos=xpos-(1.0*dscale);
+					sourcexprev = sourcexprev + (10 / xscaleprev);
 					InvalidateRect(hwnd,NULL,TRUE);
 					break;
 				case VK_LEFT:
@@ -334,6 +347,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 						//xspan=xspan+(1.0/xscale);
 					//scrollleft(1);
 					//xpos=xpos+(1.0*dscale);
+					sourcexprev = sourcexprev - (10 / xscaleprev);
 					InvalidateRect(hwnd,NULL,TRUE);
 					break;
 				case VK_UP:
