@@ -20,6 +20,16 @@ LRESULT CALLBACK WndProc(HWND hWnd,UINT	message,WPARAM wParam,LPARAM lParam)
 	static HDC hDC;
 	switch (message)
 	{
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case 0:
+			DestroyWindow(hWnd);
+			break;
+		case 12:
+			CheckMenuItem(GetMenu(hWnd), 12, MF_BYCOMMAND | MF_CHECKED);
+			break;
+		}
 	case WM_MOUSEWHEEL:
 		switch (LOWORD(wParam))
 		{
