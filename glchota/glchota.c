@@ -397,7 +397,20 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch(msg)
 	{
 	case WM_CONTEXTMENU:
-		TrackPopupMenu(menu, TPM_LEFTALIGN, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), 0, hwnd, NULL);
+		mousex = GET_X_LPARAM(lParam);
+		mousey = GET_Y_LPARAM(lParam);
+		//xscale = xscale * 2.0;
+		if (xscale / 1.1 > (double)xwidth / l)
+		{
+			//xscale = xscale / 1.1;
+			animate(hwnd, 5, 0.0, 0.0, 0.9);
+		}
+		else
+		{
+			xscale = (double)xwidth / l;
+		}
+		InvalidateRect(hwnd, NULL, TRUE);
+		//TrackPopupMenu(menu, TPM_LEFTALIGN, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), 0, hwnd, NULL);
 		break;
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
