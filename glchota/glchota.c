@@ -3,6 +3,7 @@
 #include <windowsx.h>
 #include <gl\gl.h>
 #include <gl\glu.h>
+#include "font.h"
 
 #define VSYNC 1
 
@@ -10,6 +11,8 @@
 
 typedef BOOL(APIENTRY *PFNWGLSWAPINTERVALFARPROC)(int);
 PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT;
+
+GLuint fontOffset;
 
 char configfile[] = ".\\glchota.ini";
 char swidth[10] = "300";
@@ -42,6 +45,58 @@ int deltax, deltay;
 int leveli = 0;
 float level[20];
 
+char globalmetricsfilename[255];
+
+int writemetrics(char filemetricsname[])
+{
+	char filemetricspath[255];
+	sprintf(filemetricspath, ".\\%s.metrics", filemetricsname);
+	FILE *filemetrics = fopen(filemetricspath, "w");
+	fwrite(level, sizeof(level), 1, filemetrics);
+	return 0;
+}
+
+int makedefaultmetrics(void)
+{
+	FILE *defaultmetrics = fopen(".\\default.metrics", "w");
+	memset(level, 0, sizeof(level));
+	fwrite(level, sizeof(level), 1, defaultmetrics);
+	fclose(defaultmetrics);
+	return 0;
+}
+
+int openmetrics(char basepath[])
+{
+	FILE *filemetrics;
+	char metricsfilename[255];
+	sprintf(metricsfilename, ".\\%s.metrics", basepath);
+	filemetrics = fopen(metricsfilename,"r");
+	if (filemetrics == NULL)
+	{
+		filemetrics = fopen(".\\default.metrics", "r");
+		if (filemetrics == NULL)
+		{
+			fclose(filemetrics);
+			makedefaultmetrics();
+			return 0;
+		}
+	}
+	fread(level, sizeof(level), 1, filemetrics);
+	fclose(filemetrics);
+	return 0;
+}
+
+int developmetrics(char filename[])
+{
+	char drive[255];
+	char dir[255];
+	char ext[255];
+	_splitpath(filename, drive, dir, globalmetricsfilename, ext);
+	openmetrics(globalmetricsfilename);
+	return 0;
+}
+
+
 int developmassive(char filename[])
 {
 	l = 0;
@@ -55,6 +110,8 @@ int developmassive(char filename[])
 	}
 	else
 		open = 1;
+	developmetrics(filename);
+	//makedefaultmetrics();
 	memset(max,0,sizeof(max));
 	memset(max,0,sizeof(min));
 	while (fscanf(sora,"%d %d %d %d %d %d %d %d %d %d %d %d %d\n", &m[1][l],&m[2][l],&m[3][l],&m[4][l],&m[5][l],&m[6][l],&m[7][l],&m[8][l],&m[9][l],&m[10][l],&m[11][l],&m[12][l],&m[13][l])!=EOF)
@@ -72,6 +129,7 @@ int developmassive(char filename[])
 	printf("length is %d\n",l);
 	for(int i=1;i<=13;i++)
 		printf("%d: min %d, max %d, span %d\n",i,min[i],max[i],max[i]-min[i]);
+	fclose(sora);
 	return 0;
 }
 
@@ -284,7 +342,7 @@ int render(HWND hwnd)
 				glPushMatrix();
 				glTranslatef(0.0, level[iz], 0.0);
 				if (iz == leveli)
-					glColor3f(1.0, 0.0, 0.0);
+					glColor3f(1.0, 1.0, 0.0);
 				else
 					glColor3f(1.0, 1.0, 1.0);
 				glBegin(GL_LINE_STRIP);
@@ -297,6 +355,20 @@ int render(HWND hwnd)
 
 	}
 	glPopMatrix();
+
+	char string[100];
+
+	glRasterPos2i(10, 10);
+	glPushAttrib(GL_LIST_BIT);
+	glListBase(fontOffset);
+	snprintf(string, 10, "%10d", (int)sourcex);
+	glCallLists(10, GL_UNSIGNED_BYTE, string);
+	glRasterPos2i(10, 30);
+	snprintf(string, 10, "%10d", m[leveli][(int)sourcex]);
+	glCallLists(10, GL_UNSIGNED_BYTE, string);
+	glPopAttrib();
+
+
 	glBegin(GL_LINES);
 	glVertex2i(mousex, 0);
 	glVertex2i(mousex, yheight);
@@ -396,6 +468,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		wglMakeCurrent(hDC, hRC);
 		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALFARPROC)wglGetProcAddress("wglSwapIntervalEXT");
 		wglSwapIntervalEXT(VSYNC);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		fontOffset = glGenLists(128);
+		for (GLuint i = 32; i < 127; i++)
+		{
+			glNewList(i + fontOffset, GL_COMPILE);
+			glBitmap(8, 13, 0.0, 2.0, 10.0, 0.0, font[i - 32]);
+			glEndList();
+		}
+		glListBase(fontOffset);
 		openrecent(hwnd);
 		InvalidateRect(hwnd, NULL, TRUE);
 		//SendMessage(hwnd, WM_COMMAND,3,0);
@@ -405,6 +486,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		WritePrivateProfileString("window", "width", swidth, configfile);
 		wglMakeCurrent(hDC, NULL);
 		wglDeleteContext(hRC);
+		if (open == 1)
+		{
+			writemetrics(globalmetricsfilename);
+		}
 		PostQuitMessage(0);
 		break;
 	case WM_GESTURENOTIFY:
@@ -475,6 +560,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			case '9':
 				leveli = wParam - 0x30;
 				break;
+			case 0x41:
+			case 0x42:
+			case 0x43:
+			case 0x44:
+				leveli = wParam - 0x41 + 10;
+				break;
 			default:
 				break;
 			}
@@ -522,12 +613,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
 		{
 			//sourcexprev = sourcexprev + (10 / xscaleprev);
-			//animate(hwnd, 3, 3.0, 0.0, 1.0);
+			animate(hwnd, 5, 5.0, 0.0, 1.0);
 		}
 		else
 		{
 			//sourcexprev = sourcexprev - (10 / xscaleprev);
-			//animate(hwnd, 3, -3.0, 0.0, 1.0);
+			animate(hwnd, 5, -5.0, 0.0, 1.0);
 		}
 		InvalidateRect(hwnd, NULL, TRUE);
 		break;
@@ -573,12 +664,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		default:
 			if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
 			{
-				//animate(hwnd, 5, 0.0, -5.0, 1.0);
+				animate(hwnd, 5, 0.0, -5.0, 1.0);
 				//glTranslatef(0.0, -10.0, 0.0);
 			}
 			else
 			{
-				//animate(hwnd, 5, 0.0, 5.0, 1.0);
+				animate(hwnd, 5, 0.0, 5.0, 1.0);
 				//glTranslatef(0.0, 10.0, 0.0);
 			}
 			break;
