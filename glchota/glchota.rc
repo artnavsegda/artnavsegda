@@ -21,6 +21,9 @@ Menu MENU
 	MENUITEM "Eight", 18
 	MENUITEM "Nine", 19
 	MENUITEM "Ten", 20 
+	MENUITEM "Eleven", 21
+	MENUITEM "Twelve", 22
+	MENUITEM "Thirteen", 23
     }
 }
 
@@ -41,7 +44,7 @@ CAPTION "Select range"
 		AUTOCHECKBOX "Four", 8, 100, 40, 40, 10
 		EDITTEXT 28, 150, 40, 40, 10
 		AUTOCHECKBOX "Five", 9, 100, 50, 40, 10
-		//    EDITTEXT 29, 150, 50, 40, 10
+		EDITTEXT 29, 150, 50, 40, 10
 		AUTOCHECKBOX "Six", 10, 100, 60, 40, 10
 		EDITTEXT 30, 150, 60, 40, 10
 		AUTOCHECKBOX "Seven", 11, 100, 70, 40, 10
