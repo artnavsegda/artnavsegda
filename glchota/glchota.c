@@ -53,6 +53,8 @@ int developmassive(char filename[])
 		printf("fucking error");
 		exit(0);
 	}
+	else
+		open = 1;
 	memset(max,0,sizeof(max));
 	memset(max,0,sizeof(min));
 	while (fscanf(sora,"%d %d %d %d %d %d %d %d %d %d %d %d %d\n", &m[1][l],&m[2][l],&m[3][l],&m[4][l],&m[5][l],&m[6][l],&m[7][l],&m[8][l],&m[9][l],&m[10][l],&m[11][l],&m[12][l],&m[13][l])!=EOF)
@@ -243,7 +245,10 @@ int openrecent(HWND hwnd)
 	//WritePrivateProfileString("window", "filename", ofn.lpstrFile, configfile);
 	GetPrivateProfileString("window", "filename", "default", filename, 260, configfile);
 	//GetPrivateProfileInt("window", "width", 300, configfile);
-	SendMessage(hwnd, WM_COMMAND, 3, 0);
+	if (strcmp(filename, "default") == 0)
+		SendMessage(hwnd, WM_COMMAND, 3, 0);
+	else
+		developmassive(filename);
 	return 0;
 }
 
@@ -356,9 +361,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			{
 				WritePrivateProfileString("window", "filename", ofn.lpstrFile, configfile);
 				developmassive(ofn.lpstrFile);
-				for (int i = 1; i != 12; i++)
-					col[i] = BST_CHECKED;
-				open = 1;
 				InvalidateRect(hwnd, NULL, TRUE);
 			}
 			//else
@@ -395,6 +397,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALFARPROC)wglGetProcAddress("wglSwapIntervalEXT");
 		wglSwapIntervalEXT(VSYNC);
 		openrecent(hwnd);
+		InvalidateRect(hwnd, NULL, TRUE);
 		//SendMessage(hwnd, WM_COMMAND,3,0);
 		break;
 	case WM_DESTROY:
@@ -519,12 +522,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
 		{
 			//sourcexprev = sourcexprev + (10 / xscaleprev);
-			animate(hwnd, 5, 5.0, 0.0, 1.0);
+			//animate(hwnd, 3, 3.0, 0.0, 1.0);
 		}
 		else
 		{
 			//sourcexprev = sourcexprev - (10 / xscaleprev);
-			animate(hwnd, 5, -5.0, 0.0, 1.0);
+			//animate(hwnd, 3, -3.0, 0.0, 1.0);
 		}
 		InvalidateRect(hwnd, NULL, TRUE);
 		break;
@@ -551,7 +554,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 					animate(hwnd, 5, 0.0, 0.0, 0.95);
 				}
 				else
+				{
 					xscale = (double)xwidth / l;
+				}
 			break;
 		case MK_SHIFT:
 			if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
@@ -566,12 +571,16 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 		default:
-			if (GET_WHEEL_DELTA_WPARAM(wParam)>0)
-				animate(hwnd, 5, 0.0, -5.0, 1.0);
+			if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+			{
+				//animate(hwnd, 5, 0.0, -5.0, 1.0);
 				//glTranslatef(0.0, -10.0, 0.0);
+			}
 			else
-				animate(hwnd, 5, 0.0, 5.0, 1.0);
+			{
+				//animate(hwnd, 5, 0.0, 5.0, 1.0);
 				//glTranslatef(0.0, 10.0, 0.0);
+			}
 			break;
 		}
 		InvalidateRect(hwnd, NULL, TRUE);
