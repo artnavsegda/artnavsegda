@@ -4,7 +4,12 @@
 #include <gl\gl.h>
 #include <gl\glu.h>
 
+#define VSYNC 1
+
 #define LODWORD(ull) ((DWORD)((ULONGLONG)(ull) & 0x00000000ffffffff))
+
+typedef BOOL(APIENTRY *PFNWGLSWAPINTERVALFARPROC)(int);
+PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT;
 
 char configfile[] = ".\\glchota.ini";
 char swidth[10] = "300";
@@ -387,6 +392,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		SetPixelFormat(hDC, ChoosePixelFormat(hDC, &pfd), &pfd);
 		hRC = wglCreateContext(hDC);
 		wglMakeCurrent(hDC, hRC);
+		wglSwapIntervalEXT = (PFNWGLSWAPINTERVALFARPROC)wglGetProcAddress("wglSwapIntervalEXT");
+		wglSwapIntervalEXT(VSYNC);
 		openrecent(hwnd);
 		//SendMessage(hwnd, WM_COMMAND,3,0);
 		break;
