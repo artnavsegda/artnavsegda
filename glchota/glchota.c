@@ -36,14 +36,14 @@ int col[20];
 int l;
 
 float xspan = 0.0;
-int xwidth, yheight;
+int xwidth = 100, yheight = 100;
 //double xscale = 1.0;
 POINT mouse;
-int mousex, mousey;
-int deltax, deltay;
+int mousex = 0, mousey = 0;
+int deltax = 0, deltay = 0;
 
 int leveli = 0;
-float level[20];
+int level[20];
 
 char globalmetricsfilename[255];
 
@@ -76,7 +76,6 @@ int openmetrics(char basepath[])
 		filemetrics = fopen(".\\default.metrics", "r");
 		if (filemetrics == NULL)
 		{
-			fclose(filemetrics);
 			makedefaultmetrics();
 			return 0;
 		}
@@ -142,7 +141,7 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 			for (int i = 1; i <= 13; i++)
 				CheckDlgButton(hwndDlg, 4 + i, col[i]);
 			for (int i = 1; i <= 13; i++)
-				SetDlgItemInt(hwndDlg, 24+i, min[i], FALSE);
+				SetDlgItemInt(hwndDlg, 24+i, level[i], TRUE);
 
 		break;
         case WM_COMMAND: 
@@ -342,7 +341,7 @@ int render(HWND hwnd)
 				glPushMatrix();
 				glTranslatef(0.0, level[iz], 0.0);
 				if (iz == leveli)
-					glColor3f(1.0, 1.0, 0.0);
+					glColor3f(1.0, 1.0, 0.5);
 				else
 					glColor3f(1.0, 1.0, 1.0);
 				glBegin(GL_LINE_STRIP);
@@ -361,10 +360,10 @@ int render(HWND hwnd)
 	glRasterPos2i(10, 10);
 	glPushAttrib(GL_LIST_BIT);
 	glListBase(fontOffset);
-	snprintf(string, 10, "%10d", (int)sourcex);
+	snprintf(string, 10, "%9d", (int)sourcex);
 	glCallLists(10, GL_UNSIGNED_BYTE, string);
 	glRasterPos2i(10, 30);
-	snprintf(string, 10, "%10d", m[leveli][(int)sourcex]);
+	snprintf(string, 10, "%9d", m[leveli][(int)sourcex]);
 	glCallLists(10, GL_UNSIGNED_BYTE, string);
 	glPopAttrib();
 
