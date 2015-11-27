@@ -15,8 +15,13 @@ PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT;
 GLuint fontOffset;
 
 char configfile[] = ".\\glchota.ini";
-char swidth[10] = "300";
-char sheight[10] = "300";
+
+BOOL WritePrivateProfileInt(LPCTSTR lpAppName, LPCTSTR lpKeyName, int Value, LPCTSTR lpFileName)
+{
+	char Buffer[16];
+	sprintf(Buffer, "%d", Value);
+	return WritePrivateProfileString(lpAppName, lpKeyName, Buffer, lpFileName);
+}
 
 HMENU menu;
 HDC hDC;
@@ -46,6 +51,36 @@ int leveli = 0;
 int level[20];
 
 char globalmetricsfilename[255];
+
+/*int bindecode(hwnd)
+{
+	unsigned int yo = 0;
+
+	for (int i = 1; i <= 13; i++)
+	{
+		int state = 0;
+		
+		state = yo > i & 1;
+
+		if (state == 1);
+			CheckMenuItem(GetMenu(hwnd), i + 10, MF_BYCOMMAND | MF_CHECKED);
+	}
+
+	return 0;
+}
+
+int binencode(hwnd)
+{
+	unsigned int yo = 0;
+
+	for (int i = 1; i <= 13; i++)
+	{
+		int state = GetMenuState(GetMenu(hwnd), i + 10, MF_BYCOMMAND) & MF_CHECKED;
+		yo = yo + state < i;
+	}
+
+	return 0;
+}*/
 
 int writemetrics(char filemetricsname[])
 {
@@ -95,6 +130,22 @@ int developmetrics(char filename[])
 	return 0;
 }
 
+GLuint lines[20];
+
+int makelists()
+{
+	for (int iz = 1; iz <= 13; iz++)
+	{
+		lines[iz] = glGenLists(1);
+		glNewList(lines[iz], GL_COMPILE);
+		glBegin(GL_LINE_STRIP);
+		for (int i = 0; i<l; i++)
+			glVertex2i(i, m[iz][i]);
+		glEnd();
+		glEndList();
+	}
+	return 0;
+}
 
 int developmassive(char filename[])
 {
@@ -129,6 +180,7 @@ int developmassive(char filename[])
 	for(int i=1;i<=13;i++)
 		printf("%d: min %d, max %d, span %d\n",i,min[i],max[i],max[i]-min[i]);
 	fclose(sora);
+	makelists();
 	return 0;
 }
 
@@ -309,6 +361,8 @@ int openrecent(HWND hwnd)
 	return 0;
 }
 
+static DWORD rgbCurrent = 0x00ffff00;        // initial color selection
+
 int render(HWND hwnd)
 {
 	double scaleX = (double)xwidth / (double)l;
@@ -341,13 +395,14 @@ int render(HWND hwnd)
 				glPushMatrix();
 				glTranslatef(0.0, level[iz], 0.0);
 				if (iz == leveli)
-					glColor3f(1.0, 1.0, 0.5);
+					glColor3ub(GetRValue(rgbCurrent), GetGValue(rgbCurrent), GetBValue(rgbCurrent));
 				else
 					glColor3f(1.0, 1.0, 1.0);
-				glBegin(GL_LINE_STRIP);
+				/*glBegin(GL_LINE_STRIP);
 				for (int i = 0; i<l; i++)
 					glVertex2i(i, m[iz][i]);
-				glEnd();
+				glEnd();*/
+				glCallList(lines[iz]);
 				glPopMatrix();
 			}
 		}
@@ -422,11 +477,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			InvalidateRect(hwnd, NULL, TRUE);
 			break;
 		case 2:
-			WritePrivateProfileStringA("window", "height", sheight, configfile);
-			WritePrivateProfileStringA("window", "width", swidth, configfile);
+			WritePrivateProfileInt("window", "height", yheight, configfile);
+			WritePrivateProfileInt("window", "width", xwidth, configfile);
+			if (open == 1)
+			{
+				writemetrics(globalmetricsfilename);
+			}
 			break;
 		case 3:
 		{
+			sourcexprev = 0;
+			xscaleprev = 1.0;
 			OPENFILENAME ofn;
 			char szFile[260];
 			ZeroMemory(&ofn, sizeof(ofn));
@@ -451,6 +512,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			//	DestroyWindow(hwnd);
 		}
 		break;
+		case 4:
+			;
+			CHOOSECOLOR cc;                 // common dialog box structure 
+			static COLORREF acrCustClr[16]; // array of custom colors 
+			HBRUSH hbrush;                  // brush handle
+
+			ZeroMemory(&cc, sizeof(cc));
+			cc.lStructSize = sizeof(cc);
+			cc.hwndOwner = hwnd;
+			cc.lpCustColors = (LPDWORD)acrCustClr;
+			cc.rgbResult = rgbCurrent;
+			cc.Flags = CC_FULLOPEN | CC_RGBINIT;
+
+			if (ChooseColor(&cc) == TRUE)
+			{
+				hbrush = CreateSolidBrush(cc.rgbResult);
+				rgbCurrent = cc.rgbResult;
+			}
+			break;
 		case 11:
 		case 12:
 		case 13:
@@ -494,8 +574,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		//SendMessage(hwnd, WM_COMMAND,3,0);
 		break;
 	case WM_DESTROY:
-		WritePrivateProfileString("window", "height", sheight, configfile);
-		WritePrivateProfileString("window", "width", swidth, configfile);
+		WritePrivateProfileInt("window", "height", yheight, configfile);
+		WritePrivateProfileInt("window", "width", xwidth, configfile);
 		wglMakeCurrent(hDC, NULL);
 		wglDeleteContext(hRC);
 		if (open == 1)
@@ -530,26 +610,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			switch (wParam)
 			{
 			case VK_RIGHT:
-				//glTranslatef(-100.0,0.0,0.0);
-				//if (xspan-(1.0/xscale)>=0)
-				//xspan=xspan-(1.0/xscale);
-
-				//if (xspan+(-1.0/xscale)>=0)
-				//xspan=xspan+(-1.0/xscale);
-				//scrollright(1);
-				//xpos=xpos-(1.0*dscale);
-				//sourcexprev = sourcexprev + (10 / xscaleprev);
-				//InvalidateRect(hwnd, NULL, TRUE);
 				animate(hwnd, 5, 5.0, 0.0, 1.0);
 				break;
 			case VK_LEFT:
-				//glTranslatef(100.0,0.0,0.0);
-				//if ((   (l-xspan)   *xscale)     > xwidth)
-				//xspan=xspan+(1.0/xscale);
-				//scrollleft(1);
-				//xpos=xpos+(1.0*dscale);
-				//sourcexprev = sourcexprev - (10 / xscaleprev);
-				//InvalidateRect(hwnd, NULL, TRUE);
 				animate(hwnd, 5, -5.0, 0.0, 1.0);
 				break;
 			case VK_UP:
@@ -697,8 +760,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE:
 		xwidth = LOWORD(lParam);
 		yheight = HIWORD(lParam);
-		snprintf(swidth, 10, "%d", LOWORD(lParam));
-		snprintf(sheight, 10, "%d", HIWORD(lParam));
 		glViewport(0, 0, LOWORD(lParam), HIWORD(lParam));
 		glLoadIdentity();
 		gluOrtho2D(0.0, (GLdouble)LOWORD(lParam), 0.0, (GLdouble)HIWORD(lParam));
