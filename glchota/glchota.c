@@ -5,6 +5,8 @@
 #include <gl\glu.h>
 #include "font.h"
 
+float colors[14][3] = { { 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 } };
+
 #define VSYNC 1
 
 #define LODWORD(ull) ((DWORD)((ULONGLONG)(ull) & 0x00000000ffffffff))
@@ -397,7 +399,7 @@ int render(HWND hwnd)
 				if (iz == leveli)
 					glColor3ub(GetRValue(rgbCurrent), GetGValue(rgbCurrent), GetBValue(rgbCurrent));
 				else
-					glColor3f(1.0, 1.0, 1.0);
+					glColor3ub(colors[iz][1], colors[iz][2], colors[iz][3]);
 				/*glBegin(GL_LINE_STRIP);
 				for (int i = 0; i<l; i++)
 					glVertex2i(i, m[iz][i]);
@@ -530,6 +532,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				hbrush = CreateSolidBrush(cc.rgbResult);
 				rgbCurrent = cc.rgbResult;
 			}
+			colors[leveli][1] = GetRValue(rgbCurrent);
+			colors[leveli][2] = GetGValue(rgbCurrent);
+			colors[leveli][3] = GetBValue(rgbCurrent);
 			break;
 		case 11:
 		case 12:
