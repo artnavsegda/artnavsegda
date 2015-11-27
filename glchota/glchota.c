@@ -54,7 +54,7 @@ int level[20];
 
 char globalmetricsfilename[255];
 
-/*int bindecode(hwnd)
+int bindecode(HWND hwnd)
 {
 	unsigned int yo = 0;
 
@@ -71,7 +71,7 @@ char globalmetricsfilename[255];
 	return 0;
 }
 
-int binencode(hwnd)
+int binencode(HWND hwnd)
 {
 	unsigned int yo = 0;
 
@@ -82,7 +82,7 @@ int binencode(hwnd)
 	}
 
 	return 0;
-}*/
+}
 
 int writemetrics(char filemetricsname[])
 {
@@ -380,7 +380,8 @@ int render(HWND hwnd)
 	double desty = yheight / 2;
 	//float sourcex = l / ((float)xwidth / (float)mousex);
 	double sourcex = sourcetodest(destx);
-	double sourcey = 150;
+	//double sourcey = 150;
+	double sourcey = 0;
 
 	mousexprev = mousex;
 	xscaleprev = xscale;
@@ -392,6 +393,11 @@ int render(HWND hwnd)
 	glTranslatef(destx, desty+yoffset, 0.0);
 	glScalef(xscale, yscale, 1.0);
 	glTranslatef(sourcex * -1.0, sourcey * -1.0, 0.0);
+
+	glBegin(GL_LINES);
+	glVertex2i(0, 0);
+	glVertex2i(l, 0);
+	glEnd();
 
 	if (open == 1)
 	{
@@ -447,7 +453,8 @@ int animate(HWND hwnd, int count, int xdelta, int ydelta, double zoom)
 	{
 		sourcexprev = sourcexprev + (xdelta / xscaleprev);
 		xscale = xscale * zoom;
-		glTranslatef(0.0, ydelta, 0.0);
+		//glTranslatef(0.0, , 0.0);
+		yoffset = yoffset + ydelta;
 		render(hwnd);
 		count--;
 	}
