@@ -5,7 +5,7 @@
 #include <gl\glu.h>
 #include "font.h"
 
-float colors[14][3] = { { 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 } };
+float colors[][3] = { { 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 },{ 255,255,255 } };
 
 #define VSYNC 1
 
@@ -90,6 +90,8 @@ int writemetrics(char filemetricsname[])
 	sprintf(filemetricspath, ".\\%s.metrics", filemetricsname);
 	FILE *filemetrics = fopen(filemetricspath, "w");
 	fwrite(level, sizeof(level), 1, filemetrics);
+	fwrite(colors, sizeof(colors), 1, filemetrics);
+	fclose(filemetrics);//?
 	return 0;
 }
 
@@ -98,6 +100,7 @@ int makedefaultmetrics(void)
 	FILE *defaultmetrics = fopen(".\\default.metrics", "w");
 	memset(level, 0, sizeof(level));
 	fwrite(level, sizeof(level), 1, defaultmetrics);
+	fwrite(colors, sizeof(colors), 1, defaultmetrics);
 	fclose(defaultmetrics);
 	return 0;
 }
@@ -118,6 +121,7 @@ int openmetrics(char basepath[])
 		}
 	}
 	fread(level, sizeof(level), 1, filemetrics);
+	fread(colors, sizeof(colors), 1, filemetrics);
 	fclose(filemetrics);
 	return 0;
 }
@@ -365,10 +369,12 @@ int openrecent(HWND hwnd)
 
 static DWORD rgbCurrent = 0x00ffff00;        // initial color selection
 
+int yoffset = 0;
+
 int render(HWND hwnd)
 {
-	double scaleX = (double)xwidth / (double)l;
-	double scaleY = 300 / yheight;
+	//double scaleX = (double)xwidth / (double)l;
+	//double scaleY = 300 / yheight;
 	//float destx = xwidth / 2;
 	double destx = mousex;
 	double desty = yheight / 2;
@@ -383,7 +389,7 @@ int render(HWND hwnd)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
 	glPushMatrix();
-	glTranslatef(destx, desty, 0.0);
+	glTranslatef(destx, desty+yoffset, 0.0);
 	glScalef(xscale, yscale, 1.0);
 	glTranslatef(sourcex * -1.0, sourcey * -1.0, 0.0);
 
@@ -397,7 +403,7 @@ int render(HWND hwnd)
 				glPushMatrix();
 				glTranslatef(0.0, level[iz], 0.0);
 				if (iz == leveli)
-					glColor3ub(GetRValue(rgbCurrent), GetGValue(rgbCurrent), GetBValue(rgbCurrent));
+					glColor3ub(255, 255, 0);
 				else
 					glColor3ub(colors[iz][1], colors[iz][2], colors[iz][3]);
 				/*glBegin(GL_LINE_STRIP);
@@ -411,6 +417,7 @@ int render(HWND hwnd)
 
 	}
 	glPopMatrix();
+	glColor3f(1.0, 1.0, 1.0);
 
 	char string[100];
 
@@ -671,7 +678,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			deltay = mousey - GET_Y_LPARAM(lParam);
 			mousey = GET_Y_LPARAM(lParam);
 			sourcexprev = sourcexprev + (deltax / xscaleprev);
-			glTranslatef(0.0, deltay / yscale, 0.0);
+			//glTranslatef(0.0, deltay / yscale, 0.0);
+			yoffset = yoffset + deltay;
 			InvalidateRect(hwnd, NULL, TRUE);
 			break;
 		case MK_LBUTTON | MK_SHIFT:
@@ -733,12 +741,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
 			{
 				yscale = yscale * 2;
-				glScalef(1.0, 2.0, 1.0);
+				//glScalef(1.0, 2.0, 1.0);
 			}
 			else
 			{
 				yscale = yscale * 0.5;
-				glScalef(1.0, 0.5, 1.0);
+				//glScalef(1.0, 0.5, 1.0);
 			}
 			break;
 		default:
