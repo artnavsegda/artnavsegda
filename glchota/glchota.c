@@ -243,6 +243,7 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
 float mousexprev = 0;
 float xscaleprev = 1.0;
 float sourcexprev = 0;
+int yoffset = 0;
 
 POINT first, second;
 DWORD dwarg;
@@ -275,6 +276,7 @@ LRESULT DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				first.x = gi.ptsLocation.x;
 				first.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &first);
+				mousex = first.x;
 				break;
 			default:
 				second.x = gi.ptsLocation.x;
@@ -302,6 +304,7 @@ LRESULT DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				first.x = gi.ptsLocation.x;
 				first.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &first);
+				mousex = first.x;
 				break;
 			default:
 				second.x = gi.ptsLocation.x;
@@ -309,10 +312,11 @@ LRESULT DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				ScreenToClient(hWnd, &second);
 				//glTranslatef(second.x - first.x, first.y - second.y, 0.0);
 
-				deltax = second.x - first.x;
+				mousex = first.x;
+				deltax = first.x - second.x;
 				deltay = first.y - second.y;
 				sourcexprev = sourcexprev + (deltax / xscaleprev);
-
+				yoffset = yoffset + deltay;
 
 				InvalidateRect(hWnd, NULL, TRUE);
 				first = second;
@@ -378,8 +382,6 @@ int openrecent(HWND hwnd)
 }
 
 static DWORD rgbCurrent = 0x00ffff00;        // initial color selection
-
-int yoffset = 0;
 
 int render(HWND hwnd)
 {
