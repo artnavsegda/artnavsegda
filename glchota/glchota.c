@@ -245,6 +245,7 @@ DWORD dwarg;
 
 LRESULT DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	POINT ptZoomCenter;
 	double k;
 	// Create a structure to populate and retrieve the extra message info.
 	GESTUREINFO gi;
@@ -275,10 +276,13 @@ LRESULT DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				second.x = gi.ptsLocation.x;
 				second.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &second);
+				ptZoomCenter.x = (first.x + second.x) / 2;
+				ptZoomCenter.y = (first.y + second.y) / 2;
+				mousex = ptZoomCenter.x;
 				k = (double)(LODWORD(gi.ullArguments)) / (double)(dwarg);
 				//glScalef(k, k, 1.0);
 				xscale = xscale * k;
-				yscale = yscale * k;
+				//yscale = yscale * k;
 				InvalidateRect(hWnd, NULL, TRUE);
 				first = second;
 				dwarg = LODWORD(gi.ullArguments);
