@@ -240,6 +240,10 @@ BOOL CALLBACK DialogFunc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lPara
     return FALSE; 
 } 
 
+float mousexprev = 0;
+float xscaleprev = 1.0;
+float sourcexprev = 0;
+
 POINT first, second;
 DWORD dwarg;
 
@@ -351,10 +355,6 @@ LRESULT DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 }
-
-float mousexprev = 0;
-float xscaleprev = 1.0;
-float sourcexprev = 0;
 
 float sourcetodest(float source)
 {
