@@ -303,7 +303,13 @@ LRESULT DecodeGesture(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				second.x = gi.ptsLocation.x;
 				second.y = gi.ptsLocation.y;
 				ScreenToClient(hWnd, &second);
-				glTranslatef(second.x - first.x, first.y - second.y, 0.0);
+				//glTranslatef(second.x - first.x, first.y - second.y, 0.0);
+
+				deltax = second.x - first.x;
+				deltay = first.y - second.y;
+				sourcexprev = sourcexprev + (deltax / xscaleprev);
+
+
 				InvalidateRect(hWnd, NULL, TRUE);
 				first = second;
 				break;
