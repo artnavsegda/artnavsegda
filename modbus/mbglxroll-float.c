@@ -23,32 +23,42 @@ int main(int argc, char *argv[])
 	}
 
 	mb = modbus_new_tcp(argv[1], 502);
+	if (modbus_connect(mb) == -1)
+	{
+		fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
+		modbus_free(mb);
+		return -1;
+	}
 
 	int rollpos = 0;
-	int roll[3000];
-	int roll2[3000];
-	int roll3[3000];
-	int roll4[3000];
-	int roll5[3000];
-	int roll6[3000];
-	memset(roll,0,3000*sizeof(int));
-	memset(roll2,0,3000*sizeof(int));
-	memset(roll3,0,3000*sizeof(int));
-	memset(roll4,0,3000*sizeof(int));
-	memset(roll5,0,3000*sizeof(int));
-	memset(roll6,0,3000*sizeof(int));
-	int incomdata = 0;
-	int incomdata2 = 0;
-	int incomdata3 = 0;
-	int incomdata4 = 0;
-	int incomdata5 = 0;
-	int incomdata6 = 0;
+	float roll[3000];
+	float roll2[3000];
+	float roll3[3000];
+	float roll4[3000];
+	float roll5[3000];
+	float roll6[3000];
+	float roll7[3000];
+	memset(roll,0,3000*sizeof(float));
+	memset(roll2,0,3000*sizeof(float));
+	memset(roll3,0,3000*sizeof(float));
+	memset(roll4,0,3000*sizeof(float));
+	memset(roll5,0,3000*sizeof(float));
+	memset(roll6,0,3000*sizeof(float));
+	memset(roll7,0,3000*sizeof(float));
+	float incomdata = 0.0;
+	float incomdata2 = 0.0;
+	float incomdata3 = 0.0;
+	float incomdata4 = 0.0;
+	float incomdata5 = 0.0;
+	float incomdata6 = 0.0;
+	float incomdata7 = 0.0;
 	char incomstring[100];
 	char incomstring2[100];
 	char incomstring3[100];
 	char incomstring4[100];
 	char incomstring5[100];
 	char incomstring6[100];
+	char incomstring7[100];
 	int xwidth = 300, yheight = 300;
 	int x = 0;
 	int y = 0;
@@ -106,39 +116,35 @@ int main(int argc, char *argv[])
 				break;
 			}
 		}
-	while (modbus_connect(mb) == -1)
-	{
-		fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-		//modbus_free(mb);
-		//return -1;
-	}
-	rc = modbus_read_registers(mb, 0, 10, tab_reg);
+			rc = modbus_read_registers(mb, 10, 40, tab_reg);
 	if (rc == -1) {
 		fprintf(stderr, "%s\n", modbus_strerror(errno));
 		return -1;
 	}
-	modbus_close(mb);
 
-	incomdata = tab_reg[0];
-	incomdata2 = tab_reg[1];
-	incomdata3 = tab_reg[2];
-	incomdata4 = tab_reg[3];
-	incomdata5 = tab_reg[4];
-	incomdata6 = tab_reg[5];
+	incomdata = modbus_get_float(&tab_reg[0]);
+	incomdata2 = modbus_get_float(&tab_reg[4]);
+	incomdata3 = modbus_get_float(&tab_reg[12]);
+	incomdata4 = modbus_get_float(&tab_reg[22]);
+	incomdata5 = modbus_get_float(&tab_reg[24]);
+	incomdata6 = modbus_get_float(&tab_reg[26]);
+	incomdata7 = modbus_get_float(&tab_reg[30]);
 
-		sprintf(incomstring, "%d",incomdata);
-		sprintf(incomstring2, "%d",incomdata2);
-		sprintf(incomstring3, "%d",incomdata3);
-		sprintf(incomstring4, "%d",incomdata4);
-		sprintf(incomstring5, "%d",incomdata5);
-		sprintf(incomstring6, "%d",incomdata6);
-		printf("%d %d %d %d %d %d\n",incomdata, incomdata2, incomdata3, incomdata4, incomdata5, incomdata6);
+		sprintf(incomstring, "%f",incomdata);
+		sprintf(incomstring2, "%f",incomdata2);
+		sprintf(incomstring3, "%f",incomdata3);
+		sprintf(incomstring4, "%f",incomdata4);
+		sprintf(incomstring5, "%f",incomdata5);
+		sprintf(incomstring6, "%f",incomdata6);
+		sprintf(incomstring7, "%f",incomdata7);
+		printf("%f %f %f %f %f %f %f\n",incomdata, incomdata2, incomdata3, incomdata4, incomdata5, incomdata6, incomdata7);
 		roll[rollpos] = incomdata;
 		roll2[rollpos] = incomdata2;
 		roll3[rollpos] = incomdata3;
 		roll4[rollpos] = incomdata4;
 		roll5[rollpos] = incomdata5;
 		roll6[rollpos] = incomdata6;
+		roll7[rollpos] = incomdata7;
 		rollpos++;
 		if (rollpos == xwidth)
 			rollpos = 0;
@@ -168,6 +174,8 @@ int main(int argc, char *argv[])
 		glCallLists(40, GL_UNSIGNED_BYTE,(GLubyte *)incomstring5);
 		glRasterPos2f(50.0,150.0);
 		glCallLists(40, GL_UNSIGNED_BYTE,(GLubyte *)incomstring6);
+		glRasterPos2f(50.0,170.0);
+		glCallLists(40, GL_UNSIGNED_BYTE,(GLubyte *)incomstring7);
 
 		int i;
 		glBegin(GL_LINE_STRIP);
@@ -206,15 +214,19 @@ int main(int argc, char *argv[])
 			for (;i<xwidth; i++)
 				glVertex2f(i,roll6[rollpos-i+xwidth]);
 		glEnd();
+		glBegin(GL_LINE_STRIP);
+			for (i=0; rollpos-i>0 ; i++)
+				glVertex2f(i,roll7[rollpos-i]);
+			for (;i<xwidth; i++)
+				glVertex2f(i,roll7[rollpos-i+xwidth]);
+		glEnd();
 		glPopMatrix();
 		glPopMatrix();
 		glPopMatrix();
 
 		glXSwapBuffers(dpy, win);
 		glFlush();          
-		usleep(200000);
-		//sleep(1);
+		sleep(1);
 	}
-	modbus_free(mb);
 	return 0;
 }

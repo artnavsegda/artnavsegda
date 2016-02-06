@@ -6,20 +6,22 @@
 int main(int argc, char *argv[])
 {
 	modbus_t *mb;
-	uint16_t tab_reg[256];
+	uint16_t tab_reg[10];
 	int rc;
 	int i;
 
 	if (argc == 1)
 	{
-		printf("name ip adress\n");
+		printf("name serial port\n");
 		exit(1);
 	}
 
-	mb = modbus_new_tcp(argv[1], 502);
+	mb = modbus_new_rtu(argv[1], 115200, 'N', 8, 1);
+	modbus_set_slave(mb, 1);
+	modbus_rtu_set_serial_mode(mb, MODBUS_RTU_RS232);
 	if (modbus_connect(mb) == -1)
 	{
-		fprintf(stderr, "modbus connect: %s\n", modbus_strerror(errno));
+		fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
 		modbus_free(mb);
 		return -1;
 	}
@@ -27,7 +29,7 @@ int main(int argc, char *argv[])
 	/* Read 5 registers from the address 10 */
 	rc = modbus_read_registers(mb, 0, 10, tab_reg);
 	if (rc == -1) {
-		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
+		fprintf(stderr, "%s\n", modbus_strerror(errno));
 		return -1;
 	}
 

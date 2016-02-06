@@ -1,4 +1,4 @@
-all:	modbus modbuspi modread mbglxroll
+all:	modbus modbuspi modread mbglxroll modbusrtu
 
 mbglxroll: mbglxroll.c
 	cc `pkg-config --cflags --libs libmodbus` -lGL -lGLU -lX11 mbglxroll.c -o mbglxroll
@@ -11,6 +11,9 @@ modbus: modbus.c
 
 modbuspi: modbuspi.c
 	cc `pkg-config --cflags --libs libmodbus` modbuspi.c -o modbuspi
+
+modbusrtu: modbusrtu.c
+	cc `pkg-config --cflags --libs libmodbus` modbusrtu.c -o modbusrtu
 
 clean:
 	rm modbus modbus.o
