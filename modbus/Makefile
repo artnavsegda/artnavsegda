@@ -15,6 +15,9 @@ modbuspi: modbuspi.c
 modbusrtu: modbusrtu.c
 	cc `pkg-config --cflags --libs libmodbus` modbusrtu.c -o modbusrtu
 
+server: server.c
+	cc `pkg-config --cflags --libs libmodbus` server.c -o server
+
 clean:
 	rm modbus modbus.o
 
