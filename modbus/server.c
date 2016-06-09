@@ -1,40 +1,66 @@
+/*
+ * Copyright © 2008-2010 Stéphane Raimbault <stephane.raimbault@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
-#include <modbus.h>
 #include <errno.h>
 
-int main(int argc, char *argv[])
+#include <modbus.h>
+
+int main(void)
 {
-	modbus_t *mb;
-	uint16_t tab_reg[256];
-	int rc;
-	int i;
+    int socket;
+    modbus_t *ctx;
+    modbus_mapping_t *mb_mapping;
 
-	if (argc == 1)
-	{
-		printf("name ip adress\n");
-		exit(1);
-	}
+    ctx = modbus_new_tcp("127.0.0.1", 1502);
+    /* modbus_set_debug(ctx, TRUE); */
 
-	mb = modbus_new_tcp(argv[1], 1502);
-	if (modbus_connect(mb) == -1)
-	{
-		fprintf(stderr, "modbus connect: %s\n", modbus_strerror(errno));
-		modbus_free(mb);
-		return -1;
-	}
+    mb_mapping = modbus_mapping_new(500, 500, 500, 500);
+    if (mb_mapping == NULL) {
+        fprintf(stderr, "Failed to allocate the mapping: %s\n",
+                modbus_strerror(errno));
+        modbus_free(ctx);
+        return -1;
+    }
 
-	/* Read 5 registers from the address 10 */
-	rc = modbus_read_registers(mb, 0, 10, tab_reg);
-	if (rc == -1) {
-		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
-		return -1;
-	}
+    socket = modbus_tcp_listen(ctx, 1);
+    modbus_tcp_accept(ctx, &socket);
 
-	for (i=0; i < rc; i++) {
-		printf("reg[%d]=%d (0x%X)\n", i, tab_reg[i], tab_reg[i]);
-	}
+    for (;;) {
+        uint8_t query[MODBUS_TCP_MAX_ADU_LENGTH];
+        int rc;
 
-	modbus_close(mb);
-	modbus_free(mb);
+        rc = modbus_receive(ctx, query);
+        if (rc != -1) {
+            /* rc is the query size */
+            modbus_reply(ctx, query, rc, mb_mapping);
+        } else {
+            /* Connection closed by the client or error */
+            break;
+        }
+    }
+
+    printf("Quit the loop: %s\n", modbus_strerror(errno));
+
+    modbus_mapping_free(mb_mapping);
+    modbus_close(ctx);
+    modbus_free(ctx);
+
+    return 0;
 }

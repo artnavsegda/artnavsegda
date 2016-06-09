@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <modbus.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <errno.h>
 #include "font.h"
+#include <string.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
