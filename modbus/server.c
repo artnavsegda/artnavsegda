@@ -45,6 +45,8 @@ int main(void)
     for (;;) {
         uint8_t query[MODBUS_TCP_MAX_ADU_LENGTH];
         int rc;
+	mb_mapping->tab_input_registers[0] = 0x16;
+	mb_mapping->tab_registers[0] = 0x16;
 
         rc = modbus_receive(ctx, query);
         if (rc != -1) {
