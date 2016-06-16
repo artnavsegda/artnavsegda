@@ -1,4 +1,4 @@
-all:	modbus modbuspi modread mbglxroll modbusrtu server
+all:	modbus modbuspi modread mbglxroll modbusrtu server i2cserver
 
 mbglxroll: mbglxroll.c
 	cc -std=c99 `pkg-config --cflags --libs libmodbus` -lGL -lGLU -lX11 mbglxroll.c -o mbglxroll
@@ -17,6 +17,9 @@ modbusrtu: modbusrtu.c
 
 server: server.c
 	cc `pkg-config --cflags --libs libmodbus` server.c -o server
+
+i2cserver: i2cserver.c
+	cc `pkg-config --cflags --libs libmodbus` i2cserver.c -o i2cserver
 
 clean:
 	rm modbus modbus.o
