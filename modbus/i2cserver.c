@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include <errno.h>
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
