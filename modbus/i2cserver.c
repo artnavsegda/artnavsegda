@@ -46,7 +46,16 @@ int main(void)
         uint8_t query[MODBUS_TCP_MAX_ADU_LENGTH];
         int rc;
 	mb_mapping->tab_input_registers[0] = 0x16;
-	mb_mapping->tab_registers[100] = i2c_smbus_read_word_data(fd,0x0);
+	mb_mapping->tab_registers[100] = i2c_smbus_read_word_data(fd,0x00);
+	mb_mapping->tab_registers[101] = i2c_smbus_read_word_data(fd,0x01);
+	mb_mapping->tab_registers[102] = i2c_smbus_read_word_data(fd,0x02);
+	mb_mapping->tab_registers[103] = i2c_smbus_read_word_data(fd,0x03);
+	mb_mapping->tab_registers[104] = i2c_smbus_read_word_data(fd,0x04);
+	mb_mapping->tab_registers[105] = i2c_smbus_read_word_data(fd,0x05);
+	mb_mapping->tab_registers[106] = i2c_smbus_read_word_data(fd,0x06);
+	mb_mapping->tab_registers[107] = i2c_smbus_read_word_data(fd,0x07);
+	mb_mapping->tab_registers[108] = i2c_smbus_read_word_data(fd,0x08);
+	mb_mapping->tab_registers[109] = i2c_smbus_read_word_data(fd,0x09);
 
         rc = modbus_receive(ctx, query);
         if (rc != -1) {
