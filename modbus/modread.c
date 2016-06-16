@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	while (1)
 	{
 		/* Read 5 registers from the address 10 */
-		rc = modbus_read_registers(mb, 0, 6, tab_reg);
+		rc = modbus_read_registers(mb, 100, 10, tab_reg);
 		if (rc == -1) {
 			fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
 			return -1;
