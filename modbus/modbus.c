@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
 {
 	modbus_t *mb;
 	uint16_t tab_reg[256];
+	uint8_t bit_reg[256];
 	int rc;
 	int i;
 
@@ -33,6 +34,16 @@ int main(int argc, char *argv[])
 
 	for (i=0; i < rc; i++) {
 		printf("reg[%d]=%d (0x%X)\n", i, tab_reg[i], tab_reg[i]);
+	}
+	
+	rc = modbus_read_bits(mb, 100, 24, bit_reg);
+	if (rc == -1) {
+		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
+		return -1;
+	}
+
+	for (i=0; i < rc; i++) {
+		printf("bit[%d]=%d (0x%X)\n", i, bit_reg[i], bit_reg[i]);
 	}
 
 	modbus_close(mb);
