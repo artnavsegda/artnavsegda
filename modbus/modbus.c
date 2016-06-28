@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	mb = modbus_new_tcp(argv[1], 1502);
+	mb = modbus_new_tcp(argv[1], 502);
 	if (modbus_connect(mb) == -1)
 	{
 		fprintf(stderr, "modbus connect: %s\n", modbus_strerror(errno));
