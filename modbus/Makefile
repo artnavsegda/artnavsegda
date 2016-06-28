@@ -1,10 +1,13 @@
-all:	modbus modbuspi modread modbusrtu server
+all:	modbus modbuspi modread modbusrtu server modset
 
 mbglxroll: mbglxroll.c
 	cc -std=c99 `pkg-config --cflags --libs libmodbus` -lGL -lGLU -lX11 mbglxroll.c -o mbglxroll
 
 modread: modread.c
 	cc -I/usr/local/include/modbus -lmodbus modread.c -o modread
+
+modset: modset.c
+	cc -I/usr/local/include/modbus -lmodbus modset.c -o modset
 
 modbus: modbus.c
 	cc -I/usr/local/include/modbus -lmodbus modbus.c -o modbus
