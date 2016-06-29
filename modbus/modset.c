@@ -11,13 +11,18 @@ int main(int argc, char *argv[])
 	int rc;
 	int i;
 
-	if (argc == 1)
+	if (argc != 4)
 	{
-		printf("name ip adress\n");
+		printf("name ip adress offset and byte\n");
 		exit(1);
 	}
+	uint8_t scanbyte;
+	sscanf(argv[3],"%d",&scanbyte);
+	modbus_set_bits_from_byte(bit_reg, 0, scanbyte);
+	int offset;
+	sscanf(argv[2],"%d",&offset);
 
-	mb = modbus_new_tcp(argv[1], 502);
+	mb = modbus_new_tcp(argv[1], 1502);
 	if (modbus_connect(mb) == -1)
 	{
 		fprintf(stderr, "modbus connect: %s\n", modbus_strerror(errno));
@@ -27,9 +32,10 @@ int main(int argc, char *argv[])
 
 	/* Read 5 registers from the address 10 */
 	//rc = modbus_read_registers(mb, 100, 10, tab_reg);
-	rc = modbus_write_bit(mb,100,FALSE);
+	//rc = modbus_write_bit(mb,100,FALSE);
+	rc = modbus_write_bits(mb,offset,8,bit_reg);
 	if (rc == -1) {
-		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
+		fprintf(stderr, "write registers: %s\n", modbus_strerror(errno));
 		return -1;
 	}
 
