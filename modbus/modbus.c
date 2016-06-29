@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 		printf("reg[%d]=%d (0x%X)\n", i, tab_reg[i], tab_reg[i]);
 	}
 
-	rc = modbus_read_bits(mb, 100, 24, bit_reg);
+	rc = modbus_read_input_bits(mb, 100, 24, bit_reg);
 	if (rc == -1) {
 		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
 		return -1;
