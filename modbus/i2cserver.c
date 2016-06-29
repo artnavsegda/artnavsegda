@@ -58,14 +58,14 @@ int main(void)
 	mb_mapping->tab_registers[108] = i2c_smbus_read_word_data(fd,0x08);
 	mb_mapping->tab_registers[109] = i2c_smbus_read_word_data(fd,0x09);
 	ioctl(fd,I2C_SLAVE,0x18);
-	modbus_set_bits_from_byte(mb_mapping->tab_bits,100,i2c_smbus_read_byte_data(fd,0x00));
-	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_input_bits,100,8));
+	modbus_set_bits_from_byte(mb_mapping->tab_input_bits,100,i2c_smbus_read_byte_data(fd,0x00));
+	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_bits,100,8));
 	ioctl(fd,I2C_SLAVE,0x19);
-	modbus_set_bits_from_byte(mb_mapping->tab_bits,108,i2c_smbus_read_byte_data(fd,0x00));
-	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_input_bits,108,8));
+	modbus_set_bits_from_byte(mb_mapping->tab_input_bits,108,i2c_smbus_read_byte_data(fd,0x00));
+	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_bits,108,8));
 	ioctl(fd,I2C_SLAVE,0x1a);
-	modbus_set_bits_from_byte(mb_mapping->tab_bits,116,i2c_smbus_read_byte_data(fd,0x00));
-	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_input_bits,116,8));
+	modbus_set_bits_from_byte(mb_mapping->tab_input_bits,116,i2c_smbus_read_byte_data(fd,0x00));
+	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_bits,116,8));
 
         rc = modbus_receive(ctx, query);
         if (rc != -1) {
