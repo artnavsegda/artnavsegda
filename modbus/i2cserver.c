@@ -21,12 +21,15 @@ int main(void)
 		printf("error on device\n");
 		exit(1);
 	}
-	int addr = 0x09;
-	if (ioctl(fd,I2C_SLAVE,addr) < 0)
-	{
-		printf("ioctl error\n");
-		exit(1);
-	}
+	ioctl(fd,I2C_SLAVE,0x18);
+	i2c_smbus_write_byte_data(fd,0x02,0x00);
+	i2c_smbus_write_byte_data(fd,0x03,0x00);
+	ioctl(fd,I2C_SLAVE,0x19);
+	i2c_smbus_write_byte_data(fd,0x02,0x00);
+	i2c_smbus_write_byte_data(fd,0x03,0x00);
+	ioctl(fd,I2C_SLAVE,0x1a);
+	i2c_smbus_write_byte_data(fd,0x02,0x00);
+	i2c_smbus_write_byte_data(fd,0x03,0x00);
 
     ctx = modbus_new_tcp("127.0.0.1", 1502);
     /* modbus_set_debug(ctx, TRUE); */
@@ -46,7 +49,7 @@ int main(void)
         uint8_t query[MODBUS_TCP_MAX_ADU_LENGTH];
         int rc;
 	mb_mapping->tab_input_registers[0] = 0x16;
-	ioctl(fd,I2C_SLAVE,0x09);
+	/*ioctl(fd,I2C_SLAVE,0x09);
 	mb_mapping->tab_registers[100] = i2c_smbus_read_word_data(fd,0x00);
 	mb_mapping->tab_registers[101] = i2c_smbus_read_word_data(fd,0x01);
 	mb_mapping->tab_registers[102] = i2c_smbus_read_word_data(fd,0x02);
@@ -56,7 +59,7 @@ int main(void)
 	mb_mapping->tab_registers[106] = i2c_smbus_read_word_data(fd,0x06);
 	mb_mapping->tab_registers[107] = i2c_smbus_read_word_data(fd,0x07);
 	mb_mapping->tab_registers[108] = i2c_smbus_read_word_data(fd,0x08);
-	mb_mapping->tab_registers[109] = i2c_smbus_read_word_data(fd,0x09);
+	mb_mapping->tab_registers[109] = i2c_smbus_read_word_data(fd,0x09);*/
 	ioctl(fd,I2C_SLAVE,0x18);
 	modbus_set_bits_from_byte(mb_mapping->tab_input_bits,100,i2c_smbus_read_byte_data(fd,0x00));
 	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_bits,100,8));
