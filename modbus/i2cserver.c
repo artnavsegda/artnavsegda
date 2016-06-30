@@ -76,7 +76,10 @@ int main(void)
             modbus_reply(ctx, query, rc, mb_mapping);
         } else {
             /* Connection closed by the client or error */
-            break;
+            //break;
+	    printf("Con closed\n");
+	    modbus_close(ctx);
+	    modbus_tcp_accept(ctx, &socket);
         }
     }
 
