@@ -17,12 +17,12 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	uint8_t scanbyte;
-	sscanf(argv[3],"%d",&scanbyte);
+	sscanf(argv[3],"%hhu",&scanbyte);
 	modbus_set_bits_from_byte(bit_reg, 0, scanbyte);
 	int offset;
 	sscanf(argv[2],"%d",&offset);
 
-	mb = modbus_new_tcp(argv[1], 1502);
+	mb = modbus_new_tcp(argv[1], 502);
 	if (modbus_connect(mb) == -1)
 	{
 		fprintf(stderr, "modbus connect: %s\n", modbus_strerror(errno));
@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
 
 	/* Read 5 registers from the address 10 */
 	//rc = modbus_read_registers(mb, 100, 10, tab_reg);
-	//rc = modbus_write_bit(mb,100,FALSE);
-	rc = modbus_write_bits(mb,offset,8,bit_reg);
+	rc = modbus_write_bit(mb,106,TRUE);
+	//rc = modbus_write_bits(mb,offset,7,bit_reg);
 	if (rc == -1) {
 		fprintf(stderr, "write registers: %s\n", modbus_strerror(errno));
 		return -1;
@@ -47,13 +47,13 @@ int main(int argc, char *argv[])
 	if (rc == -1) {
 		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
 		return -1;
-	}
+	}*/
 
-	for (i=0; i < rc; i++) {
+	for (i=0; i < 8; i++) {
 		printf("bit[%d]=%d (0x%X)\n", i, bit_reg[i], bit_reg[i]);
 	}
 
-	printf("reg1 - %X\n", modbus_get_byte_from_bits(bit_reg,0,8));
+	/*printf("reg1 - %X\n", modbus_get_byte_from_bits(bit_reg,0,8));
 	printf("reg2 - %X\n", modbus_get_byte_from_bits(bit_reg,8,8));
 	printf("reg3 - %X\n", modbus_get_byte_from_bits(bit_reg,16,8));*/
 
