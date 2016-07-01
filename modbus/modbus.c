@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	mb = modbus_new_tcp(argv[1], 502);
+	mb = modbus_new_tcp(argv[1], 1502);
 	if (modbus_connect(mb) == -1)
 	{
 		fprintf(stderr, "modbus connect: %s\n", modbus_strerror(errno));
@@ -36,7 +36,18 @@ int main(int argc, char *argv[])
 		printf("reg[%d]=%d (0x%X)\n", i, tab_reg[i], tab_reg[i]);
 	}
 
-	rc = modbus_read_input_bits(mb, 100, 24, bit_reg);
+	rc = modbus_read_registers(mb, 200, 16, tab_reg);
+	if (rc == -1) {
+		fprintf(stderr, "float registers: %s\n", modbus_strerror(errno));
+		return -1;
+	}
+
+	for (i=0; i < rc; i=i+2) {
+		//printf("float[%d]=%d (0x%X)\n", i, tab_reg[i], tab_reg[i]);
+		printf("float[%d]=%f\n", i, modbus_get_float(&tab_reg[i]));
+	}
+
+	/*rc = modbus_read_input_bits(mb, 100, 24, bit_reg);
 	if (rc == -1) {
 		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
 		return -1;
@@ -49,6 +60,20 @@ int main(int argc, char *argv[])
 	printf("reg1 - %X\n", modbus_get_byte_from_bits(bit_reg,0,8));
 	printf("reg2 - %X\n", modbus_get_byte_from_bits(bit_reg,8,8));
 	printf("reg3 - %X\n", modbus_get_byte_from_bits(bit_reg,16,8));
+
+	rc = modbus_read_bits(mb, 100, 24, bit_reg);
+	if (rc == -1) {
+		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
+		return -1;
+	}
+
+	for (i=0; i < rc; i++) {
+		printf("coil[%d]=%d (0x%X)\n", i, bit_reg[i], bit_reg[i]);
+	}
+
+	printf("coil1 - %X\n", modbus_get_byte_from_bits(bit_reg,0,8));
+	printf("coil2 - %X\n", modbus_get_byte_from_bits(bit_reg,8,8));
+	printf("coil3 - %X\n", modbus_get_byte_from_bits(bit_reg,16,8));*/
 
 	modbus_close(mb);
 	modbus_free(mb);
