@@ -60,6 +60,15 @@ int main(void)
 	mb_mapping->tab_registers[107] = i2c_smbus_read_word_data(fd,0x07);
 	mb_mapping->tab_registers[108] = i2c_smbus_read_word_data(fd,0x08);
 	mb_mapping->tab_registers[109] = i2c_smbus_read_word_data(fd,0x09);*/
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x00)-178)*0.49487e-3,&mb_mapping->tab_registers[200]);
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x01)-178)*0.49487e-3,&mb_mapping->tab_registers[202]);
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x02)-178)*0.49487e-3,&mb_mapping->tab_registers[204]);
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x03)-178)*0.49487e-3,&mb_mapping->tab_registers[206]);
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x04)-178)*0.49487e-3,&mb_mapping->tab_registers[208]);
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x05)-178)*0.49487e-3,&mb_mapping->tab_registers[210]);
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x06)-178)*0.49487e-3,&mb_mapping->tab_registers[212]);
+  modbus_set_float_abcd((i2c_smbus_read_word_data(fd,0x07)-178)*0.49487e-3,&mb_mapping->tab_registers[214]);
+
 	ioctl(fd,I2C_SLAVE,0x18);
 	modbus_set_bits_from_byte(mb_mapping->tab_input_bits,100,i2c_smbus_read_byte_data(fd,0x00));
 	i2c_smbus_write_byte_data(fd,0x01,modbus_get_byte_from_bits(mb_mapping->tab_bits,100,8));
