@@ -31,7 +31,7 @@ int main(void)
 	i2c_smbus_write_byte_data(fd,0x02,0x00);
 	i2c_smbus_write_byte_data(fd,0x03,0x00);
 
-    ctx = modbus_new_tcp("127.0.0.1", 1502);
+    ctx = modbus_new_tcp("127.0.0.1", 502);
     /* modbus_set_debug(ctx, TRUE); */
 
     mb_mapping = modbus_mapping_new(500, 500, 500, 500);
@@ -71,6 +71,7 @@ int main(void)
 	modbus_set_float((i2c_smbus_read_word_data(fd,0x05)-180)*popugai,&mb_mapping->tab_registers[210]);
 	modbus_set_float((i2c_smbus_read_word_data(fd,0x06)-180)*popugai,&mb_mapping->tab_registers[212]);
 	modbus_set_float((i2c_smbus_read_word_data(fd,0x07)-180)*popugai,&mb_mapping->tab_registers[214]);
+	modbus_set_float(((((i2c_smbus_read_word_data(fd,0x03)-180)*popugai)-0.5)*100),&mb_mapping->tab_registers[216]);
 
 	ioctl(fd,I2C_SLAVE,0x18);
 	modbus_set_bits_from_byte(mb_mapping->tab_input_bits,100,i2c_smbus_read_byte_data(fd,0x00));
