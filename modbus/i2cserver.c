@@ -61,14 +61,16 @@ int main(void)
 	mb_mapping->tab_registers[107] = i2c_smbus_read_word_data(fd,0x07);
 	mb_mapping->tab_registers[108] = i2c_smbus_read_word_data(fd,0x08);
 	mb_mapping->tab_registers[109] = i2c_smbus_read_word_data(fd,0x09);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x00)-180)*popugai,&mb_mapping->tab_registers[200]);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x01)-180)*popugai,&mb_mapping->tab_registers[202]);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x02)-180)*popugai,&mb_mapping->tab_registers[204]);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x03)-180)*popugai,&mb_mapping->tab_registers[206]);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x04)-180)*popugai,&mb_mapping->tab_registers[208]);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x05)-180)*popugai,&mb_mapping->tab_registers[210]);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x06)-180)*popugai,&mb_mapping->tab_registers[212]);
-  modbus_set_float((i2c_smbus_read_word_data(fd,0x07)-180)*popugai,&mb_mapping->tab_registers[214]);
+	mb_mapping->tab_registers[110] = i2c_smbus_read_word_data(fd,0x0a);
+	mb_mapping->tab_registers[111] = i2c_smbus_read_word_data(fd,0x0b);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x00)-180)*popugai,&mb_mapping->tab_registers[200]);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x01)-180)*popugai,&mb_mapping->tab_registers[202]);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x02)-180)*popugai,&mb_mapping->tab_registers[204]);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x03)-180)*popugai,&mb_mapping->tab_registers[206]);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x04)-180)*popugai,&mb_mapping->tab_registers[208]);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x05)-180)*popugai,&mb_mapping->tab_registers[210]);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x06)-180)*popugai,&mb_mapping->tab_registers[212]);
+	modbus_set_float((i2c_smbus_read_word_data(fd,0x07)-180)*popugai,&mb_mapping->tab_registers[214]);
 
 	ioctl(fd,I2C_SLAVE,0x18);
 	modbus_set_bits_from_byte(mb_mapping->tab_input_bits,100,i2c_smbus_read_byte_data(fd,0x00));
