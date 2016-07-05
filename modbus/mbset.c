@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 		modbus_free(mb);
 		return -1;
 	}
-
+	printf("%d=%d\n",setregister, setvalue);
 	rc = modbus_write_register(mb,setregister,setvalue);
 	if (rc == -1) {
 		fprintf(stderr, "write registers: %s\n", modbus_strerror(errno));

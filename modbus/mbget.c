@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	printf("%d (0x%X)\n", tab_reg[1], tab_reg[1]);
+	printf("%d (0x%X)\n", tab_reg[0], tab_reg[0]);
 
 	modbus_close(mb);
 	modbus_free(mb);
