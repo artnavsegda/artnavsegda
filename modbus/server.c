@@ -45,8 +45,29 @@ int main(void)
     for (;;) {
         uint8_t query[MODBUS_TCP_MAX_ADU_LENGTH];
         int rc;
-	mb_mapping->tab_input_registers[0] = 0x16;
-	mb_mapping->tab_registers[0] = 0x16;
+  	mb_mapping->tab_bits[0] = TRUE;
+  	mb_mapping->tab_bits[1] = TRUE;
+  	mb_mapping->tab_bits[2] = TRUE;
+  	mb_mapping->tab_bits[3] = FALSE;
+  	mb_mapping->tab_bits[4] = FALSE;
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[8]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[10]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[12]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[14]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[16]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[18]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[20]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[22]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[24]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[26]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[28]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[30]);
+    modbus_set_float_abcd(1.0, &mb_mapping->tab_registers[32]);
+  	mb_mapping->tab_bits[99] = FALSE;
+  	mb_mapping->tab_bits[100] = FALSE;
+  	mb_mapping->tab_bits[101] = FALSE;
+  	mb_mapping->tab_bits[102] = FALSE;
+  	mb_mapping->tab_bits[103] = FALSE;
 
         rc = modbus_receive(ctx, query);
         if (rc != -1) {
