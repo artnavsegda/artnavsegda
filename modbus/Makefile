@@ -9,8 +9,17 @@ modread: modread.c
 mbset: mbset.c
 	cc -I/usr/local/include/modbus -lmodbus mbset.c -o mbset
 
+mbsetcoil: mbsetcoil.c
+	cc -I/usr/local/include/modbus -lmodbus mbsetcoil.c -o mbsetcoil
+
 mbget: mbget.c
 	cc -I/usr/local/include/modbus -lmodbus mbget.c -o mbget
+
+mbgetcoil: mbgetcoil.c
+	cc -I/usr/local/include/modbus -lmodbus mbgetcoil.c -o mbgetcoil
+
+modbus: modbus.c
+	cc -I/usr/local/include/modbus -lmodbus modbus.c -o modbus
 
 modbuspi: modbuspi.c
 	cc -I/usr/local/include/modbus -lmodbus modbuspi.c -o modbuspi
