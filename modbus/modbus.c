@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	mb = modbus_new_tcp(argv[1], 1502);
+	mb = modbus_new_tcp(argv[1], 502);
 	if (modbus_connect(mb) == -1)
 	{
 		fprintf(stderr, "modbus connect: %s\n", modbus_strerror(errno));
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	}
 
 	/* Read 5 registers from the address 10 */
-	rc = modbus_read_registers(mb, 100, 10, tab_reg);
+	rc = modbus_read_registers(mb, 28, 1, tab_reg);
 	if (rc == -1) {
 		fprintf(stderr, "read registers: %s\n", modbus_strerror(errno));
 		return -1;
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 		printf("reg[%d]=%d (0x%X)\n", i, tab_reg[i], tab_reg[i]);
 	}
 
-	rc = modbus_read_registers(mb, 200, 16, tab_reg);
+	rc = modbus_read_registers(mb, 28, 8, tab_reg);
 	if (rc == -1) {
 		fprintf(stderr, "float registers: %s\n", modbus_strerror(errno));
 		return -1;
