@@ -1,4 +1,4 @@
-all:	mbget modbuspi modread modbusrtu server mbset
+all:	mbget modbuspi modread modbusrtu server mbset mbget mbgetcoil mbset mbsetcoil modset
 
 mbglxroll: mbglxroll.c
 	cc -std=c99 `pkg-config --cflags --libs libmodbus` -lGL -lGLU -lX11 mbglxroll.c -o mbglxroll
@@ -34,5 +34,5 @@ i2cserver: i2cserver.c
 	cc -I/usr/local/include/modbus -lmodbus i2cserver.c -o i2cserver
 
 clean:
-	rm modbus modbuspi modread modbusrtu server
+	rm modbus modbuspi modread modbusrtu server mbget mbgetcoil mbset mbsetcoil modset
 
