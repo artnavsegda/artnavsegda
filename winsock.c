@@ -1,8 +1,8 @@
-#include <winsock2.h>
-#include <ws2tcpip.h>
+#include <windows.h>
+#include <winsock.h>
 #include <stdio.h>
 
-#pragma comment(lib, "Ws2_32.lib")
+#pragma comment(lib, "Wsock32.lib")
 
 int main()
 {
@@ -10,7 +10,7 @@ int main()
 	int iResult;
 
 	// Initialize Winsock
-	iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+	iResult = WSAStartup(MAKEWORD(1,1), &wsaData);
 	if (iResult != 0)
 	{
 		printf("WSAStartup failed: %d\n", iResult);
@@ -18,4 +18,3 @@ int main()
 	}
 	return 0;
 }
-
