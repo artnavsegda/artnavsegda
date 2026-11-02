@@ -1,0 +1,6 @@
+build/
+fido
+fido-asan
+fido.dSYM/
+data/fido.dat
+data/log
