@@ -1,8 +1,10 @@
 export interface Parsed {
   number: string;
   mm: string;
+  /** Второй двухцифровой блок (без проверки на месяц) */
+  code: string;
   tail: string;
-  /** Нормализованный вид: number|mm|tail */
+  /** Нормализованный вид: number|mm|code|tail */
   value: string;
 }
 
@@ -81,19 +83,20 @@ export function separatorConflict(
   return null;
 }
 
-const RE_NUMBER = /^\d{5,7}$/;
-const RE_MM = /^\d{2}$/;
-const RE_TAIL = /^\d{4}$/;
+const RE_NUMBER = /^\d{11,13}$/;
+const RE_TWO = /^\d{2}$/;
+const RE_TAIL = /^\d{3}$/;
 
 function validate(parts: string[]): string | null {
-  if (parts.length !== 3) return `Ожидалось 3 поля, найдено ${parts.length}`;
-  const [number, mm, tail] = parts;
-  if (!/^\d+$/.test(number)) return 'Номер содержит нецифровые символы';
-  if (!RE_NUMBER.test(number)) return 'Номер должен содержать 5–7 цифр';
-  if (!RE_MM.test(mm)) return 'Месяц: ровно 2 цифры';
+  if (parts.length !== 4) return `Ожидалось 4 поля, найдено ${parts.length}`;
+  const [number, mm, code, tail] = parts;
+  if (!/^\d+$/.test(number)) return 'Первый блок содержит нецифровые символы';
+  if (!RE_NUMBER.test(number)) return 'Первый блок должен содержать 11–13 цифр';
+  if (!RE_TWO.test(mm)) return 'Второй блок (месяц): ровно 2 цифры';
   const m = Number(mm);
   if (m < 1 || m > 12) return 'Месяц должен быть от 01 до 12';
-  if (!RE_TAIL.test(tail)) return 'Последний блок: ровно 4 цифры';
+  if (!RE_TWO.test(code)) return 'Третий блок: ровно 2 цифры';
+  if (!RE_TAIL.test(tail)) return 'Последний блок: ровно 3 цифры';
   return null;
 }
 
@@ -114,14 +117,14 @@ export function parseNumbers(text: string, field: Splitter, record: Splitter): P
       bad.push({ raw, reason });
       continue;
     }
-    const [number, mm, tail] = parts;
-    const value = `${number}|${mm}|${tail}`;
+    const [number, mm, code, tail] = parts;
+    const value = `${number}|${mm}|${code}|${tail}`;
     if (seen.has(value)) {
       bad.push({ raw, reason: 'Дубликат в этом списке' });
       continue;
     }
     seen.add(value);
-    ok.push({ number, mm, tail, value });
+    ok.push({ number, mm, code, tail, value });
   }
 
   return { ok, bad };

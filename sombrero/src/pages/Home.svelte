@@ -88,7 +88,7 @@
         bind:value={text}
         rows="10"
         spellcheck="false"
-        placeholder={'12345|09|4856\n12355|07|3292\n12145|09|1487'}
+        placeholder={'1234567890123|09|27|485\n12345678901|07|31|329\n123456789012|11|08|148'}
         class="input resize-y font-mono leading-relaxed"
       ></textarea>
 
@@ -110,10 +110,10 @@
       </div>
 
       <p class="mt-3 text-xs text-stone-500">
-        Формат записи: <span class="font-mono text-stone-400">номер(5–7 цифр) ● месяц(01–12) ● 4 цифры</span>.
-        Подойдёт и <span class="font-mono text-stone-400">12345|09|4856</span>, и
-        <span class="font-mono text-stone-400">12349-09-7856</span>, и
-        <span class="font-mono text-stone-400">14345|09|0856;12545|07|8292</span>.
+        Формат записи: <span class="font-mono text-stone-400">11–13 цифр ● месяц (01–12) ● 2 цифры ● 3 цифры</span>.
+        Подойдёт и <span class="font-mono text-stone-400">1234567890123|09|27|485</span>, и
+        <span class="font-mono text-stone-400">123456789012-09-27-785</span>, и
+        <span class="font-mono text-stone-400">12345678901|09|27|085;123456789012|07|31|829</span>.
       </p>
 
       {#if error}<p class="mt-4 rounded-lg bg-rose-500/10 px-3 py-2 text-sm text-rose-300">{error}</p>{/if}

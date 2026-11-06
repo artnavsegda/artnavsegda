@@ -32,6 +32,7 @@ export interface QueueItem {
   userId: string;
   number: string;
   mm: string;
+  code: string;
   tail: string;
   createdAt: number;
 }

@@ -221,7 +221,7 @@ class Store {
     u.balance = round2(u.balance - cost);
     const now = Date.now();
     for (const it of items) {
-      this.db.queue.push({ id: uid(), userId: u.id, number: it.number, mm: it.mm, tail: it.tail, createdAt: now });
+      this.db.queue.push({ id: uid(), userId: u.id, number: it.number, mm: it.mm, code: it.code, tail: it.tail, createdAt: now });
     }
     this.db.tx.push({
       id: uid(),
@@ -245,7 +245,7 @@ class Store {
     this.db.history.unshift({
       id: uid(),
       userId: item.userId,
-      value: `${item.number}|${item.mm}|${item.tail}`,
+      value: [item.number, item.mm, item.code, item.tail].filter(Boolean).join('|'),
       result: Math.random() < 0.7 ? 'success' : 'fail',
       checkedAt: Date.now()
     });
