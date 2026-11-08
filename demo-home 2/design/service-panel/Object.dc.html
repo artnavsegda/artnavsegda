@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Объект — устройства</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D5BD6}a:hover{color:#1747A8}
+.nl{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:6px;color:#C7CCD4;text-decoration:none;font-size:14px}
+.nl:hover{background:#22262C;color:#FFFFFF}
+.nl.on{background:#2A303A;color:#FFFFFF}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:6px;border:1px solid #CDD2DA;background:#FFFFFF;color:#15171B;font:500 14px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:#9AA2AE;color:#15171B}
+.btn.pri{background:#1D5BD6;border-color:#1D5BD6;color:#FFFFFF}
+.btn.pri:hover{background:#1747A8;color:#FFFFFF}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:11px;font:500 12px 'IBM Plex Sans',system-ui,sans-serif;white-space:nowrap}
+.ok{background:#E3F2E9;color:#14613C}.warn{background:#FFF0D4;color:#7E4A00}.bad{background:#FCE8E6;color:#9E1D13}.off{background:#E9ECF0;color:#454C57}.info{background:#E6EEFC;color:#1747A8}
+.chip{height:32px;padding:0 12px;border-radius:16px;border:1px solid #CDD2DA;background:#FFFFFF;color:#3D434D;font:500 13px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer}
+.chip.on{background:#15171B;border-color:#15171B;color:#FFFFFF}
+.row{display:grid;grid-template-columns:minmax(180px,1.6fr) 130px 150px 110px 100px 110px 120px;gap:12px;align-items:center;width:100%;padding:10px 16px;border:0;border-bottom:1px solid #EEF0F3;background:#FFFFFF;text-align:left;font:14px 'IBM Plex Sans',system-ui,sans-serif;color:#15171B;cursor:pointer}
+.row:hover{background:#F7F8FA}
+.row.sel{background:#EEF3FD;box-shadow:inset 3px 0 0 #1D5BD6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F3F4F6; color: #15171B; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px">
+
+  <nav aria-label="Разделы сервисной панели" style="flex: 1 1 220px; max-width: 248px; box-sizing: border-box; background: #15171B; color: #C7CCD4; padding: 20px 12px; display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px">
+      <div style="width: 32px; height: 32px; border-radius: 6px; background: #1D5BD6; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font: 600 13px 'IBM Plex Mono', monospace">SV</div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 600; color: #FFFFFF; font-size: 15px">Сервис</span><span style="font-size: 12px; color: #8B93A0">панель техника</span></div>
+    </div>
+    <a class="nl" href="Main.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>Парк объектов</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"></path></svg>Заявки<span class="pill info" style="margin-left: auto; height: 20px">3</span></a>
+    <div style="padding: 18px 10px 6px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8B93A0">Объект OBJ-017</div>
+    <a class="nl on" href="Object.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5h14v10H5zM9 19h6M12 15v4"></path></svg>Устройства</a>
+    <a class="nl" href="Inspector.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 6h5v4H5zM14 14h5v4h-5zM10 8h2a2 2 0 012 2v4M7 10v6a2 2 0 002 2h5"></path></svg>Поведения</a>
+    <a class="nl" href="AVMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4M10 8.5v4l3.5-2z"></path></svg>Медиа</a>
+    <a class="nl" href="ClimateMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10 14V5a2 2 0 114 0v9a4 4 0 11-4 0zM12 10v7"></path></svg>Климат</a>
+    <a class="nl" href="Calibration.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M16 4v4M10 10v4M18 16v4"></path></svg>Калибровка</a>
+    <a class="nl" href="Access.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM3 20c.8-3.5 3.3-5.5 6-5.5s5.2 2 6 5.5M16 4.5a3.5 3.5 0 010 6.5M18 14.8c1.6.8 2.6 2.6 3 5.2"></path></svg>Доступ</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4v16M6 8a3 3 0 100-.1M18 9a3 3 0 100 6 3 3 0 000-6zM6 14c0 2 2 4 6 4h3"></path></svg>Конфигурация</a>
+    <a class="nl" href="PanelService.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h16v12H4zM10 21h4"></path></svg>Режим панели</a>
+    <div style="margin-top: auto; padding: 12px 10px; border-radius: 8px; background: #1E2228; display: flex; flex-direction: column; gap: 4px">
+      <span style="color: #FFFFFF; font-weight: 500">А. Сергеев</span>
+      <span style="font-size: 12px; color: #8B93A0">Техник · смена до 20:00</span>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 13px; color: #5F6673"><a href="Main.dc.html">Парк объектов</a> / OBJ-017</span>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Резиденция «Сосны»</h1>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+        <span class="pill ok" style="height: 28px; padding: 0 10px">На объекте · локальная сеть</span>
+        <a class="btn" href="Config.dc.html">Нужна помощь</a>
+      </div>
+    </header>
+
+    <section aria-label="Здоровье объекта" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px">
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="color: #5F6673; font-size: 12px">Устройств</span><span class="mono" style="font-size: 22px">112</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="color: #5F6673; font-size: 12px">Не отвечают</span><span class="mono" style="font-size: 22px; color: #9E1D13">1</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="color: #5F6673; font-size: 12px">В ремонте</span><span class="mono" style="font-size: 22px; color: #454C57">1</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="color: #5F6673; font-size: 12px">Шина KNX</span><span class="mono" style="font-size: 22px">38 тлг/с</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="color: #5F6673; font-size: 12px">Связь с облаком</span><span style="font-size: 16px; font-weight: 500; color: #14613C; margin-top: 4px">в норме · 34 мс</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="color: #5F6673; font-size: 12px">Резервная копия</span><span style="font-size: 16px; font-weight: 500; margin-top: 4px">сегодня 04:00</span></div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start">
+      <section aria-label="Устройства" style="flex: 999 1 640px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #E2E5EA; flex-wrap: wrap">
+          <div role="group" aria-label="Фильтр устройств" style="display: flex; gap: 6px; flex-wrap: wrap">
+            <sc-for list="{{filters}}" as="f" hint-placeholder-count="5">
+              <button class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.name}}</button>
+            </sc-for>
+          </div>
+          <span style="font-size: 13px; color: #5F6673">показано {{shown}} из 112</span>
+        </div>
+        <div style="overflow-x: auto">
+          <div style="min-width: 920px">
+            <div style="display: grid; grid-template-columns: minmax(180px, 1.6fr) 130px 150px 110px 100px 110px 120px; gap: 12px; padding: 9px 16px; font-size: 12px; color: #5F6673; border-bottom: 1px solid #E2E5EA">
+              <span>Устройство</span><span>Драйвер</span><span>Адрес</span><span>Значение</span><span>Ответ</span><span>Связь</span><span>Статус</span>
+            </div>
+            <sc-for list="{{rows}}" as="d" hint-placeholder-count="12">
+              <button class="{{d.rowCls}}" onClick="{{d.pick}}" aria-pressed="{{d.sel}}">
+                <span style="display: flex; flex-direction: column; min-width: 0"><span style="font-weight: 500">{{d.name}}</span><span style="font-size: 12px; color: #5F6673">{{d.room}}</span></span>
+                <span style="color: #3D434D; font-size: 13px">{{d.driver}}</span>
+                <span class="mono" style="font-size: 12px; color: #3D434D">{{d.addr}}</span>
+                <span class="mono" style="font-size: 13px">{{d.value}}</span>
+                <span style="font-size: 13px; color: #3D434D">{{d.seen}}</span>
+                <span style="font-size: 13px; color: {{d.linkColor}}">{{d.link}}</span>
+                <span class="pill {{d.cls}}" style="justify-self: start">{{d.status}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <aside aria-label="Карточка устройства" style="flex: 1 1 320px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; justify-content: space-between; gap: 10px; align-items: flex-start">
+          <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+            <h2 style="margin: 0; font-size: 20px; font-weight: 600">{{cur.name}}</h2>
+            <span class="mono" style="font-size: 12px; color: #5F6673">{{cur.id}} · {{cur.room}}</span>
+          </div>
+          <span class="pill {{cur.cls}}">{{cur.status}}</span>
+        </div>
+        <sc-if value="{{cur.note}}" hint-placeholder-val="{{true}}">
+          <p style="margin: 0; padding: 10px 12px; border-radius: 6px; background: {{cur.noteBg}}; color: #3D434D; font-size: 13px; line-height: 1.45">{{cur.note}}</p>
+        </sc-if>
+        <dl style="margin: 0; display: grid; grid-template-columns: 110px 1fr; gap: 8px 12px; font-size: 13px">
+          <dt style="color: #5F6673">Драйвер</dt><dd style="margin: 0">{{cur.driver}}</dd>
+          <dt style="color: #5F6673">Адрес</dt><dd class="mono" style="margin: 0; font-size: 12px">{{cur.addr}}</dd>
+          <dt style="color: #5F6673">Последний ответ</dt><dd style="margin: 0">{{cur.seen}}</dd>
+          <dt style="color: #5F6673">Связь</dt><dd style="margin: 0">{{cur.link}}</dd>
+        </dl>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; color: #5F6673">{{cur.chartLabel}}</span>
+          <svg viewBox="0 0 280 60" preserveAspectRatio="none" role="img" aria-label="{{cur.chartLabel}}" style="width: 100%; height: 60px; background: #F7F8FA; border-radius: 6px">
+            <path d="{{cur.spark}}" fill="none" stroke="{{cur.sparkColor}}" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+          </svg>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; color: #5F6673">Где используется — сохранится при замене</span>
+          <sc-for list="{{cur.uses}}" as="u" hint-placeholder-count="4">
+            <div style="display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-top: 1px solid #EEF0F3; font-size: 13px"><span style="color: #5F6673">{{u.k}}</span><span style="text-align: right">{{u.v}}</span></div>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button class="btn">Мигнуть</button>
+          <button class="btn">Ручное управление</button>
+          <button class="btn">В ремонт</button>
+          <a class="btn pri" href="Replace.dc.html">Заменить устройство</a>
+        </div>
+      </aside>
+    </div>
+
+    <section aria-label="Монитор шины" style="background: #15171B; color: #C7CCD4; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 600; color: #FFFFFF">Монитор шины</h2>
+        <span style="font-size: 12px; color: #8B93A0">KNX + MQTT · фильтр: гостиная · запись идёт</span>
+      </div>
+      <div style="overflow-x: auto">
+        <sc-for list="{{bus}}" as="b" hint-placeholder-count="7">
+          <div class="mono" style="display: grid; grid-template-columns: 110px 70px 190px 1fr; gap: 12px; font-size: 12px; line-height: 1.9; min-width: 640px">
+            <span style="color: #8B93A0">{{b.t}}</span><span style="color: {{b.c}}">{{b.src}}</span><span>{{b.addr}}</span><span style="color: #FFFFFF">{{b.v}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1060}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { filter: 'all', sel: 'living.niche' }; }
+  spark(vals) {
+    const mx = Math.max(...vals), mn = Math.min(...vals);
+    return vals.map((v, i) => (i ? 'L' : 'M') + (i / (vals.length - 1) * 280).toFixed(1) + ' ' + (54 - (v - mn) / ((mx - mn) || 1) * 48).toFixed(1)).join(' ');
+  }
+  renderVals() {
+    const D = [
+      { id: 'living.dining', name: 'Подвес над столом', room: 'Гостиная', driver: 'DALI DT8', addr: 'KNX 1/2/14', value: '60% · 2700K', seen: 'сейчас', link: 'шина', status: 'В норме', cls: 'ok', tags: 'light', chart: [40, 60, 60, 80, 60, 0, 0, 60, 60, 60], chartLabel: 'Уровень за сутки', uses: [{ k: 'Сцены', v: 'Вечер, Гости' }, { k: 'Фото', v: 'столовая' }, { k: 'Избранное', v: '2 жильца' }] },
+      { id: 'living.pendant', name: 'Подвес', room: 'Гостиная', driver: 'KNX диммер', addr: 'KNX 1/2/10', value: '80%', seen: 'сейчас', link: 'шина', status: 'В норме', cls: 'ok', tags: 'light', chart: [0, 0, 80, 80, 100, 80, 0, 80, 80, 80], chartLabel: 'Уровень за сутки', uses: [{ k: 'Сцены', v: 'Вечер, Кино, Гости' }, { k: 'Фото', v: 'гостиная' }] },
+      { id: 'living.niche', name: 'Подсветка ниши', room: 'Гостиная', driver: 'Zigbee реле', addr: '0x00158d0004a1b2c3', value: '—', seen: '23 ч назад', link: 'нет ответа', status: 'Не отвечает', cls: 'bad', tags: 'light problem', chart: [-62, -64, -63, -70, -74, -79, -85, -91, -96, -100], chartLabel: 'Уровень сигнала за 7 дней, dBm', note: 'Сигнал падал всю неделю, затем реле пропало. Во «Входящих» объекта найдено новое совместимое реле — можно заменить его, сохранив все привязки.', noteBg: '#FCE8E6', uses: [{ k: 'Сцены', v: 'Вечер, Гости, Кино' }, { k: 'Автоматизации', v: '«Закат»' }, { k: 'Фото', v: 'гостиная, точка у полки' }, { k: 'Избранное', v: '2 жильца' }] },
+      { id: 'living.shades', name: 'Шторы', room: 'Гостиная', driver: 'KNX привод', addr: 'KNX 2/1/4', value: '30%', seen: 'сейчас', link: 'шина', status: 'В норме', cls: 'ok', tags: '', chart: [100, 100, 100, 60, 30, 30, 0, 0, 30, 30], chartLabel: 'Положение за сутки', uses: [{ k: 'Сцены', v: 'Вечер, Кино, Ночь' }, { k: 'Автоматизации', v: '«Солнце»' }] },
+      { id: 'living.tv', name: 'Телевизор', room: 'Гостиная', driver: 'ИК-бластер WB', addr: 'wb-msw-v3_41 / IR 3', value: 'вкл. (предп.)', seen: 'команда 2 мин', link: 'без обратной связи', status: 'ИК', cls: 'info', tags: '', chart: [0, 0, 1, 1, 1, 0, 0, 1, 1, 1], chartLabel: 'Команды питания за сутки', note: 'ИК без обратной связи: состояние предполагаемое. Если телевизор включили своим пультом, интерфейс об этом не знает.', noteBg: '#E6EEFC', uses: [{ k: 'Сцены', v: 'Кино, Ночь' }, { k: 'Цепочка', v: 'Матрица HDMI → Denon' }] },
+      { id: 'living.climate', name: 'Термостат', room: 'Гостиная', driver: 'KNX термостат', addr: 'KNX 3/1/1', value: '21,8° → 22,5°', seen: 'сейчас', link: 'шина', status: 'В норме', cls: 'ok', tags: 'climate', chart: [21.2, 21.4, 21.9, 22.3, 22.5, 22.4, 22.1, 21.8, 21.7, 21.8], chartLabel: 'Температура за сутки, °C', uses: [{ k: 'Расписание', v: 'будни / выходные' }] },
+      { id: 'kitchen.pendants', name: 'Подвесы над островом', room: 'Кухня', driver: 'KNX диммер', addr: 'KNX 1/3/2', value: '40%', seen: 'сейчас', link: 'шина', status: 'В норме', cls: 'ok', tags: 'light', chart: [0, 0, 100, 40, 0, 0, 0, 40, 40, 40], chartLabel: 'Уровень за сутки', uses: [{ k: 'Сцены', v: 'Вечер, Гости' }, { k: 'Фото', v: 'кухня' }] },
+      { id: 'kitchen.leak', name: 'Датчик протечки', room: 'Кухня', driver: 'Zigbee', addr: '0x00158d00071c4e90', value: 'сухо', seen: '4 мин назад', link: 'батарея 12%', status: 'Батарея', cls: 'warn', tags: 'problem battery', chart: [64, 52, 41, 33, 27, 22, 18, 15, 13, 12], chartLabel: 'Батарея за 60 дней, %', note: 'Батарея закончится примерно через 2 недели. Замена добавлена в плановый выезд.', noteBg: '#FFF0D4', uses: [{ k: 'Охрана', v: 'зона «Протечка, дым»' }, { k: 'Автоматика', v: 'перекрытие воды' }] },
+      { id: 'bath.floor', name: 'Тёплый пол', room: 'Ванная', driver: 'WB-MR6C', addr: 'wb-mr6c_52 / K3', value: 'вкл. · 27°', seen: 'сейчас', link: 'Modbus', status: 'В норме', cls: 'ok', tags: 'climate', chart: [27, 27, 26, 27, 27, 27, 26, 27, 27, 27], chartLabel: 'Температура пола, °C', uses: [{ k: 'Расписание', v: 'утро 06:30–09:00' }] },
+      { id: 'hall.motion', name: 'Датчик движения', room: 'Холл', driver: 'Zigbee', addr: '0x00158d0005f1aa07', value: 'нет движения', seen: '1 мин назад', link: '−88 dBm, слабый', status: 'Слабый сигнал', cls: 'warn', tags: 'problem', chart: [-70, -72, -75, -80, -83, -85, -86, -88, -87, -88], chartLabel: 'Уровень сигнала за 7 дней, dBm', note: 'Сигнал ухудшается после перестановки мебели. Нужен ретранслятор или перенос датчика.', noteBg: '#FFF0D4', uses: [{ k: 'Присутствие', v: 'холл' }, { k: 'Охрана', v: 'внутренние зоны' }] },
+      { id: 'kids.nightlight', name: 'Ночник', room: 'Детская', driver: 'Matter', addr: 'matter 12 / ep 1', value: '—', seen: '2 дня назад', link: 'отключён', status: 'В ремонте', cls: 'off', tags: 'light problem', chart: [10, 10, 8, 8, 10, 0, 0, 0, 0, 0], chartLabel: 'Уровень за неделю', note: 'Помечен «в ремонте» техником 3 ноября: в интерфейсе серый, исключён из сцен, тревог не шлёт.', noteBg: '#E9ECF0', uses: [{ k: 'Сцены', v: 'Ночь (временно исключён)' }] },
+      { id: 'hall.vacuum', name: 'Робот-пылесос', room: 'Холл', driver: 'облако производителя', addr: 'cloud · roborock', value: 'на базе · 100%', seen: '30 с назад', link: 'облако', status: 'В норме', cls: 'ok', tags: '', chart: [100, 90, 80, 71, 60, 70, 85, 100, 100, 100], chartLabel: 'Батарея за сутки, %', uses: [{ k: 'Автоматизации', v: '«Все ушли»' }] }
+    ];
+    const f = this.state.filter, sel = this.state.sel;
+    const defs = [['all', 'Все'], ['problem', 'Проблемы'], ['battery', 'Батареи'], ['light', 'Свет'], ['climate', 'Климат']];
+    const rows = D.filter(d => f === 'all' || d.tags.split(' ').includes(f));
+    const c = D.find(d => d.id === sel) || D[0];
+    const sparkColor = c.cls === 'bad' ? '#B42318' : c.cls === 'warn' ? '#B26B00' : '#1D5BD6';
+    return {
+      filters: defs.map(([id, name]) => ({ name, on: f === id, cls: f === id ? 'chip on' : 'chip', pick: () => this.setState({ filter: id }) })),
+      shown: rows.length,
+      rows: rows.map(d => ({ ...d, sel: d.id === sel, rowCls: d.id === sel ? 'row sel' : 'row', linkColor: d.cls === 'bad' ? '#9E1D13' : d.cls === 'warn' ? '#7E4A00' : '#3D434D', pick: () => this.setState({ sel: d.id }) })),
+      cur: { ...c, note: c.note || '', spark: this.spark(c.chart), sparkColor },
+      bus: [
+        { t: '02:31:07.412', src: 'KNX', c: '#8FB4F5', addr: '1/2/14  подвес над столом', v: 'DPT5.001 = 60%' },
+        { t: '02:31:07.418', src: 'KNX', c: '#8FB4F5', addr: '1/2/15  статус', v: 'DPT5.001 = 60%  ✓ подтверждено' },
+        { t: '02:31:06.902', src: 'MQTT', c: '#9BD3AE', addr: 'zigbee/0x…a1b2c3/set', v: '{"state":"ON"} — нет ответа 5 с' },
+        { t: '02:31:05.150', src: 'KNX', c: '#8FB4F5', addr: '3/1/1   термостат', v: 'DPT9.001 = 21,82 °C' },
+        { t: '02:31:03.008', src: 'MQTT', c: '#9BD3AE', addr: '/devices/wb-msw-v3_41/ir', v: 'play rom 3 (TV power)' },
+        { t: '02:31:01.771', src: 'KNX', c: '#8FB4F5', addr: '2/1/4   шторы', v: 'DPT5.001 = 30%' },
+        { t: '02:30:59.330', src: 'MQTT', c: '#9BD3AE', addr: 'zigbee/0x…5f1aa07', v: '{"occupancy":false,"linkquality":21}' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

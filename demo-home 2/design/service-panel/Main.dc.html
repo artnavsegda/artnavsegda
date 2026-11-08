@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Парк объектов</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D5BD6}a:hover{color:#1747A8}
+.nl{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:6px;color:#C7CCD4;text-decoration:none;font-size:14px}
+.nl:hover{background:#22262C;color:#FFFFFF}
+.nl.on{background:#2A303A;color:#FFFFFF}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:6px;border:1px solid #CDD2DA;background:#FFFFFF;color:#15171B;font:500 14px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:#9AA2AE;color:#15171B}
+.btn.pri{background:#1D5BD6;border-color:#1D5BD6;color:#FFFFFF}
+.btn.pri:hover{background:#1747A8;color:#FFFFFF}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:11px;font:500 12px 'IBM Plex Sans',system-ui,sans-serif;white-space:nowrap}
+.ok{background:#E3F2E9;color:#14613C}.warn{background:#FFF0D4;color:#7E4A00}.bad{background:#FCE8E6;color:#9E1D13}.off{background:#E9ECF0;color:#454C57}.info{background:#E6EEFC;color:#1747A8}
+.chip{height:32px;padding:0 12px;border-radius:16px;border:1px solid #CDD2DA;background:#FFFFFF;color:#3D434D;font:500 13px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer}
+.chip.on{background:#15171B;border-color:#15171B;color:#FFFFFF}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F3F4F6; color: #15171B; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px">
+
+  <nav aria-label="Разделы сервисной панели" style="flex: 1 1 220px; max-width: 248px; box-sizing: border-box; background: #15171B; color: #C7CCD4; padding: 20px 12px; display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px">
+      <div style="width: 32px; height: 32px; border-radius: 6px; background: #1D5BD6; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font: 600 13px 'IBM Plex Mono', monospace">SV</div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 600; color: #FFFFFF; font-size: 15px">Сервис</span><span style="font-size: 12px; color: #8B93A0">панель техника</span></div>
+    </div>
+    <a class="nl on" href="Main.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>Парк объектов</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"></path></svg>Заявки<span class="pill info" style="margin-left: auto; height: 20px">3</span></a>
+    <div style="padding: 18px 10px 6px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8B93A0">Объект OBJ-017</div>
+    <a class="nl" href="Object.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5h14v10H5zM9 19h6M12 15v4"></path></svg>Устройства</a>
+    <a class="nl" href="Inspector.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 6h5v4H5zM14 14h5v4h-5zM10 8h2a2 2 0 012 2v4M7 10v6a2 2 0 002 2h5"></path></svg>Поведения</a>
+    <a class="nl" href="AVMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4M10 8.5v4l3.5-2z"></path></svg>Медиа</a>
+    <a class="nl" href="ClimateMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10 14V5a2 2 0 114 0v9a4 4 0 11-4 0zM12 10v7"></path></svg>Климат</a>
+    <a class="nl" href="Calibration.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M16 4v4M10 10v4M18 16v4"></path></svg>Калибровка</a>
+    <a class="nl" href="Access.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM3 20c.8-3.5 3.3-5.5 6-5.5s5.2 2 6 5.5M16 4.5a3.5 3.5 0 010 6.5M18 14.8c1.6.8 2.6 2.6 3 5.2"></path></svg>Доступ</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4v16M6 8a3 3 0 100-.1M18 9a3 3 0 100 6 3 3 0 000-6zM6 14c0 2 2 4 6 4h3"></path></svg>Конфигурация</a>
+    <a class="nl" href="PanelService.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h16v12H4zM10 21h4"></path></svg>Режим панели</a>
+    <div style="margin-top: auto; padding: 12px 10px; border-radius: 8px; background: #1E2228; display: flex; flex-direction: column; gap: 4px">
+      <span style="color: #FFFFFF; font-weight: 500">А. Сергеев</span>
+      <span style="font-size: 12px; color: #8B93A0">Техник · смена до 20:00</span>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px">
+    <header style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 13px; color: #5F6673">Компания · 34 объекта на поддержке</span>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Парк объектов</h1>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+        <label style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border: 1px solid #CDD2DA; border-radius: 6px; background: #FFFFFF; color: #5F6673; min-width: 240px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4-4"></path></svg>
+          <input type="search" placeholder="Объект, код, устройство" aria-label="Поиск по парку" style="border: 0; outline: none; font: 14px 'IBM Plex Sans', sans-serif; color: #15171B; background: transparent; width: 100%">
+        </label>
+        <span class="pill info" style="height: 28px; padding: 0 10px">Удалённо · через облако</span>
+      </div>
+    </header>
+
+    <section aria-label="Сводка" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="color: #5F6673; font-size: 13px">Объектов</span><span class="mono" style="font-size: 28px; font-weight: 500">34</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="color: #5F6673; font-size: 13px">В норме</span><span class="mono" style="font-size: 28px; font-weight: 500; color: #14613C">29</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="color: #5F6673; font-size: 13px">Требуют внимания</span><span class="mono" style="font-size: 28px; font-weight: 500; color: #7E4A00">4</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="color: #5F6673; font-size: 13px">Нет связи</span><span class="mono" style="font-size: 28px; font-weight: 500; color: #9E1D13">1</span></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px"><span style="color: #5F6673; font-size: 13px">Ждут обновления</span><span class="mono" style="font-size: 28px; font-weight: 500; color: #1747A8">5</span></div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+      <div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+
+        <section aria-label="Тревоги и предупреждения" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #E2E5EA">
+            <h2 style="margin: 0; font-size: 16px; font-weight: 600">Требует реакции</h2>
+            <span style="font-size: 13px; color: #5F6673">отсортировано по срочности</span>
+          </div>
+          <sc-for list="{{alerts}}" as="a" hint-placeholder-count="4">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #EEF0F3; flex-wrap: wrap">
+              <span class="pill {{a.cls}}" style="min-width: 92px; justify-content: center">{{a.level}}</span>
+              <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <span style="font-weight: 500">{{a.title}}</span>
+                <span style="font-size: 13px; color: #5F6673">{{a.text}}</span>
+              </div>
+              <span class="mono" style="font-size: 12px; color: #5F6673">{{a.obj}}</span>
+              <a class="btn" href="Object.dc.html">{{a.action}}</a>
+            </div>
+          </sc-for>
+        </section>
+
+        <section aria-label="Объекты" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #E2E5EA; flex-wrap: wrap">
+            <h2 style="margin: 0; font-size: 16px; font-weight: 600">Объекты</h2>
+            <div role="group" aria-label="Фильтр" style="display: flex; gap: 6px; flex-wrap: wrap">
+              <sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+                <button class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.name}}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <div style="min-width: 900px">
+              <div style="display: grid; grid-template-columns: 96px minmax(200px, 2fr) 140px 90px 80px 90px 120px 120px 110px; gap: 12px; padding: 10px 16px; font-size: 12px; color: #5F6673; border-bottom: 1px solid #E2E5EA">
+                <span>Код</span><span>Объект</span><span>Стек</span><span>Устройств</span><span>Офлайн</span><span>Версия</span><span>Контракт до</span><span>Последний выезд</span><span>Статус</span>
+              </div>
+              <sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
+                <a href="Object.dc.html" style="display: grid; grid-template-columns: 96px minmax(200px, 2fr) 140px 90px 80px 90px 120px 120px 110px; gap: 12px; align-items: center; padding: 11px 16px; border-bottom: 1px solid #EEF0F3; color: #15171B; text-decoration: none">
+                  <span class="mono" style="font-size: 13px; color: #3D434D">{{r.code}}</span>
+                  <span style="font-weight: 500">{{r.name}}</span>
+                  <span style="color: #3D434D">{{r.stack}}</span>
+                  <span class="mono">{{r.devices}}</span>
+                  <span class="mono" style="color: {{r.offColor}}">{{r.offline}}</span>
+                  <span class="mono" style="color: #3D434D">{{r.version}}</span>
+                  <span style="color: #3D434D">{{r.contract}}</span>
+                  <span style="color: #3D434D">{{r.visit}}</span>
+                  <span class="pill {{r.cls}}" style="justify-self: start">{{r.status}}</span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+        <section aria-label="Обновление" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <h2 style="margin: 0; font-size: 16px; font-weight: 600">Обновление 2.4.2</h2>
+            <span class="pill info">выкатка</span>
+          </div>
+          <ul style="margin: 0; padding-left: 18px; color: #3D434D; display: flex; flex-direction: column; gap: 4px; line-height: 1.45">
+            <li>драйвер DALI DT8: плавность на нижних уровнях</li>
+            <li>замена устройства сохраняет избранное жильцов</li>
+            <li>исправлена прокрутка вкладок клиента</li>
+          </ul>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; justify-content: space-between; font-size: 13px; color: #5F6673"><span>применено</span><span class="mono">29 из 34</span></div>
+            <div style="height: 6px; border-radius: 3px; background: #E9ECF0; overflow: hidden"><div style="width: 85%; height: 100%; background: #1D5BD6"></div></div>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #5F6673">Оставшиеся 5 — в согласованное с владельцами окно, сегодня 03:00–05:00. Откат автоматический, если объект не подтвердит запуск.</p>
+        </section>
+
+        <section aria-label="Выезды" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Выезды на неделе</h2>
+          <sc-for list="{{visits}}" as="v" hint-placeholder-count="4">
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; border-top: 1px solid #EEF0F3">
+              <span class="mono" style="width: 64px; flex: none; font-size: 13px; color: #3D434D">{{v.day}}</span>
+              <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                <span style="font-weight: 500">{{v.obj}}</span>
+                <span style="font-size: 13px; color: #5F6673">{{v.what}}</span>
+              </div>
+            </div>
+          </sc-for>
+        </section>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":980}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { filter: 'all' }; }
+  renderVals() {
+    const all = [
+      { code: 'OBJ-021', name: 'Загородный дом «Ельники»', stack: 'KNX + WB', devices: 164, offline: '—', version: '2.4.1', contract: 'май 2027', visit: '14 окт', status: 'Нет связи', cls: 'bad', tag: 'off' },
+      { code: 'OBJ-017', name: 'Резиденция «Сосны»', stack: 'KNX + Zigbee', devices: 112, offline: 2, version: '2.4.1', contract: 'сен 2027', visit: '28 окт', status: 'Внимание', cls: 'warn', tag: 'attn' },
+      { code: 'OBJ-009', name: 'Пентхаус «Набережная»', stack: 'KNX', devices: 138, offline: 0, version: '2.4.1', contract: 'фев 2027', visit: '2 окт', status: 'Внимание', cls: 'warn', tag: 'attn' },
+      { code: 'OBJ-024', name: 'Квартира «Остров», 12', stack: 'Matter + Zigbee', devices: 46, offline: 1, version: '2.4.0', contract: 'дек 2026', visit: '19 сен', status: 'Внимание', cls: 'warn', tag: 'attn upd' },
+      { code: 'OBJ-003', name: 'Дом у озера', stack: 'KNX + WB', devices: 186, offline: 0, version: '2.4.2', contract: 'июл 2027', visit: '30 окт', status: 'В норме', cls: 'ok', tag: '' },
+      { code: 'OBJ-011', name: 'Вилла «Берег»', stack: 'KNX', devices: 204, offline: 0, version: '2.4.2', contract: 'мар 2028', visit: '21 окт', status: 'В норме', cls: 'ok', tag: '' },
+      { code: 'OBJ-019', name: 'Таунхаус «Ривьера», 4', stack: 'Matter', devices: 38, offline: 0, version: '2.4.0', contract: 'янв 2027', visit: '7 авг', status: 'Обновление', cls: 'info', tag: 'upd' },
+      { code: 'OBJ-026', name: 'Квартира «Парк», 31', stack: 'Zigbee + WB', devices: 52, offline: 0, version: '2.4.0', contract: 'апр 2027', visit: '11 сен', status: 'Обновление', cls: 'info', tag: 'upd' },
+      { code: 'OBJ-014', name: 'Резиденция «Кедр»', stack: 'KNX', devices: 171, offline: 0, version: '2.4.2', contract: 'окт 2027', visit: '25 окт', status: 'В норме', cls: 'ok', tag: '' },
+      { code: 'OBJ-001', name: 'Шоурум компании', stack: 'KNX + Matter', devices: 94, offline: 0, version: '2.5.0-rc1', contract: '—', visit: 'вчера', status: 'В норме', cls: 'ok', tag: '' }
+    ];
+    const f = this.state.filter;
+    const defs = [['all', 'Все'], ['attn', 'Требуют внимания'], ['upd', 'Обновления'], ['off', 'Нет связи']];
+    return {
+      filters: defs.map(([id, name]) => ({ name, on: f === id, cls: f === id ? 'chip on' : 'chip', pick: () => this.setState({ filter: id }) })),
+      rows: all.filter(r => f === 'all' || r.tag.split(' ').includes(f)).map(r => ({ ...r, offColor: r.offline && r.offline !== '—' ? '#9E1D13' : '#5F6673' })),
+      alerts: [
+        { level: 'Нет связи', cls: 'bad', title: 'Сервер объекта не на связи 47 минут', text: 'В 01:39 ИБП сообщил о переходе на батарею. Владелец уведомлён, дежурный техник назначен.', obj: 'OBJ-021', action: 'Открыть' },
+        { level: 'Устройство', cls: 'warn', title: 'Реле подсветки ниши не отвечает 23 часа', text: 'Гостиная · Zigbee. Во «Входящих» объекта есть новое совместимое реле — можно заменить с сохранением id.', obj: 'OBJ-017', action: 'Заменить' },
+        { level: 'Батареи', cls: 'warn', title: 'Три датчика с батареей ниже 15%', text: 'Протечка кухни, окно спальни, дверь террасы. Замена — в плановый выезд 12 ноября.', obj: 'OBJ-009', action: 'Открыть' },
+        { level: 'Обновление', cls: 'info', title: 'Пять объектов ждут версию 2.4.2', text: 'Окно согласовано: сегодня 03:00–05:00.', obj: '5 объектов', action: 'План' }
+      ],
+      visits: [
+        { day: 'чт 6', obj: 'OBJ-017 «Сосны»', what: 'замена реле ниши, калибровка штор гостиной' },
+        { day: 'пт 7', obj: 'OBJ-021 «Ельники»', what: 'диагностика питания, проверка ИБП' },
+        { day: 'вт 11', obj: 'OBJ-024 «Остров»', what: 'новая панель в детской, обновление' },
+        { day: 'ср 12', obj: 'OBJ-009 «Набережная»', what: 'плановый: батареи, тест протечек' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

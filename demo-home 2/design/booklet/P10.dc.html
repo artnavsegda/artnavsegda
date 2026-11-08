@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Инженерия</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&amp;family=Geologica:wght@200;300;400;500&amp;family=Onest:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8A5E26}a:hover{color:#6B4719}
+</style>
+</helmet>
+<div style="width: 794px; height: 1123px; position: relative; overflow: hidden; box-sizing: border-box; padding: 68px 72px 0; background: #EEECE7; color: #1A1A18; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 22px">
+  <span style="font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: #8A5E26">Глава III · Инженерия</span>
+  <h1 style="margin: 0; font: 300 38px/1.12 'Geologica', sans-serif; letter-spacing: -0.02em; text-wrap: balance">Открытый стек. Дом не принадлежит производителю.</h1>
+
+  <section aria-label="Схема системы" style="display: grid; grid-template-columns: minmax(0, 1fr) 170px; gap: 18px; padding: 22px; background: #E2DFD8">
+    <div style="display: flex; flex-direction: column; align-items: stretch; gap: 0">
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <div style="padding: 12px; background: #FBFAF7; border: 1px solid #1A1A18; font-size: 13px; line-height: 1.35"><b style="display: block; font-weight: 600">iPad на стене</b>комната, режим киоска</div>
+        <div style="padding: 12px; background: #FBFAF7; border: 1px solid #1A1A18; font-size: 13px; line-height: 1.35"><b style="display: block; font-weight: 600">iPad на столе</b>весь дом, план</div>
+        <div style="padding: 12px; background: #FBFAF7; border: 1px solid #1A1A18; font-size: 13px; line-height: 1.35"><b style="display: block; font-weight: 600">Телефоны</b>роли и права жильцов</div>
+      </div>
+      <div style="height: 26px; margin: 0 auto; width: 1px; background: #1A1A18"></div>
+      <div style="padding: 16px 18px; background: #1A1A18; color: #EDEBE6; display: flex; flex-direction: column; gap: 6px">
+        <b style="font: 500 17px/1.25 'Geologica', sans-serif">Сервер объекта · «Свод» на Wiren Board</b>
+        <span style="font-size: 13px; line-height: 1.5; color: #CFCBC3">сцены и логика · конфигурация с историей версий · журнал событий · работает без интернета</span>
+      </div>
+      <div style="height: 26px; margin: 0 auto; width: 1px; background: #1A1A18"></div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <div style="padding: 10px; background: #FBFAF7; border: 1px solid #8A867E; font-size: 12px; line-height: 1.35"><b style="display: block; font-size: 13px">KNX</b>свет, шторы, климат резиденций</div>
+        <div style="padding: 10px; background: #FBFAF7; border: 1px solid #8A867E; font-size: 12px; line-height: 1.35"><b style="display: block; font-size: 13px">Matter · Zigbee</b>квартиры, беспроводное</div>
+        <div style="padding: 10px; background: #FBFAF7; border: 1px solid #8A867E; font-size: 12px; line-height: 1.35"><b style="display: block; font-size: 13px">Modbus</b>реле, счётчики, тёплый пол</div>
+        <div style="padding: 10px; background: #FBFAF7; border: 1px solid #8A867E; font-size: 12px; line-height: 1.35"><b style="display: block; font-size: 13px">ИК · IP</b>медиа, матрица HDMI</div>
+        <div style="padding: 10px; background: #FBFAF7; border: 1px solid #8A867E; font-size: 12px; line-height: 1.35"><b style="display: block; font-size: 13px">Охрана</b>камеры, датчики, протечки</div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 10px">
+      <div style="padding: 14px; border: 1px dashed #1A1A18; font-size: 13px; line-height: 1.45"><b style="display: block; font: 500 15px 'Geologica', sans-serif; margin-bottom: 4px">Облако «Анфилады»</b>мониторинг парка, обновления, удалённая поддержка</div>
+      <span style="font-size: 12px; line-height: 1.45; color: #55524C">Нет связи с облаком — дом продолжает работать, сервис догоняет журнал позже.</span>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid #1A1A18">
+      <b style="font: 500 17px/1.3 'Geologica', sans-serif">Открытое железо</b>
+      <span style="font-size: 14px; line-height: 1.55; color: #46443F">Контроллеры на Linux с открытым ПО и стандартные шины. Любой модуль заменяется аналогом — без смены всей системы.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid #1A1A18">
+      <b style="font: 500 17px/1.3 'Geologica', sans-serif">Сначала локально</b>
+      <span style="font-size: 14px; line-height: 1.55; color: #46443F">Свет, климат и охрана не зависят от интернета и наших серверов. Облако нужно для сервиса, не для жизни.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid #1A1A18">
+      <b style="font: 500 17px/1.3 'Geologica', sans-serif">Проект — ваш</b>
+      <span style="font-size: 14px; line-height: 1.55; color: #46443F">Описание дома хранится в открытом формате с историей изменений и передаётся владельцу вместе с исполнительной документацией.</span>
+    </div>
+  </div>
+
+  <blockquote style="margin: 0; padding: 18px 0 0; border-top: 1px solid #CFCBC3; font: italic 400 24px/1.35 'Cormorant Garamond', serif; color: #3B3934">Шина под люкс и под бюджет разная. Интерфейс, сервис и логика — одни и те же: KNX в загородной резиденции и Zigbee в городской квартире выглядят для жильца одинаково достойно.</blockquote>
+
+  <div style="position: absolute; left: 72px; right: 72px; bottom: 40px; display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #6E6A63">
+    <span>Анфилада · Свод</span><span>10</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":794,"height":1123}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Климат — графики и поправки</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D5BD6}a:hover{color:#1747A8}
+.nl{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:6px;color:#C7CCD4;text-decoration:none;font-size:14px}
+.nl:hover{background:#22262C;color:#FFFFFF}
+.nl.on{background:#2A303A;color:#FFFFFF}
+.sub{display:flex;align-items:center;height:32px;padding:0 10px 0 38px;border-radius:6px;color:#AEB4BE;text-decoration:none;font-size:13px}
+.sub:hover{background:#22262C;color:#FFFFFF}
+.sub.on{color:#FFFFFF;background:#22262C}
+.ax{position:absolute;font:11px 'IBM Plex Mono',ui-monospace,monospace;color:#5F6673;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:6px;border:1px solid #CDD2DA;background:#FFFFFF;color:#15171B;font:500 14px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:#9AA2AE;color:#15171B}
+.btn.pri{background:#1D5BD6;border-color:#1D5BD6;color:#FFFFFF}
+.btn.sm{height:28px;padding:0 9px;font-size:12.5px}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:11px;font:500 12px 'IBM Plex Sans',system-ui,sans-serif;white-space:nowrap}
+.ok{background:#E3F2E9;color:#14613C}.warn{background:#FFF0D4;color:#7E4A00}.bad{background:#FCE8E6;color:#9E1D13}.off{background:#E9ECF0;color:#454C57}.info{background:#E6EEFC;color:#1747A8}
+.chip{height:32px;padding:0 12px;border-radius:16px;border:1px solid #CDD2DA;background:#FFFFFF;color:#3D434D;font:500 13px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer}
+.chip.on{background:#15171B;border-color:#15171B;color:#FFFFFF}
+.zone{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;padding:10px 14px;border:0;border-bottom:1px solid #EEF0F3;background:#FFFFFF;text-align:left;font:14px 'IBM Plex Sans',system-ui,sans-serif;color:#15171B;cursor:pointer}
+.zone:hover{background:#F7F8FA}
+.zone.sel{background:#EEF3FD;box-shadow:inset 3px 0 0 #1D5BD6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+input[type=range]{accent-color:#1D5BD6;width:100%}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F3F4F6; color: #15171B; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px">
+
+  <nav aria-label="Разделы сервисной панели" style="flex: 1 1 220px; max-width: 248px; box-sizing: border-box; background: #15171B; color: #C7CCD4; padding: 20px 12px; display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px">
+      <div style="width: 32px; height: 32px; border-radius: 6px; background: #1D5BD6; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font: 600 13px 'IBM Plex Mono', monospace">SV</div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 600; color: #FFFFFF; font-size: 15px">Сервис</span><span style="font-size: 12px; color: #8B93A0">панель техника</span></div>
+    </div>
+    <a class="nl" href="Main.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>Парк объектов</a>
+    <div style="padding: 18px 10px 6px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8B93A0">Объект OBJ-017</div>
+    <a class="nl" href="Object.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5h14v10H5zM9 19h6M12 15v4"></path></svg>Устройства</a>
+    <a class="nl" href="Inspector.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 6h5v4H5zM14 14h5v4h-5zM10 8h2a2 2 0 012 2v4M7 10v6a2 2 0 002 2h5"></path></svg>Поведения</a>
+    <a class="nl" href="AVMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4M10 8.5v4l3.5-2z"></path></svg>Медиа</a>
+    <a class="nl on" href="ClimateMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10 14V5a2 2 0 114 0v9a4 4 0 11-4 0zM12 10v7"></path></svg>Климат</a>
+    <a class="sub" href="ClimateMap.dc.html">Схема</a>
+    <a class="sub on" href="Climate.dc.html">Графики и поправки</a>
+    <a class="nl" href="Calibration.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M16 4v4M10 10v4M18 16v4"></path></svg>Калибровка</a>
+    <a class="nl" href="Access.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM3 20c.8-3.5 3.3-5.5 6-5.5s5.2 2 6 5.5M16 4.5a3.5 3.5 0 010 6.5M18 14.8c1.6.8 2.6 2.6 3 5.2"></path></svg>Доступ</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4v16M6 8a3 3 0 100-.1M18 9a3 3 0 100 6 3 3 0 000-6zM6 14c0 2 2 4 6 4h3"></path></svg>Конфигурация</a>
+    <div style="margin-top: auto; padding: 12px 10px; border-radius: 8px; background: #1E2228; display: flex; flex-direction: column; gap: 4px">
+      <span style="color: #FFFFFF; font-weight: 500">А. Сергеев</span>
+      <span style="font-size: 12px; color: #8B93A0">Техник · на объекте</span>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 16px">
+    <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 13px; color: #5F6673"><a href="Object.dc.html">OBJ-017 «Сосны»</a> / Климат</span>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Графики, энергия и поправки датчиков</h1>
+      </div>
+      <div role="group" aria-label="Период" style="display: flex; gap: 6px">
+        <button class="chip on" aria-pressed="true">24 часа</button><button class="chip">7 дней</button><button class="chip">30 дней</button>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+      <aside aria-label="Зоны" style="flex: 1 1 240px; min-width: 0; max-width: 300px; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px">
+        <div style="padding: 12px 14px; border-bottom: 1px solid #E2E5EA; font-size: 12px; color: #5F6673">7 зон · сезон: отопление · улица −3 °C</div>
+        <sc-for list="{{zones}}" as="z" hint-placeholder-count="7">
+          <button class="{{z.cls}}" onClick="{{z.pick}}" aria-pressed="{{z.sel}}">
+            <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><b style="font-weight: 500">{{z.name}}</b><span class="mono" style="font-size: 12px; color: #5F6673">{{z.now}}</span></span>
+            <span class="pill {{z.stCls}}">{{z.st}}</span>
+          </button>
+        </sc-for>
+      </aside>
+
+      <div style="flex: 4 1 700px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <section aria-label="График зоны" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline">
+            <h2 style="margin: 0; font-size: 17px; font-weight: 600">{{cur.name}} · сутки</h2>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: #3D434D">
+              <span><span style="display: inline-block; width: 16px; border-top: 2px solid #9AA2AE; vertical-align: middle"></span> датчик как есть</span>
+              <span><span style="display: inline-block; width: 16px; border-top: 2.5px solid #1D5BD6; vertical-align: middle"></span> с поправкой</span>
+              <span><span style="display: inline-block; width: 7px; height: 7px; border-radius: 4px; background: #14613C; vertical-align: middle"></span> эталон техника</span>
+              <span><span style="display: inline-block; width: 16px; border-top: 2px dashed #15171B; vertical-align: middle"></span> уставка</span>
+              <span><span style="display: inline-block; width: 16px; border-top: 2px solid #D9822B; vertical-align: middle"></span> {{cur.floorLabel}}</span>
+              <span><span style="display: inline-block; width: 14px; height: 9px; background: #FBE7CF; vertical-align: middle"></span> {{cur.dutyLabel}}</span>
+            </div>
+          </div>
+          <div style="position: relative; width: 100%; max-width: 100%; aspect-ratio: 1000 / 280">
+            <svg viewBox="0 0 1000 280" role="img" aria-label="{{cur.aria}}" style="position: absolute; inset: 0; width: 100%; height: 100%">
+              <path d="{{cur.dutyPath}}" fill="#FBE7CF"></path>
+              <path d="{{cur.markPath}}" fill="rgba(242,201,76,.2)"></path>
+              <path d="{{gridPath}}" fill="none" stroke="#E2E5EA" stroke-width="1"></path>
+              <path d="{{cur.setPath}}" fill="none" stroke="#15171B" stroke-width="1.6" stroke-dasharray="6 5"></path>
+              <path d="{{cur.floorPath}}" fill="none" stroke="#D9822B" stroke-width="2"></path>
+              <path d="{{cur.rawPath}}" fill="none" stroke="#9AA2AE" stroke-width="2"></path>
+              <path d="{{cur.corrPath}}" fill="none" stroke="#1D5BD6" stroke-width="2.5"></path>
+              <path d="{{cur.refPath}}" fill="#14613C"></path>
+            </svg>
+            <sc-for list="{{grid}}" as="g" hint-placeholder-count="6">
+              <span class="ax" style="left: 0; top: {{g.top}}; transform: translateY(-50%)">{{g.l}}</span>
+            </sc-for>
+            <sc-for list="{{hours}}" as="h" hint-placeholder-count="7">
+              <span class="ax" style="left: {{h.left}}; bottom: 0; transform: translateX({{h.tx}})">{{h.l}}</span>
+            </sc-for>
+            <sc-for list="{{cur.notes}}" as="n" hint-placeholder-count="1">
+              <span style="position: absolute; left: {{n.left}}; top: {{n.top}}; font-size: 12px; font-weight: 600; color: {{n.c}}; white-space: nowrap">{{n.t}}</span>
+            </sc-for>
+          </div>
+          <div style="padding: 10px 14px; border-radius: 6px; background: {{cur.diagBg}}; font-size: 13.5px; line-height: 1.5"><b style="font-weight: 600">{{cur.diagTitle}}</b> {{cur.diag}}</div>
+        </section>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+          <section aria-label="Поправка датчика" style="flex: 1.2 1 420px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-size: 15px; font-weight: 600">Поправка · {{cur.name}}</h2><span class="mono" style="font-size: 12px; color: #5F6673">ошибка к эталону: {{rms}}</span></div>
+            <div role="radiogroup" aria-label="Метод" style="display: flex; gap: 6px; flex-wrap: wrap">
+              <sc-for list="{{methods}}" as="m" hint-placeholder-count="3">
+                <button class="{{m.cls}}" role="radio" aria-checked="{{m.on}}" onClick="{{m.pick}}">{{m.name}}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{isOffset}}" hint-placeholder-val="{{false}}">
+              <div class="mono" style="font-size: 13px; line-height: 1.8; padding: 10px 12px; background: #F7F8FA; border-radius: 6px">t = t<sub>датчика</sub> + ({{cur.offset}})<br><span style="color: #5F6673">по 1 точке: эталон {{cur.ref1}} при датчике {{cur.raw1}}</span></div>
+            </sc-if>
+            <sc-if value="{{isTwo}}" hint-placeholder-val="{{false}}">
+              <div class="mono" style="font-size: 13px; line-height: 1.8; padding: 10px 12px; background: #F7F8FA; border-radius: 6px">t = {{cur.gain}} × t<sub>датчика</sub> + ({{cur.b}})<br><span style="color: #5F6673">точка 1: эталон 18,0 при датчике {{cur.p1}} · точка 2: эталон 24,0 при датчике {{cur.p2}}</span></div>
+            </sc-if>
+            <sc-if value="{{isVirtual}}" hint-placeholder-val="{{true}}">
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <sc-for list="{{weights}}" as="w" hint-placeholder-count="3">
+                  <label style="display: grid; grid-template-columns: 210px 1fr 48px; gap: 12px; align-items: center; font-size: 13px">
+                    <span><b style="font-weight: 500">{{w.name}}</b><br><span class="mono" style="font-size: 11.5px; color: #5F6673">{{w.where}}</span></span>
+                    <input type="range" min="0" max="100" step="5" value="{{w.v}}" onInput="{{w.set}}" aria-label="Вес: {{w.name}}">
+                    <span class="mono" style="text-align: right">{{w.v}} %</span>
+                  </label>
+                </sc-for>
+                <span style="font-size: 12.5px; color: #5F6673; line-height: 1.45">Виртуальный датчик зоны — взвешенное среднее. Регулятор, график и приложение жильца видят его как обычную температуру комнаты. Если один из датчиков замолчал, веса перераспределяются.</span>
+              </div>
+            </sc-if>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center">
+              <button class="btn sm">Ввести показания эталона</button>
+              <button class="btn sm pri">Применить поправку</button>
+              <span style="font-size: 12px; color: #5F6673">ограничение пола считается по сырому датчику, а не по поправке</span>
+            </div>
+          </section>
+
+          <section aria-label="Энергия" style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline"><h2 style="margin: 0; font-size: 15px; font-weight: 600">Энергия на климат · 7 дней</h2><span class="mono" style="font-size: 12px; color: #5F6673">кВт·ч в сутки</span></div>
+            <div style="position: relative; width: 100%; max-width: 100%; aspect-ratio: 380 / 150">
+              <svg viewBox="0 0 380 150" role="img" aria-label="Потребление климата по дням: тёплые полы, кондиционеры, насосы" style="position: absolute; inset: 0; width: 100%; height: 100%">
+                <path d="{{bars.floor}}" fill="#D9822B"></path>
+                <path d="{{bars.ac}}" fill="#1D5BD6"></path>
+                <path d="{{bars.pump}}" fill="#8B93A0"></path>
+                <path d="{{bars.hot}}" fill="none" stroke="#9E1D13" stroke-width="1.5" stroke-dasharray="3 3"></path>
+              </svg>
+              <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+                <span class="ax" style="left: {{d.left}}; bottom: 0; transform: translateX(-50%)">{{d.l}}</span>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: #3D434D">
+              <span><span style="display: inline-block; width: 10px; height: 10px; background: #D9822B; vertical-align: middle"></span> тёплые полы</span>
+              <span><span style="display: inline-block; width: 10px; height: 10px; background: #1D5BD6; vertical-align: middle"></span> кондиционеры</span>
+              <span><span style="display: inline-block; width: 10px; height: 10px; background: #8B93A0; vertical-align: middle"></span> насосы, вентиляция</span>
+              <span><span style="display: inline-block; width: 14px; border-top: 1.5px dashed #9E1D13; vertical-align: middle"></span> норма сезона</span>
+            </div>
+            <sc-for list="{{energy}}" as="e" hint-placeholder-count="4">
+              <div style="display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-top: 1px solid #EEF0F3; font-size: 13px; background: {{e.bg}}"><span>{{e.k}}</span><span class="mono" style="color: {{e.c}}">{{e.v}}</span></div>
+            </sc-for>
+          </section>
+        </div>
+
+        <section aria-label="Все датчики" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px">
+          <div style="padding: 12px 16px; border-bottom: 1px solid #E2E5EA; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline"><h2 style="margin: 0; font-size: 15px; font-weight: 600">Поправки всех датчиков объекта</h2><span style="font-size: 12px; color: #5F6673">каждая поправка — с эталоном, датой и автором в истории конфигурации</span></div>
+          <div style="overflow-x: auto">
+            <div style="min-width: 820px">
+              <div style="display: grid; grid-template-columns: minmax(150px, 1fr) minmax(170px, 1.2fr) 90px 150px 110px 120px; gap: 10px; padding: 9px 16px; font-size: 12px; color: #5F6673; border-bottom: 1px solid #E2E5EA">
+                <span>Датчик</span><span>Где стоит</span><span>Сейчас</span><span>Поправка</span><span>Метод</span><span>Проверено</span>
+              </div>
+              <sc-for list="{{sensors}}" as="s" hint-placeholder-count="8">
+                <div style="display: grid; grid-template-columns: minmax(150px, 1fr) minmax(170px, 1.2fr) 90px 150px 110px 120px; gap: 10px; align-items: center; padding: 8px 16px; border-bottom: 1px solid #EEF0F3; font-size: 13px; background: {{s.bg}}">
+                  <span><b style="font-weight: 500">{{s.zone}}</b> <span class="mono" style="font-size: 11.5px; color: #5F6673">{{s.id}}</span></span>
+                  <span style="color: #3D434D">{{s.where}}</span>
+                  <span class="mono">{{s.now}}</span>
+                  <span class="mono" style="color: {{s.corrColor}}">{{s.corr}}</span>
+                  <span class="pill {{s.mCls}}" style="justify-self: start">{{s.m}}</span>
+                  <span style="font-size: 12px; color: #5F6673">{{s.date}}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { zone: 'living', method: 'virtual', w: [30, 50, 20] }; }
+  renderVals() {
+    const st = this.state;
+    const N = 48, X = (i) => 40 + i * (950 / (N - 1));
+    const lo = 17, hi = 29, Y = (t) => 246 - (t - lo) / (hi - lo) * 236;
+    const path = (arr) => arr.map((t, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(t).toFixed(1)).join(' ');
+    const fmt = (x, d = 1) => (x >= 0 ? '' : '−') + Math.abs(x).toFixed(d).replace('.', ',');
+    // истинная температура гостиной (эталон) и показания датчиков
+    const truth = Array.from({ length: N }, (_, i) => { const h = i / 2; return 21.4 + (h > 6 && h < 9 ? (h - 6) * 0.25 : 0) - (h > 1 && h < 6 ? 0.5 : 0) + 0.15 * Math.sin(i / 5); });
+    const sun = (i) => { const h = i / 2; return h >= 13 && h <= 18 ? Math.sin((h - 13) / 5 * Math.PI) * 2.2 : 0; };
+    const wall = truth.map((t, i) => t + 0.4 + sun(i));
+    const ceil = truth.map((t, i) => t + 0.7 - 0.05 * Math.cos(i / 4));
+    const acRet = truth.map((t, i) => t - 0.3 + 0.2 * Math.sin(i / 3));
+    const [w1, w2, w3] = st.w; const ws = (w1 + w2 + w3) || 1;
+    const virt = truth.map((_, i) => (wall[i] * w1 + (ceil[i] - 0.7) * w2 + (acRet[i] + 0.3) * w3) / ws);
+    const off = truth.map((t, i) => wall[i] - 0.6);
+    const two = truth.map((t, i) => (wall[i] - 0.4) * 1.0);
+    const corrLiving = st.method === 'virtual' ? virt : st.method === 'two' ? two : off;
+    const rmsOf = (a) => Math.sqrt(a.reduce((s, v, i) => s + (v - truth[i]) ** 2, 0) / N);
+    const refIdx = [4, 12, 20, 26, 30, 32, 34, 40];
+    const floor = Array.from({ length: N }, (_, i) => 24 + 2.2 * Math.max(0, Math.sin((i - 8) / 7)));
+    const setp = Array.from({ length: N }, (_, i) => { const h = i / 2; return h < 6.5 ? 20 : h < 23 ? 21.5 : 20; });
+    // ванная: аномалия пола
+    const bathT = Array.from({ length: N }, (_, i) => 23.6 + 0.4 * Math.sin(i / 6));
+    const bathFloor = Array.from({ length: N }, (_, i) => 25.5 + (i > 18 ? 1.0 : 0) + 0.3 * Math.sin(i / 4));
+    const bathRaw = bathT.map((t) => t + 0.1);
+    // спальня: всё в норме
+    const bedT = Array.from({ length: N }, (_, i) => { const h = i / 2; return (h < 7 ? 19.6 : h < 22 ? 21.1 : 19.8) + 0.12 * Math.sin(i / 3); });
+    const bedRaw = bedT.map((t) => t + 0.3);
+    const Z = {
+      living: { name: 'Гостиная', floorLabel: 'пол (водяной)', dutyLabel: 'пол греет',
+        rawPath: path(wall), corrPath: path(corrLiving), setPath: path(setp), floorPath: path(floor),
+        refPts: refIdx.map(i => ({ x: X(i).toFixed(1), y: Y(truth[i]).toFixed(1) })),
+        duty: [{ x: X(0), w: X(12) - X(0) }, { x: X(36), w: X(47) - X(36) }],
+        marks: [{ x: X(26).toFixed(1), w: (X(37) - X(26)).toFixed(1), fill: 'rgba(242,201,76,.18)' }],
+        notes: [{ x: X(27), y: 34, t: 'солнце на стене: датчик +2,2 °C', c: '#7E4A00' }],
+        aria: 'Гостиная за сутки: датчик у окна завышает днём до 2,2 градуса',
+        diagTitle: 'Ошибка по времени суток.', diag: 'Регулятор KNX на стене у окна с 13:00 до 18:00 завышает до +2,2 °C — солнце греет стену. Пол в это время думает, что жарко, и отключается, и комната остывает. Сдвиг или коэффициент это не исправит: соберите виртуальный датчик из потолочного датчика и возврата кондиционера или перенесите регулятор.', diagBg: '#FFF8EA',
+        offset: '−0,6', ref1: '21,2', raw1: '21,8', gain: '1,00', b: '−0,40', p1: '18,4', p2: '24,4' },
+      bath: { name: 'Ванная', floorLabel: 'пол (электрический)', dutyLabel: 'пол греет',
+        rawPath: path(bathRaw), corrPath: path(bathT), setPath: path(bathT.map(() => 24)), floorPath: path(bathFloor),
+        refPts: [6, 22, 38].map(i => ({ x: X(i).toFixed(1), y: Y(bathT[i]).toFixed(1) })),
+        duty: [{ x: X(0), w: X(47) - X(0) }], marks: [], notes: [{ x: X(19), y: 30, t: 'пол греет почти без пауз с 09:30', c: '#9E1D13' }],
+        aria: 'Ванная за сутки: тёплый пол работает почти без перерыва',
+        diagTitle: 'Энергия вдвое выше обычного.', diag: 'Пол работает 22 часа из 24, потребление 6,2 кВт·ч в сутки против обычных 3,1. Воздух и пол держат уставку, датчики сходятся с эталоном, значит причина в тепле, а не в измерении: проверьте приоткрытое окно, вытяжку на постоянной работе или режим «комфорт пола» после 9:30.', diagBg: '#FCE8E6',
+        offset: '−0,1', ref1: '23,5', raw1: '23,6', gain: '1,00', b: '−0,10', p1: '18,1', p2: '24,1' },
+      bedroom: { name: 'Спальня 1', floorLabel: 'пол (водяной)', dutyLabel: 'пол греет',
+        rawPath: path(bedRaw), corrPath: path(bedT), setPath: path(bedT.map((_, i) => { const h = i / 2; return h < 7 ? 19.5 : h < 22 ? 21 : 19.5; })), floorPath: path(bedT.map(t => t + 3)),
+        refPts: [8, 24, 40].map(i => ({ x: X(i).toFixed(1), y: Y(bedT[i]).toFixed(1) })),
+        duty: [{ x: X(10), w: X(14) - X(10) }, { x: X(30), w: X(33) - X(30) }], marks: [], notes: [],
+        aria: 'Спальня за сутки: в норме, поправка −0,3',
+        diagTitle: 'В норме.', diag: 'Датчик стабильно завышает на 0,3 °C — тёплая стена с инсталляционной коробкой. Поправки по одной точке достаточно: ошибка к эталону после неё 0,1 °C.', diagBg: '#E3F2E9',
+        offset: '−0,3', ref1: '21,0', raw1: '21,3', gain: '1,00', b: '−0,30', p1: '18,3', p2: '24,3' }
+    };
+    const base = Z[st.zone] || Z.bedroom;
+    const rects = (rs) => rs.map(r => 'M' + (+r.x).toFixed(1) + ' 10h' + (+r.w).toFixed(1) + 'v236h-' + (+r.w).toFixed(1) + 'z').join(' ');
+    const dots = (ps) => ps.map(p => 'M' + (p.x - 4).toFixed(1) + ' ' + p.y + 'a4 4 0 1 0 8 0a4 4 0 1 0 -8 0z').join(' ');
+    const cur = Object.assign({}, base, {
+      dutyPath: rects(base.duty), markPath: rects(base.marks), refPath: dots(base.refPts.map(p => ({ x: +p.x, y: p.y }))),
+      notes: base.notes.map(n => ({ t: n.t, c: n.c, left: (n.x / 10).toFixed(1) + '%', top: ((n.y - 14) / 2.8).toFixed(1) + '%' }))
+    });
+    const rms = st.zone === 'living' ? fmt(rmsOf(corrLiving), 2) + ' °C (было ' + fmt(rmsOf(wall), 2) + ')' : st.zone === 'bath' ? '0,08 °C' : '0,10 °C';
+    const M = [['offset', 'Сдвиг · 1 точка'], ['two', 'Две точки'], ['virtual', 'Виртуальный датчик']];
+    const zl = [
+      ['living', 'Гостиная', '21,4 °C · пол 24,8', 'датчик днём', 'warn'], ['kitchen', 'Кухня', '21,8 °C', 'норма', 'ok'], ['bedroom', 'Спальня 1', '21,1 °C', 'норма', 'ok'],
+      ['bed2', 'Спальня 2', '20,9 °C', 'норма', 'ok'], ['kids', 'Детская', '21,6 °C', 'поправка +0,9', 'info'], ['office', 'Кабинет', '21,0 °C', 'норма', 'ok'], ['bath', 'Ванная', '23,8 °C · пол 26,4', 'энергия ×2', 'bad']
+    ];
+    const days = ['пт', 'сб', 'вс', 'пн', 'вт', 'ср', 'чт'];
+    const E = [[18, 3, 4], [19, 2, 4], [21, 2, 4], [18, 3, 4], [19, 3, 4], [22, 2, 4], [24, 2, 4]];
+    const bars = { floor: '', ac: '', pump: '', hot: 'M8 ' + (132 - 24 * 3.6).toFixed(1) + 'H372' };
+    E.forEach(([f, a, p], i) => { const x = 14 + i * 52; let y = 132; [[p, 'pump'], [a, 'ac'], [f, 'floor']].forEach(([v, k]) => { const h = v * 3.6; y -= h; bars[k] += 'M' + x + ' ' + y.toFixed(1) + 'h34v' + h.toFixed(1) + 'h-34z'; }); });
+    return {
+      zones: zl.map(([id, name, now, s, c]) => ({ name, now, st: s, stCls: c, sel: id === st.zone, cls: id === st.zone ? 'zone sel' : 'zone', pick: () => this.setState({ zone: id, method: id === 'living' ? 'virtual' : 'offset' }) })),
+      cur, rms,
+      grid: [18, 20, 22, 24, 26, 28].map(t => ({ top: (Y(t) / 2.8).toFixed(1) + '%', l: t + '°' })),
+      gridPath: [18, 20, 22, 24, 26, 28].map(t => 'M40 ' + Y(t).toFixed(1) + 'H990').join(' '),
+      hours: [0, 4, 8, 12, 16, 20, 24].map(h => ({ left: (X(Math.min(47, h * 2)) / 10).toFixed(1) + '%', tx: h === 0 ? '-10%' : h === 24 ? '-90%' : '-50%', l: (h < 10 ? '0' : '') + h + ':00' })),
+      methods: M.map(([id, name]) => ({ name, on: st.method === id, cls: st.method === id ? 'chip on' : 'chip', pick: () => this.setState({ method: id }) })),
+      isOffset: st.method === 'offset', isTwo: st.method === 'two', isVirtual: st.method === 'virtual',
+      weights: [['Регулятор на стене', 'knx 3/1/1 · у окна', 0], ['Потолочный датчик', 'wb-msw-v3_40 · центр комнаты', 1], ['Возврат кондиционера', 'шлюз Modbus · внутр. блок', 2]].map(([name, where, k]) => ({ name, where, v: st.w[k], set: (e) => { const w = [...st.w]; w[k] = Number(e.target.value); this.setState({ w }); } })),
+      bars, days: days.map((l, i) => ({ left: ((31 + i * 52) / 3.8).toFixed(1) + '%', l })),
+      energy: [
+        { k: 'Всего за 7 дней', v: '178 кВт·ч', c: '#15171B', bg: '#FFFFFF' },
+        { k: 'Тёплый пол · ванная', v: '6,2 / сут · обычно 3,1', c: '#9E1D13', bg: '#FFF6F5' },
+        { k: 'Тёплый пол · детская', v: '2,4 / сут', c: '#15171B', bg: '#FFFFFF' },
+        { k: 'Кондиционеры', v: '2,4 / сут · обдув и осушение', c: '#15171B', bg: '#FFFFFF' }
+      ],
+      sensors: [
+        { zone: 'Гостиная', id: 'knx 3/1/1', where: 'регулятор на стене у окна', now: '21,9 °C', corr: 'виртуальный · 30/50/20', corrColor: '#1747A8', m: 'виртуальный', mCls: 'info', date: 'сейчас · Сергеев', bg: '#F5F8FE' },
+        { zone: 'Кухня', id: 'wb-msw 41', where: 'потолок над островом', now: '21,8 °C', corr: '−0,2', corrColor: '#15171B', m: '1 точка', mCls: 'off', date: '12 окт · Сергеев', bg: '#FFFFFF' },
+        { zone: 'Спальня 1', id: 'knx 3/2/1', where: 'стена, коробка у кровати', now: '21,4 °C', corr: '−0,3', corrColor: '#15171B', m: '1 точка', mCls: 'off', date: '12 окт · Сергеев', bg: '#FFFFFF' },
+        { zone: 'Детская', id: 'zigbee 0x…c2a1', where: 'на шкафу у двери', now: '20,7 °C', corr: '× 1,04 + 0,05', corrColor: '#15171B', m: '2 точки', mCls: 'off', date: '3 ноя · Сергеев', bg: '#FFFFFF' },
+        { zone: 'Ванная · пол', id: 'NTC 10k · WB-MR6C', where: 'в стяжке, 3 см', now: '26,4 °C', corr: '+0,4 · лимит по сырому', corrColor: '#15171B', m: '1 точка', mCls: 'off', date: '12 окт · Сергеев', bg: '#FFFFFF' },
+        { zone: 'Кабинет', id: 'knx 3/4/1', where: 'стена у стеллажа', now: '21,1 °C', corr: '−0,1', corrColor: '#15171B', m: '1 точка', mCls: 'off', date: '12 окт · Сергеев', bg: '#FFFFFF' },
+        { zone: 'Улица', id: 'wb-msw 50', where: 'северный фасад, тень', now: '−3,0 °C', corr: '—', corrColor: '#5F6673', m: 'без поправки', mCls: 'off', date: '—', bg: '#FFFFFF' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Замена устройства</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D5BD6}a:hover{color:#1747A8}
+.nl{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:6px;color:#C7CCD4;text-decoration:none;font-size:14px}
+.nl:hover{background:#22262C;color:#FFFFFF}
+.nl.on{background:#2A303A;color:#FFFFFF}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:6px;border:1px solid #CDD2DA;background:#FFFFFF;color:#15171B;font:500 14px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:#9AA2AE;color:#15171B}
+.btn.pri{background:#1D5BD6;border-color:#1D5BD6;color:#FFFFFF}
+.btn.pri:hover{background:#1747A8;color:#FFFFFF}
+.btn.okb{background:#14613C;border-color:#14613C;color:#FFFFFF}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:11px;font:500 12px 'IBM Plex Sans',system-ui,sans-serif;white-space:nowrap}
+.ok{background:#E3F2E9;color:#14613C}.warn{background:#FFF0D4;color:#7E4A00}.bad{background:#FCE8E6;color:#9E1D13}.off{background:#E9ECF0;color:#454C57}.info{background:#E6EEFC;color:#1747A8}
+.step{display:flex;align-items:center;gap:10px;flex:1 1 160px;min-width:0;height:52px;padding:0 14px;border:0;border-radius:8px;background:transparent;color:#5F6673;font:500 14px 'IBM Plex Sans',system-ui,sans-serif;text-align:left;cursor:pointer}
+.step b{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:13px;border:1.5px solid #9AA2AE;font:600 12px 'IBM Plex Mono',monospace;flex:none}
+.step.done{color:#14613C}.step.done b{border-color:#14613C;background:#14613C;color:#FFFFFF}
+.step.cur{background:#FFFFFF;color:#15171B;box-shadow:0 0 0 1px #CDD2DA}.step.cur b{border-color:#1D5BD6;color:#1D5BD6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F3F4F6; color: #15171B; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px">
+
+  <nav aria-label="Разделы сервисной панели" style="flex: 1 1 220px; max-width: 248px; box-sizing: border-box; background: #15171B; color: #C7CCD4; padding: 20px 12px; display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px">
+      <div style="width: 32px; height: 32px; border-radius: 6px; background: #1D5BD6; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font: 600 13px 'IBM Plex Mono', monospace">SV</div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 600; color: #FFFFFF; font-size: 15px">Сервис</span><span style="font-size: 12px; color: #8B93A0">панель техника</span></div>
+    </div>
+    <a class="nl" href="Main.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>Парк объектов</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"></path></svg>Заявки<span class="pill info" style="margin-left: auto; height: 20px">3</span></a>
+    <div style="padding: 18px 10px 6px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8B93A0">Объект OBJ-017</div>
+    <a class="nl on" href="Object.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5h14v10H5zM9 19h6M12 15v4"></path></svg>Устройства</a>
+    <a class="nl" href="Inspector.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 6h5v4H5zM14 14h5v4h-5zM10 8h2a2 2 0 012 2v4M7 10v6a2 2 0 002 2h5"></path></svg>Поведения</a>
+    <a class="nl" href="AVMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4M10 8.5v4l3.5-2z"></path></svg>Медиа</a>
+    <a class="nl" href="ClimateMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10 14V5a2 2 0 114 0v9a4 4 0 11-4 0zM12 10v7"></path></svg>Климат</a>
+    <a class="nl" href="Calibration.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M16 4v4M10 10v4M18 16v4"></path></svg>Калибровка</a>
+    <a class="nl" href="Access.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM3 20c.8-3.5 3.3-5.5 6-5.5s5.2 2 6 5.5M16 4.5a3.5 3.5 0 010 6.5M18 14.8c1.6.8 2.6 2.6 3 5.2"></path></svg>Доступ</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4v16M6 8a3 3 0 100-.1M18 9a3 3 0 100 6 3 3 0 000-6zM6 14c0 2 2 4 6 4h3"></path></svg>Конфигурация</a>
+    <a class="nl" href="PanelService.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h16v12H4zM10 21h4"></path></svg>Режим панели</a>
+    <div style="margin-top: auto; padding: 12px 10px; border-radius: 8px; background: #1E2228; display: flex; flex-direction: column; gap: 4px">
+      <span style="color: #FFFFFF; font-weight: 500">А. Сергеев</span>
+      <span style="font-size: 12px; color: #8B93A0">Техник · смена до 20:00</span>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 13px; color: #5F6673"><a href="Object.dc.html">OBJ-017 · Устройства</a> / Подсветка ниши</span>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Замена устройства</h1>
+      </div>
+      <p style="margin: 0; max-width: 520px; color: #5F6673; line-height: 1.45">Новое железо встаёт на место старого: id, сцены, правила, точка на фото и избранное жильцов остаются как были. Программист не нужен.</p>
+    </header>
+
+    <div role="tablist" aria-label="Шаги" style="display: flex; gap: 6px; flex-wrap: wrap; padding: 6px; border-radius: 10px; background: #E9ECF0">
+      <sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+        <button class="{{s.cls}}" role="tab" aria-selected="{{s.cur}}" onClick="{{s.pick}}"><b>{{s.n}}</b>{{s.name}}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{s1}}" hint-placeholder-val="{{false}}">
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 14px; max-width: 720px">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 600">Какое устройство меняем</h2>
+        <div style="display: flex; justify-content: space-between; gap: 12px; padding: 14px; border: 1px solid #E2E5EA; border-radius: 8px">
+          <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600">Подсветка ниши · Гостиная</span><span class="mono" style="font-size: 12px; color: #5F6673">living.niche · Zigbee реле · 0x00158d0004a1b2c3</span></div>
+          <span class="pill bad">не отвечает 23 ч</span>
+        </div>
+        <p style="margin: 0; color: #3D434D; line-height: 1.5">Старое устройство можно уже снять со стены: всё, что нужно для переноса, хранится в конфигурации объекта, а не в самом реле.</p>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{s2}}" hint-placeholder-val="{{false}}">
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 12px; max-width: 860px">
+        <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline">
+          <h2 style="margin: 0; font-size: 18px; font-weight: 600">Новое устройство из «Входящих»</h2>
+          <span style="color: #5F6673; font-size: 13px">Сопряжение Zigbee открыто ещё 3:40 · <a href="#">продлить</a></span>
+        </div>
+        <label style="display: flex; gap: 14px; align-items: center; padding: 14px; border: 1.5px solid #1D5BD6; border-radius: 8px; background: #F5F8FE">
+          <input type="radio" name="cand" checked style="width: 18px; height: 18px; accent-color: #1D5BD6">
+          <span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-weight: 600">Zigbee реле, 1 канал</span><span class="mono" style="font-size: 12px; color: #5F6673">0x00158d0009f7e011 · найдено 4 мин назад · −61 dBm</span></span>
+          <span class="pill ok">совместимо: switch</span>
+        </label>
+        <label style="display: flex; gap: 14px; align-items: center; padding: 14px; border: 1px solid #E2E5EA; border-radius: 8px; color: #5F6673">
+          <input type="radio" name="cand" disabled style="width: 18px; height: 18px">
+          <span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-weight: 500">Zigbee датчик открытия</span><span class="mono" style="font-size: 12px">0x00158d000a2240bd · найдено 11 мин назад</span></span>
+          <span class="pill off">нет нужной функции</span>
+        </label>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{s3}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: stretch">
+        <section aria-label="Было и станет" style="flex: 2 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+          <h2 style="margin: 0; font-size: 18px; font-weight: 600">Проверка перед применением</h2>
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr); gap: 8px; align-items: center">
+            <div style="padding: 14px; border-radius: 8px; background: #FCF1F0; border: 1px solid #F3C9C4; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 12px; color: #9E1D13; font-weight: 500">СТАРОЕ</span>
+              <span style="font-weight: 600">Zigbee реле, 1 канал</span>
+              <span class="mono" style="font-size: 12px; color: #3D434D">0x00158d0004a1b2c3</span>
+              <span style="font-size: 13px; color: #5F6673">последний ответ вчера 03:12</span>
+            </div>
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="#5F6673" stroke-width="2" aria-hidden="true"><path d="M4 12h30M26 5l8 7-8 7"></path></svg>
+            <div style="padding: 14px; border-radius: 8px; background: #EFF7F2; border: 1px solid #BFE0CB; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 12px; color: #14613C; font-weight: 500">НОВОЕ</span>
+              <span style="font-weight: 600">Zigbee реле, 1 канал</span>
+              <span class="mono" style="font-size: 12px; color: #3D434D">0x00158d0009f7e011</span>
+              <span style="font-size: 13px; color: #5F6673">отвечает · −61 dBm</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0">
+            <span style="font-size: 12px; color: #5F6673; margin-bottom: 6px">Останется на месте</span>
+            <sc-for list="{{keeps}}" as="k" hint-placeholder-count="6">
+              <div style="display: flex; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid #EEF0F3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14613C" stroke-width="2.2" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+                <span style="width: 150px; flex: none; color: #5F6673">{{k.k}}</span><span>{{k.v}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <button class="btn">Мигнуть новым</button>
+            <button class="btn">Включить на 5 секунд</button>
+            <span style="align-self: center; color: #14613C; font-size: 13px">✓ ответ получен за 180 мс</span>
+          </div>
+        </section>
+
+        <section aria-label="Изменение конфигурации" style="flex: 1 1 380px; min-width: 0; background: #15171B; color: #C7CCD4; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; gap: 10px"><h2 style="margin: 0; font-size: 15px; font-weight: 600; color: #FFFFFF">Что меняется</h2><span class="mono" style="font-size: 12px; color: #8B93A0">v148 → v149</span></div>
+          <div class="mono" style="font-size: 12px; line-height: 1.8; overflow-x: auto">
+            <sc-for list="{{diff}}" as="l" hint-placeholder-count="10">
+              <div style="white-space: pre; padding: 0 6px; background: {{l.bg}}; color: {{l.fg}}">{{l.t}}</div>
+            </sc-for>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #8B93A0; line-height: 1.45">Меняется только адрес в инвентаре. Всё остальное ссылается на id и не трогается.</p>
+        </section>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{s4}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start">
+        <section style="flex: 1 1 460px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+          <h2 style="margin: 0; font-size: 18px; font-weight: 600">Применение</h2>
+          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #3D434D">Номер заявки
+            <input value="2291" style="height: 40px; padding: 0 12px; border: 1px solid #CDD2DA; border-radius: 6px; font: 14px 'IBM Plex Mono', monospace; color: #15171B">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #3D434D">Комментарий
+            <input value="Реле ниши не отвечало, заменено на новое того же типа" style="height: 40px; padding: 0 12px; border: 1px solid #CDD2DA; border-radius: 6px; font: 14px 'IBM Plex Sans', sans-serif; color: #15171B">
+          </label>
+          <label style="display: flex; gap: 10px; align-items: center; color: #15171B">
+            <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #1D5BD6">
+            Автоматический откат, если не подтвердить работу за 5 минут
+          </label>
+        </section>
+        <section aria-live="polite" style="flex: 1 1 460px; min-width: 0; background: #EFF7F2; border: 1px solid #BFE0CB; border-radius: 8px; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+          <span class="pill ok" style="align-self: flex-start">применено · v149</span>
+          <h2 style="margin: 0; font-size: 18px; font-weight: 600">Проверьте подсветку ниши в комнате</h2>
+          <div style="display: flex; align-items: baseline; gap: 10px"><span class="mono" style="font-size: 40px; font-weight: 500; color: #14613C">4:12</span><span style="color: #3D434D">до автоматического отката</span></div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <button class="btn okb">Всё работает</button>
+            <button class="btn">Откатить сейчас</button>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <footer style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding-top: 6px">
+      <button class="btn" onClick="{{back}}">Назад</button>
+      <button class="btn pri" onClick="{{next}}">{{nextLabel}}</button>
+    </footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { step: 3 }; }
+  renderVals() {
+    const st = this.state.step;
+    const names = ['Старое устройство', 'Новое устройство', 'Проверка', 'Применение'];
+    return {
+      steps: names.map((name, i) => ({ n: i + 1, name, cur: st === i + 1, cls: st === i + 1 ? 'step cur' : st > i + 1 ? 'step done' : 'step', pick: () => this.setState({ step: i + 1 }) })),
+      s1: st === 1, s2: st === 2, s3: st === 3, s4: st === 4,
+      back: () => this.setState({ step: Math.max(1, st - 1) }),
+      next: () => this.setState({ step: Math.min(4, st + 1) }),
+      nextLabel: st === 3 ? 'Применить замену' : st === 4 ? 'Готово' : 'Далее',
+      diff: [
+        ['inventory.json', ''], ['  "living.niche": {', ''], ['    "driver": "zigbee.relay",', ''],
+        ['-   "address": "0x00158d0004a1b2c3",', '-'], ['+   "address": "0x00158d0009f7e011",', '+'], ['+   "replaced": "2026-11-05, заявка 2291",', '+'],
+        ['    "channel": 1', ''], ['  }', ''], [' ', ''], ['model.json, scenes.json, ui/hotspots.json', ''], ['  без изменений', '']
+      ].map(([t, k]) => ({ t, bg: k === '-' ? '#4A1D1A' : k === '+' ? '#173A27' : 'transparent', fg: k === '-' ? '#FFB3AA' : k === '+' ? '#A6E3BE' : '#C7CCD4' })),
+      keeps: [
+        { k: 'Идентификатор', v: 'living.niche' },
+        { k: 'Сцены', v: 'Вечер · Гости · Кино (гостиная)' },
+        { k: 'Автоматизации', v: '«Закат» — включение на 45%' },
+        { k: 'Интерфейс', v: 'точка на фото гостиной, место на плане' },
+        { k: 'Жильцы', v: 'в избранном у двоих' },
+        { k: 'История', v: 'журнал и статистика продолжаются' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

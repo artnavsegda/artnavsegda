@@ -1,0 +1,248 @@
+<title>Навигация по дому</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Разрез дома: этажи — горизонтальные полосы сверху вниз, справа — экран телефона, который из них выводится */
+:root {
+  --bg: #F3F4F1; --surface: #FFFFFF; --sunk: #ECEEEA; --ink: #17201C; --muted: #5C6863; --line: #D9DED8; --accent: #2E6B57; --accent-soft: #E1EEE8;
+  --f-light: #B87A0F; --f-shades: #7457BD; --f-media: #2D69C1; --f-climate: #C0503A; --f-ventilation: #23827F; --f-security: #58626D; --f-access: #8A6A3B;
+  --warn: #9A5B00; --warn-soft: #FBEFD9;
+  --font: 'Golos Text', 'Segoe UI', system-ui, sans-serif; --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111513; --surface: #192019; --sunk: #151B17; --ink: #E6ECE7; --muted: #94A29A; --line: #2A342E; --accent: #72C2A2; --accent-soft: #1D3129;
+  --f-light: #E3AE4A; --f-shades: #A891E2; --f-media: #79A7EE; --f-climate: #EA8B74; --f-ventilation: #5FC6C2; --f-security: #A2AEB9; --f-access: #CDA673;
+  --warn: #E7B060; --warn-soft: #33281A; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111513; --surface: #192019; --sunk: #151B17; --ink: #E6ECE7; --muted: #94A29A; --line: #2A342E; --accent: #72C2A2; --accent-soft: #1D3129;
+  --f-light: #E3AE4A; --f-shades: #A891E2; --f-media: #79A7EE; --f-climate: #EA8B74; --f-ventilation: #5FC6C2; --f-security: #A2AEB9; --f-access: #CDA673;
+  --warn: #E7B060; --warn-soft: #33281A; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 22px; }
+h1 { font-size: clamp(26px, 3.4vw, 38px); font-weight: 650; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.lead { color: var(--muted); max-width: 70ch; margin: 6px 0 0; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--muted); }
+.facts b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.bar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--sunk); border: 1px solid var(--line); }
+.seg button { border: 0; background: none; color: var(--muted); font: 500 14px var(--font); height: 34px; padding: 0 16px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.seg button:focus-visible, .room:focus-visible, .fnrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hint { font-size: 13px; color: var(--muted); }
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; align-items: start; }
+@media (max-width: 980px) { .main { grid-template-columns: minmax(0, 1fr); } }
+
+/* разрез по этажам */
+.section { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+.floor { display: grid; grid-template-columns: 110px minmax(0, 1fr); border-top: 1px solid var(--line); }
+.floor:first-child { border-top: 0; }
+.fl { padding: 14px 12px; background: var(--sunk); display: flex; flex-direction: column; gap: 2px; border-right: 1px solid var(--line); }
+.fl b { font-size: 15px; font-weight: 600; }
+.fl span { font-size: 12px; color: var(--muted); }
+.rooms { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
+.room { text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-width: 148px; max-width: 240px; flex: 1 1 148px; display: flex; flex-direction: column; gap: 6px; }
+.room:hover { border-color: var(--muted); }
+.room[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.room .rn { font-weight: 600; font-size: 14.5px; display: flex; justify-content: space-between; gap: 8px; }
+.room .rn i { font-style: normal; font-weight: 400; color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.room .sub { font-size: 11.5px; color: var(--muted); margin-top: -4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chips span { display: inline-flex; align-items: center; gap: 4px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+
+/* что-ось */
+.fnlist { display: flex; flex-direction: column; }
+.fnrow { display: grid; grid-template-columns: 170px minmax(0, 1fr) 56px; gap: 14px; align-items: center; padding: 12px 16px; border: 0; border-top: 1px solid var(--line); background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.fnrow:first-child { border-top: 0; }
+.fnrow[aria-pressed="true"] { background: var(--accent-soft); }
+.fnrow b { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.fnrow .tot { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.stack { display: flex; height: 22px; border-radius: 5px; overflow: hidden; background: var(--sunk); }
+.stack span { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--surface); border-right: 2px solid var(--surface); min-width: 0; white-space: nowrap; overflow: hidden; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); padding: 10px 16px; border-top: 1px solid var(--line); background: var(--sunk); }
+
+/* телефон */
+.phone { position: sticky; top: max(16px, env(safe-area-inset-top, 0px)); border: 1px solid var(--line); border-radius: 30px; background: var(--surface); padding: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+.screen { border-radius: 22px; background: var(--bg); height: min(740px, 78vh); overflow: auto; display: flex; flex-direction: column; }
+.crumbs { position: sticky; top: 0; background: var(--bg); padding: 14px 16px 8px; font-size: 12.5px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; z-index: 1; }
+.taps { white-space: nowrap; color: var(--accent); font-weight: 600; }
+.ptitle { padding: 0 16px; font-size: 26px; font-weight: 650; letter-spacing: -0.01em; }
+.pstatus { padding: 2px 16px 12px; font-size: 12.5px; color: var(--muted); }
+.grp { padding: 4px 12px 10px; }
+.gh { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px 6px; font-size: 12.5px; font-weight: 600; }
+.gh span { display: flex; align-items: center; gap: 7px; }
+.gh em { font-style: normal; font-weight: 500; color: var(--muted); }
+.rows { display: flex; flex-direction: column; gap: 5px; }
+.r { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 11px; padding: 8px 10px; }
+.r.flag { border-style: dashed; opacity: .75; }
+.r .ic { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; }
+.r .ic svg { width: 15px; height: 15px; }
+.r b { font-weight: 500; font-size: 13.5px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.r small { display: block; font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tag { font-size: 10.5px; padding: 2px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.tag.w { background: var(--warn-soft); color: var(--warn); }
+.fsec { padding: 6px 16px 2px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.rsec { padding: 4px 16px 2px; font-size: 13px; font-weight: 600; }
+
+/* выводы */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+td, th { text-align: left; padding: 7px 8px 7px 0; border-top: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 12px; color: var(--muted); border-top: 0; }
+td:first-child { color: var(--muted); }
+ul.notes { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; }
+ul.notes li.w { color: var(--warn); }
+@media (prefers-reduced-motion: no-preference) { .room, .fnrow, .seg button { transition: background .15s, border-color .15s; } }
+@media (max-width: 560px) { .floor { grid-template-columns: minmax(0, 1fr); } .fl { flex-direction: row; gap: 10px; align-items: baseline; border-right: 0; border-bottom: 1px solid var(--line); } .fnrow { grid-template-columns: 120px minmax(0, 1fr) 40px; gap: 10px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h2>Модель проекта → интерфейс жильца</h2>
+    <h1 id="site">Навигация по дому</h1>
+    <p class="lead">Ни одна строка этой схемы не написана под объект. Этажи, комнаты, группы и устройства выведены из модели проекта, перенесённой из старых программ SIMPL и интерфейса iRidium.</p>
+  </header>
+  <div class="facts" id="facts"></div>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Ось навигации">
+      <button id="v-where" aria-pressed="true">Где: этаж → комната</button>
+      <button id="v-what" aria-pressed="false">Что: функция → комната</button>
+    </div>
+    <div class="seg" role="group" aria-label="Кто смотрит">
+      <button id="a-resident" aria-pressed="true">Жилец</button>
+      <button id="a-service" aria-pressed="false">Техник</button>
+    </div>
+    <span class="hint" id="hint"></span>
+  </div>
+  <div class="main">
+    <section id="left" aria-live="polite"></section>
+    <aside class="phone" aria-label="Экран приложения"><div class="screen" id="screen"></div></aside>
+  </div>
+  <div class="cols">
+    <section class="card">
+      <h2>Было и стало</h2>
+      <table>
+        <tr><th></th><th>Старый проект</th><th>Модель</th></tr>
+        <tr><td>Добавить светильник</td><td>4–5 мест в 3 инструментах</td><td>одна запись</td></tr>
+        <tr><td>Файлы интерфейса под комнаты</td><td>больше 30 на телефоне + страницы планшета</td><td>ни одного</td></tr>
+        <tr><td>Навигация</td><td>два проекта: функция → комната на телефоне, этаж → комната на планшете</td><td>одна модель, две оси</td></tr>
+        <tr><td>Имена комнат</td><td>до пяти написаний одной комнаты</td><td>одна запись с синонимами</td></tr>
+        <tr><td>Тёмная тема</td><td>копии попапов</td><td>токены</td></tr>
+        <tr><td>Нерабочая функция</td><td>«Шторы(не работают)» в меню</td><td>флаг с причиной</td></tr>
+      </table>
+    </section>
+    <section class="card">
+      <h2>Что выяснилось при переносе</h2>
+      <ul class="notes" id="notes"></ul>
+    </section>
+  </div>
+</div>
+
+<script>
+const DATA = /*DATA*/null;
+const FN_ORDER = ['light', 'shades', 'media', 'climate', 'ventilation', 'security', 'access'];
+const ICON = {
+  bulb: 'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z',
+  shade: 'M4 4h16M5 4v12h14V4M12 16v3', media: 'M3 5h18v11H3zM8 20h8', speaker: 'M7 3h10v18H7zM12 14a3 3 0 1 0 0-.1M12 7h.01',
+  play: 'M7 5l12 7-12 7z', climate: 'M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z', flame: 'M12 3c3 4 6 6 6 11a6 6 0 0 1-12 0c0-3 2-5 3-7 1 2 2 3 3 3 0-3-1-5 0-7z',
+  snow: 'M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9', leaf: 'M5 19c0-8 6-14 15-14 0 9-6 15-14 15M5 19l7-7', shield: 'M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z',
+  person: 'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c1-4 4-6 8-6s7 2 8 6', lock: 'M6 11h12v10H6zM8 11V8a4 4 0 0 1 8 0v3', grid: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z'
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const col = fn => `var(--f-${fn})`;
+const svg = i => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICON[i] || ICON.grid}"/></svg>`;
+const plural = (n, a, b, c) => { const m = n % 10, h = n % 100; return `${n} ${m === 1 && h !== 11 ? a : m >= 2 && m <= 4 && (h < 12 || h > 14) ? b : c}`; };
+const state = { view: 'where', who: 'resident', room: null, fn: 'light' };
+try { const s = JSON.parse(localStorage.getItem('navscheme') || '{}'); Object.assign(state, s); } catch {}
+const save = () => { try { localStorage.setItem('navscheme', JSON.stringify(state)); } catch {} };
+
+const fnNames = {};
+DATA.resident.what.forEach(x => fnNames[x.fn] = x.name);
+document.getElementById('site').textContent = 'Навигация: ' + DATA.site.toLowerCase();
+
+function facts() {
+  const W = DATA[state.who].where, rooms = W.flatMap(f => f.rooms), rows = rooms.reduce((n, r) => n + r.rows, 0);
+  const max = rooms.reduce((a, r) => (r.rows > a.rows ? r : a), rooms[0]);
+  document.getElementById('facts').innerHTML = [
+    `<span>помещений по проекту <b>${DATA.counts.spaces}</b></span>`, `<span>комнат для жильца <b>${rooms.length}</b></span>`,
+    `<span>этажей <b>${W.length}</b></span>`, `<span>устройств в модели <b>${DATA.counts.devices}</b></span>`,
+    `<span>строк на экранах <b>${rows}</b></span>`, `<span>самая длинная комната <b>${esc(max.name)} · ${max.rows}</b></span>`,
+    `<span>сцены дома <b>${DATA.scenes.length}</b></span>`].join('');
+}
+
+function roomCard(r) {
+  const chips = r.groups.filter(g => g.rows.length).map(g => `<span><i class="dot" style="background:${col(g.fn)}"></i>${esc(g.name)} ${g.rows.length}</span>`).join('');
+  const sens = r.groups.reduce((n, g) => n + g.status, 0);
+  const sub = r.spaces.length > 1 ? `<span class="sub">${r.spaces.map(esc).join(' · ')}</span>` : '';
+  return `<button class="room" data-room="${r.id}" aria-pressed="${state.room === r.id}"><span class="rn">${esc(r.name)}<i>${r.rows}</i></span>${sub}<span class="chips">${chips}${sens ? `<span>датчиков ${sens}</span>` : ''}</span></button>`;
+}
+
+function renderWhere() {
+  const W = DATA[state.who].where;
+  const floors = [...W].sort((a, b) => (a.id === 'site' ? 1 : b.id === 'site' ? -1 : b.id.localeCompare(a.id)));
+  document.getElementById('left').innerHTML = `<div class="section">${floors.map(f => `
+    <div class="floor"><div class="fl"><b>${esc(f.name)}</b><span>${plural(f.rooms.length, 'комната', 'комнаты', 'комнат')}</span></div>
+    <div class="rooms">${f.rooms.map(roomCard).join('')}</div></div>`).join('')}</div>`;
+  document.getElementById('hint').textContent = 'Разрез дома сверху вниз. Нажмите на комнату — справа её экран.';
+  if (!W.some(f => f.rooms.some(r => r.id === state.room))) state.room = W.find(f => f.id === 'f1')?.rooms[0]?.id ?? W[0].rooms[0].id;
+  document.querySelectorAll('.room').forEach(b => b.onclick = () => { state.room = b.dataset.room; save(); render(); });
+  phoneRoom();
+}
+
+function rowHtml(d, fn) {
+  const tags = (d.from ? `<span class="tag">из: ${esc(d.from)}</span>` : '') + (d.f ? `<span class="tag w">${esc(d.f)}</span>` : '');
+  return `<div class="r${d.f ? ' flag' : ''}"><span class="ic" style="color:${col(fn)};background:color-mix(in srgb, ${col(fn)} 14%, transparent)">${svg(d.i)}</span>
+    <span style="min-width:0"><b>${esc(d.n)}</b><small>${esc(d.t)}${d.c ? ` · <span class="mono">${esc(d.c)}</span>` : ''}</small></span><span>${tags}</span></div>`;
+}
+
+function phoneRoom() {
+  const W = DATA[state.who].where;
+  const f = W.find(f => f.rooms.some(r => r.id === state.room)), r = f.rooms.find(r => r.id === state.room);
+  const sens = r.groups.reduce((n, g) => n + g.status, 0);
+  const st = [r.groups.some(g => g.statusKinds.includes('occupancy')) ? 'датчик присутствия' : '', sens ? plural(sens, 'датчик', 'датчика', 'датчиков') + ' в строке состояния' : ''].filter(Boolean).join(' · ');
+  document.getElementById('screen').innerHTML = `
+    <div class="crumbs"><span>Комнаты › ${esc(f.name)} › ${esc(r.name)}</span><span class="taps">2 нажатия</span></div>
+    <div class="ptitle">${esc(r.name)}</div><div class="pstatus">${st || 'датчиков нет'}</div>
+    ${r.groups.filter(g => g.rows.length).map(g => `<div class="grp"><div class="gh"><span><i class="dot" style="background:${col(g.fn)}"></i>${esc(g.name)} <em>${g.rows.length}</em></span>${g.fn === 'light' && g.rows.length > 1 ? '<em>Выключить все</em>' : g.fn === 'shades' && g.rows.length > 1 ? '<em>Закрыть все</em>' : ''}</div>
+      <div class="rows">${g.rows.map(d => rowHtml(d, g.fn)).join('')}</div></div>`).join('')}`;
+}
+
+function renderWhat() {
+  const X = DATA[state.who].what;
+  if (!X.some(x => x.fn === state.fn)) state.fn = X[0].fn;
+  const floorIds = [...new Set(X.flatMap(x => x.floors.map(f => f.id)))];
+  const shade = i => `color-mix(in srgb, var(--accent) ${92 - i * 14}%, var(--muted))`;
+  const floorName = id => X.flatMap(x => x.floors).find(f => f.id === id).name;
+  document.getElementById('left').innerHTML = `<div class="section"><div class="fnlist">${X.map(x => `
+    <button class="fnrow" data-fn="${x.fn}" aria-pressed="${state.fn === x.fn}"><b><i class="dot" style="background:${col(x.fn)}"></i>${esc(x.name)}</b>
+      <span class="stack">${floorIds.map((id, i) => { const f = x.floors.find(f => f.id === id); const n = f ? f.rooms.reduce((m, r) => m + r.rows.length, 0) : 0;
+        return n ? `<span style="flex:${n};background:${shade(i)}" title="${esc(f.name)}: ${n}">${n}</span>` : ''; }).join('')}</span>
+      <span class="tot">${x.total}</span></button>`).join('')}</div>
+    <div class="legend">${floorIds.map((id, i) => `<span><i class="dot" style="background:${shade(i)}"></i>${esc(floorName(id))}</span>`).join('')}</div></div>`;
+  document.getElementById('hint').textContent = 'Сколько устройств каждой функции на каждом этаже. Нажмите на функцию — справа её экран.';
+  document.querySelectorAll('.fnrow').forEach(b => b.onclick = () => { state.fn = b.dataset.fn; save(); render(); });
+  const x = X.find(x => x.fn === state.fn);
+  document.getElementById('screen').innerHTML = `
+    <div class="crumbs"><span>${esc(x.name)} › по этажам</span><span class="taps">1–2 нажатия</span></div>
+    <div class="ptitle">${esc(x.name)}</div><div class="pstatus">${plural(x.total, 'устройство', 'устройства', 'устройств')} · ${plural(x.floors.reduce((n, f) => n + f.rooms.length, 0), 'комната', 'комнаты', 'комнат')}</div>
+    ${x.floors.map(f => `<div class="fsec">${esc(f.name)}</div>${f.rooms.map(r => `<div class="rsec">${esc(r.name)}</div><div class="grp"><div class="rows">${r.rows.map(d => rowHtml(d, x.fn)).join('')}</div></div>`).join('')}`).join('')}`;
+}
+
+function render() {
+  for (const v of ['where', 'what']) document.getElementById('v-' + v).setAttribute('aria-pressed', state.view === v);
+  for (const a of ['resident', 'service']) document.getElementById('a-' + a).setAttribute('aria-pressed', state.who === a);
+  facts();
+  state.view === 'where' ? renderWhere() : renderWhat();
+}
+document.getElementById('v-where').onclick = () => { state.view = 'where'; save(); render(); };
+document.getElementById('v-what').onclick = () => { state.view = 'what'; save(); render(); };
+document.getElementById('a-resident').onclick = () => { state.who = 'resident'; save(); render(); };
+document.getElementById('a-service').onclick = () => { state.who = 'service'; save(); render(); };
+document.getElementById('notes').innerHTML = DATA.notes.map(n => `<li class="${n.startsWith('ПРОВЕРИТЬ') ? 'w' : ''}">${esc(n)}</li>`).join('');
+render();
+</script>
