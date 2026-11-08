@@ -1,0 +1,36 @@
+/* ——— Нордик: форма ———
+   Плитки — льняные карточки; включённая становится светлым дубом. Переключатель — камешек на войлоке.
+   Фото — со скруглением, как отпечатки. Никакого стекла и свечения: свет — тёплое пятно, как от свечи. */
+
+:root[data-trend="nordic"] *:not(svg, svg *) { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+:root[data-trend="nordic"] h1, :root[data-trend="nordic"] h2 { font-weight: 350; }
+@keyframes settle { from { opacity: 0; transform: translateY(10px) scale(.99); } to { opacity: 1; transform: none; } }
+:root[data-trend="nordic"] .rise { animation: settle .9s var(--ease-out) both; filter: none; }
+
+:root[data-trend="nordic"] .card, :root[data-trend="nordic"] .tile { background-color: var(--surface); background-image: var(--bg-img); border: 1px solid var(--border) !important; box-shadow: var(--shadow); }
+:root[data-trend="nordic"] .tile .glow { background: radial-gradient(closest-side, color-mix(in srgb, var(--glow) 55%, transparent), transparent 72%); }
+/* включённая плитка — дубовая доска */
+:root[data-trend="nordic"] .tile.on { background-color: var(--wood); background-image: var(--oak); background-size: 400px 240px; border-color: transparent !important;
+  --text: #2A2118; --muted: rgba(42,33,24,.62); --sub: rgba(42,33,24,.8); color: #2A2118; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), var(--shadow); }
+:root[data-trend="nordic"] .tile .tx b { font-weight: 500; font-size: 15px; }
+:root[data-trend="nordic"] .tile .val { font: 300 30px/1 var(--font-display) !important; }
+:root[data-trend="nordic"] .tile .art img { filter: drop-shadow(0 10px 10px rgba(60,45,25,.25)) !important; }
+/* переключатель: войлочная дорожка и камешек */
+:root[data-trend="nordic"] .tile .tg, :root[data-trend="nordic"] .tg.pill { background: color-mix(in srgb, var(--moss) 30%, var(--stone)); box-shadow: inset 0 1px 3px rgba(0,0,0,.18); }
+:root[data-trend="nordic"] .tile.on .tg, :root[data-trend="nordic"] .tg.pill.on { background: #6F8F72; }
+:root[data-trend="nordic"] .tile .tg .knob, :root[data-trend="nordic"] .tg.pill i { background: radial-gradient(circle at 35% 30%, #FBFAF6, #D9D4CA 70%, #BDB6AA); box-shadow: 0 2px 4px rgba(0,0,0,.25); }
+
+:root[data-trend="nordic"] .chip { background: var(--surface); border: 1px solid var(--border-strong); font-weight: 500; }
+:root[data-trend="nordic"] .chip.on { background: var(--accent); color: var(--on-accent); border-color: transparent; }
+:root[data-trend="nordic"] .sc { background: var(--surface); border-color: var(--border); box-shadow: var(--shadow); }
+:root[data-trend="nordic"] .sc.on { background: var(--wood); background-image: var(--oak); color: #2A2118; }
+:root[data-trend="nordic"] .sc.on .ic { background: rgba(255,255,255,.55); color: #2A2118; }
+:root[data-trend="nordic"] .seg { background: var(--surface-2); }
+:root[data-trend="nordic"] .seg .thumb { background: var(--surface); box-shadow: var(--shadow); }
+:root[data-trend="nordic"] .seg button.on { color: var(--text); }
+:root[data-trend="nordic"] .sl.s-fill .track { box-shadow: inset 0 1px 3px rgba(0,0,0,.12); }
+:root[data-trend="nordic"] .room { box-shadow: var(--shadow); }
+:root[data-trend="nordic"] .room img { filter: saturate(.85) sepia(.08); }
+
+/* медиа */
+:root[data-trend="nordic"] .mini, :root[data-trend="nordic"] .where, :root[data-trend="nordic"] .cf { background: var(--surface-solid) !important; }

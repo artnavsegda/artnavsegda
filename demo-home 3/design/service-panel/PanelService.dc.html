@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Сервисный режим панели</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8FB4F5}a:hover{color:#B9D0FA}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:18px;border-radius:14px;border:1px solid #2E343D;background:#1B1F25;color:#F2F3F5;font:500 16px 'IBM Plex Sans',system-ui,sans-serif;text-align:left;cursor:pointer;min-height:132px;box-sizing:border-box}
+.tile:hover{border-color:#4A525E}
+.tile.on{border-color:#1D5BD6;background:#16233D}
+.big{flex:1;height:64px;border-radius:12px;border:1px solid #3A414C;background:#232830;color:#F2F3F5;font:600 15px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.big:hover{background:#2A303A}
+.big.pri{background:#1D5BD6;border-color:#1D5BD6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+</style>
+</helmet>
+<div style="width: 1180px; height: 820px; box-sizing: border-box; background: #0F1114; color: #F2F3F5; font-family: 'IBM Plex Sans', system-ui, sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+  <header style="display: flex; align-items: center; gap: 16px; padding: 14px 24px; background: #2B2010; border-bottom: 1px solid #5C4415">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F5C46B" stroke-width="1.8" aria-hidden="true"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"></path></svg>
+    <div style="display: flex; flex-direction: column; flex: 1; min-width: 0">
+      <span style="font-weight: 600; font-size: 17px; color: #FFE3AE">Сервисный режим · панель «Гостиная»</span>
+      <span style="font-size: 13px; color: #D9BE8A">техник А. Сергеев · заявка 2291 · жильцы видят на своих экранах, что идёт обслуживание</span>
+    </div>
+    <span class="mono" style="font-size: 15px; color: #FFE3AE">выход через {{left}}</span>
+    <button class="big" style="flex: none; width: 150px; height: 46px; background: #3A2C14; border-color: #7A5B1E">Выйти</button>
+  </header>
+
+  <div style="flex: 1; min-height: 0; display: flex; gap: 20px; padding: 20px 24px 24px">
+    <section aria-label="Диагностика комнаты" style="flex: 0 0 420px; display: flex; flex-direction: column; gap: 12px; min-height: 0">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <h1 style="margin: 0; font-size: 26px; font-weight: 600">Гостиная</h1>
+        <span style="font-size: 14px; color: #A9B0BA">{{okCount}} из {{total}} в норме</span>
+      </div>
+      <div style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{devs}}" as="d" hint-placeholder-count="7">
+          <button onClick="{{d.pick}}" style="display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 0 16px; border-radius: 12px; border: 1px solid {{d.border}}; background: {{d.bg}}; color: #F2F3F5; font: 15px 'IBM Plex Sans', sans-serif; text-align: left; cursor: pointer">
+            <span style="width: 12px; height: 12px; flex: none; border-radius: 6px; background: {{d.dot}}"></span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 500">{{d.name}}</span><span style="font-size: 13px; color: #A9B0BA">{{d.state}}</span></span>
+            <span style="font-size: 13px; color: {{d.statusColor}}">{{d.status}}</span>
+          </button>
+        </sc-for>
+      </div>
+      <button class="big">Мигнуть всем светом комнаты</button>
+    </section>
+
+    <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <section aria-label="Калибровка штор" style="padding: 20px; border-radius: 16px; background: #1B1F25; border: 1px solid #2E343D; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+          <h2 style="margin: 0; font-size: 20px; font-weight: 600">Шторы · калибровка здесь</h2>
+          <span class="mono" style="color: #A9B0BA">{{shadePhase}}</span>
+        </div>
+        <div style="height: 10px; border-radius: 5px; background: #2A303A; overflow: hidden"><div style="width: {{shadePct}}%; height: 100%; background: #1D5BD6"></div></div>
+        <div style="display: flex; gap: 10px">
+          <button class="big" onClick="{{shadeClose}}">Закрыть до упора</button>
+          <button class="big pri" onClick="{{shadeStart}}">{{startLabel}}</button>
+          <button class="big" onClick="{{shadeHalf}}">Проверить 50%</button>
+        </div>
+      </section>
+
+      <section aria-label="Действия" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <button class="{{kioskCls}}" onClick="{{toggleKiosk}}" aria-pressed="{{kiosk}}">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 11h12v9H6zM8 11V8a4 4 0 118 0v3"></path></svg>
+          <span>Режим киоска</span><span style="font-size: 13px; color: #A9B0BA">{{kioskText}}</span>
+        </button>
+        <button class="tile">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M18 3v4h-4M6 21v-4h4"></path></svg>
+          <span>Перезапустить панель</span><span style="font-size: 13px; color: #A9B0BA">20 секунд</span>
+        </button>
+        <button class="tile">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 18h2v2h-2zM14 18h2"></path></svg>
+          <span>Повторная привязка</span><span style="font-size: 13px; color: #A9B0BA">новый QR с сервера</span>
+        </button>
+        <button class="tile">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"></path></svg>
+          <span>Экран и сон</span><span style="font-size: 13px; color: #A9B0BA">яркость 70% · сон 30 с</span>
+        </button>
+        <button class="tile">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>
+          <span>Новое устройство</span><span style="font-size: 13px; color: #A9B0BA">открыть сопряжение Zigbee</span>
+        </button>
+        <a class="tile" href="Object.dc.html" style="text-decoration: none">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h16v11H4zM8 20h8"></path></svg>
+          <span>Полная сервисная панель</span><span style="font-size: 13px; color: #A9B0BA">на ноутбуке или телефоне</span>
+        </a>
+      </section>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1180,"height":820}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { sel: 'living.niche', kiosk: true, shade: 'idle' }; }
+  renderVals() {
+    const D = [
+      ['living.pendant', 'Подвес', '80% · 2700 K', 'ok'],
+      ['living.dining', 'Подвес над столом', '60% · 2700 K', 'ok'],
+      ['living.floor', 'Торшер', '100%', 'ok'],
+      ['living.niche', 'Подсветка ниши', 'новое реле · ответ 180 мс', 'new'],
+      ['living.shades', 'Шторы', '30% · ждёт калибровки', 'warn'],
+      ['living.tv', 'Телевизор', 'вкл. · ИК без обратной связи', 'info'],
+      ['living.climate', 'Термостат', '21,8° → 22,5° · поправка −0,6°', 'ok']
+    ];
+    const look = { ok: ['#3FB37A', 'в норме', '#7FD3A6'], new: ['#3D8BFF', 'заменено', '#8FB4F5'], warn: ['#F0A93B', 'внимание', '#F5C46B'], info: ['#8B93A0', 'ИК', '#A9B0BA'] };
+    const sel = this.state.sel, sh = this.state.shade;
+    const phase = { idle: 'положение 30%', closed: 'закрыто · можно начинать', run: 'замер: 14,2 с…', half: 'проверка: едет к 50%' };
+    const pct = { idle: 30, closed: 0, run: 52, half: 50 };
+    return {
+      left: '9:42',
+      total: D.length,
+      okCount: D.filter(d => d[3] === 'ok').length,
+      devs: D.map(([id, name, state, st]) => ({
+        name, state, status: look[st][1], dot: look[st][0], statusColor: look[st][2],
+        bg: id === sel ? '#16233D' : '#1B1F25', border: id === sel ? '#1D5BD6' : '#2E343D',
+        pick: () => this.setState({ sel: id })
+      })),
+      shadePhase: phase[sh], shadePct: pct[sh],
+      startLabel: sh === 'run' ? 'Стоп — открыто' : 'Старт замера',
+      shadeClose: () => this.setState({ shade: 'closed' }),
+      shadeStart: () => this.setState({ shade: sh === 'run' ? 'idle' : 'run' }),
+      shadeHalf: () => this.setState({ shade: 'half' }),
+      kiosk: this.state.kiosk,
+      kioskCls: this.state.kiosk ? 'tile on' : 'tile',
+      kioskText: this.state.kiosk ? 'включён: только гостиная' : 'выключен: весь дом',
+      toggleKiosk: () => this.setState({ kiosk: !this.state.kiosk })
+    };
+  }
+}
+</script>
+</body>
+</html>

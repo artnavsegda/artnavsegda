@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Отзывы</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&amp;family=Geologica:wght@200;300;400;500&amp;family=Onest:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8A5E26}a:hover{color:#6B4719}
+</style>
+</helmet>
+<div style="width: 794px; height: 1123px; position: relative; overflow: hidden; box-sizing: border-box; padding: 68px 72px 0; background: #EEECE7; color: #1A1A18; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 22px">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+    <span style="font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: #8A5E26">Отзывы</span>
+    <span style="font-size: 12px; color: #6E6A63">макет: заменить реальными отзывами с согласия авторов</span>
+  </div>
+  <h1 style="margin: 0; font: 300 40px/1.08 'Geologica', sans-serif; letter-spacing: -0.025em">Что говорят те, кто живёт и работает с «Сводом»</h1>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 36px">
+    <sc-for list="{{quotes}}" as="q" hint-placeholder-count="6">
+      <figure style="margin: 0; padding: 18px 0 20px; border-top: 1px solid #1A1A18; display: flex; flex-direction: column; gap: 12px">
+        <blockquote style="margin: 0; font: italic 400 21px/1.32 'Cormorant Garamond', serif; color: #2A2925; text-wrap: pretty">«{{q.text}}»</blockquote>
+        <figcaption style="display: flex; flex-direction: column; gap: 2px; font-size: 13px; line-height: 1.4">
+          <b style="font-weight: 600">{{q.who}}</b>
+          <span style="color: #55524C">{{q.role}}</span>
+        </figcaption>
+      </figure>
+    </sc-for>
+  </div>
+
+  <div style="position: absolute; left: 72px; right: 72px; bottom: 40px; display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #6E6A63">
+    <span>Анфилада · Свод</span><span>16</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":794,"height":1123}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      quotes: [
+        { text: 'Мы забыли, что это «система». Вечером экран в гостиной выглядит как фотография нашей же гостиной — и гаснет вместе с ней.', who: '[Имя Фамилия]', role: 'владелец резиденции, [регион]' },
+        { text: 'Впервые интерфейс не пришлось прятать на фото для портфолио. Мои рендеры и моя палитра вернулись ко мне живыми.', who: '[Имя Фамилия]', role: 'дизайнер интерьера, [студия]' },
+        { text: 'Ниши, датчики и щиты закрыли на стадии рабочего проекта. На отделке не появилось ни одной лишней коробки.', who: '[Имя Фамилия]', role: 'архитектор, [бюро]' },
+        { text: 'Замена реле — пять минут вместо вызова программиста. Сервисная панель окупилась на третьем объекте.', who: '[Имя Фамилия]', role: 'руководитель сервиса, [компания-интегратор]' },
+        { text: 'Клубному дому нужен был один стандарт сервиса и разные интерьеры. Темы решили это без отдельной разработки на каждую квартиру.', who: '[Имя Фамилия]', role: 'директор по продукту, [девелопер]' },
+        { text: 'Персонал видит только свет, климат и пылесос — и не боится что-то сломать. А я вижу в журнале, кто и что включал.', who: '[Имя Фамилия]', role: 'управляющий домом, [объект]' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

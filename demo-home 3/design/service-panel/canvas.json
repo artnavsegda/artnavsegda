@@ -1,0 +1,186 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-05T02:30:00+03:00"
+  },
+  "title": "Сервисная панель",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 980,
+      "title": "Парк объектов",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Object.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 1060,
+      "title": "Объект · диагностика устройств",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Replace.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 1440,
+      "h": 1000,
+      "title": "Замена устройства с сохранением id",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Calibration.dc.html": {
+      "x": 0,
+      "y": 1480,
+      "w": 1440,
+      "h": 960,
+      "title": "Калибровка",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Access.dc.html": {
+      "x": 1520,
+      "y": 1480,
+      "w": 1440,
+      "h": 1000,
+      "title": "Люди, консоли, блокировки",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Config.dc.html": {
+      "x": 3040,
+      "y": 1480,
+      "w": 1440,
+      "h": 1020,
+      "title": "Конфигурация, откат, сбросы, поддержка",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "PanelService.dc.html": {
+      "x": 4560,
+      "y": 1480,
+      "w": 1180,
+      "h": 820,
+      "title": "Сервисный режим на стенной панели",
+      "is_interactive": true
+    },
+    "Inspector.dc.html": {
+      "x": 4560,
+      "y": 0,
+      "w": 1440,
+      "h": 1180,
+      "title": "Инспектор поведений",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AVMap.dc.html": {
+      "x": 0,
+      "y": 2900,
+      "w": 1440,
+      "h": 1340,
+      "title": "Медиа · схема коммутации",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AVIR.dc.html": {
+      "x": 1520,
+      "y": 2900,
+      "w": 1440,
+      "h": 1120,
+      "title": "Медиа · ИК-пульт",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AVCalib.dc.html": {
+      "x": 3040,
+      "y": 2900,
+      "w": 1440,
+      "h": 1080,
+      "title": "Медиа · калибровка таймингов",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "AVScenarios.dc.html": {
+      "x": 4560,
+      "y": 2900,
+      "w": 1440,
+      "h": 1180,
+      "title": "Медиа · отладка сценариев",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "ClimateMap.dc.html": {
+      "x": 0,
+      "y": 4740,
+      "w": 1440,
+      "h": 1720,
+      "title": "Климат · мнемосхема и сверка с проектом",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "Climate.dc.html": {
+      "x": 1520,
+      "y": 4740,
+      "w": 1440,
+      "h": 1500,
+      "title": "Климат · графики, энергия, поправки датчиков",
+      "expand": "fill",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Object.dc.html",
+    "Replace.dc.html",
+    "Calibration.dc.html",
+    "Access.dc.html",
+    "Config.dc.html",
+    "PanelService.dc.html",
+    "Inspector.dc.html",
+    "AVMap.dc.html",
+    "AVIR.dc.html",
+    "AVCalib.dc.html",
+    "AVScenarios.dc.html",
+    "ClimateMap.dc.html",
+    "Climate.dc.html"
+  ],
+  "notes": {
+    "row1": {
+      "x": 0,
+      "y": -300,
+      "text": "Сервисная панель: парк объектов, диагностика, поведения",
+      "kind": "title1",
+      "maxW": 6000
+    },
+    "row2": {
+      "x": 0,
+      "y": 1180,
+      "text": "Обслуживание: калибровка, доступ, конфигурация, режим панели",
+      "kind": "title1",
+      "maxW": 5740
+    },
+    "row3": {
+      "x": 0,
+      "y": 2600,
+      "text": "Медиа: коммутация, ИК-пульты, тайминги, отладка сценариев",
+      "kind": "title1",
+      "maxW": 6000
+    },
+    "row4": {
+      "x": 0,
+      "y": 4440,
+      "text": "Климат: мнемосхема, графики, поправки датчиков",
+      "kind": "title1",
+      "maxW": 2960
+    }
+  },
+  "designSystems": []
+}

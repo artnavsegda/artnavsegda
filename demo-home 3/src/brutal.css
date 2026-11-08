@@ -1,0 +1,196 @@
+/* ——— Брутализм ———
+   Сырой веб в духе cargo.site и mmm.page: бумага в клетку, жирная чёрная рамка, жёсткая тень без размытия,
+   моноширинный текст, огромный рубленый заголовок, сигнальные краски, бегущая строка, растр на 3D.
+   Это не только токены: тренд перекраивает форму контролов, поэтому правила здесь адресные.
+   Префикс :root[data-trend="brutal"] нужен для веса: он перебивает стили компонентов со scoped-хешем. */
+
+[data-trend="brutal"] {
+  --font-display: 'Unbounded', 'Arial Black', system-ui, sans-serif;
+  --font-ui: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+  --font-num: 'Unbounded', 'Arial Black', system-ui, sans-serif;
+  --display-weight: 900;
+  --display-tracking: -0.03em;
+  --label-case: uppercase;
+  --label-tracking: 0.06em;
+  --r-xl: 0px; --r-lg: 0px; --r-md: 0px; --r-sm: 0px; --r-pill: 0px;
+  --dur-s: .08s; --dur-m: .12s; --dur-l: .2s;
+  --ease-ui: steps(2, end);
+  --glass-blur: 0px;
+  --bw: 2px;
+  --hard: 4px 4px 0 var(--ink);
+}
+[data-trend="brutal"][data-mode="day"] {
+  color-scheme: light;
+  --ink: #0A0A0A;
+  --bg: #F3F3EC;
+  --bg-img: linear-gradient(rgba(10,10,10,.07) 1px, transparent 1px) 0 0 / 24px 24px, linear-gradient(90deg, rgba(10,10,10,.07) 1px, transparent 1px) 0 0 / 24px 24px;
+  --paper: #F3F3EC; --grid: rgba(10,10,10,.07);
+  --surface: #FFFFFF; --surface-2: #E6E6DD; --surface-solid: #FFFFFF; --glass: #FFFFFF;
+  --border: #0A0A0A; --border-strong: #0A0A0A;
+  --text: #0A0A0A; --sub: #1F1F1F; --muted: #5A5A55;
+  --accent: #FFE11A; --accent-text: #0A0A0A; --accent-soft: #FFE11A; --accent-border: #0A0A0A; --on-accent: #0A0A0A;
+  --link: #2A2AFF;
+  --cool: #2A2AFF; --cool-text: #2A2AFF; --cool-soft: rgba(42,42,255,.35);
+  --danger: #FF2E12; --danger-soft: #FFD3CC; --ok: #00A651;
+  --inv-bg: #0A0A0A; --inv-text: #F3F3EC;
+  --shadow: var(--hard);
+  --track: #FFFFFF; --fill: #FFE11A;
+  --wall: #0A0A0A; --furn: #0A0A0A; --furn-fill: transparent; --door: #0A0A0A;
+  --room-floor: #FFFFFF; --presence-floor: rgba(42,42,255,.12); --label-bg: #FFFFFF;
+  --glow: #FFE11A; --glow-a: .7; --glow-b: .25;
+  --photo-dim: .35;
+  --hero-card: #FFFFFF;
+  --fluid-a: #F3F3EC; --fluid-b: #F3F3EC; --fluid-c: #F3F3EC; --fluid-glow: #F3F3EC;
+  --dither-ink: #0A0A0A; --dither-paper: #F3F3EC; --dither-spot: #FFE11A;
+  --riso-blend: multiply;
+}
+[data-trend="brutal"][data-mode="night"] {
+  color-scheme: dark;
+  --ink: #000000;
+  --bg: #0B0B0B;
+  --bg-img: linear-gradient(rgba(243,243,236,.07) 1px, transparent 1px) 0 0 / 24px 24px, linear-gradient(90deg, rgba(243,243,236,.07) 1px, transparent 1px) 0 0 / 24px 24px;
+  --paper: #0B0B0B; --grid: rgba(243,243,236,.07);
+  --surface: #151515; --surface-2: #232323; --surface-solid: #151515; --glass: #151515;
+  --border: #F3F3EC; --border-strong: #F3F3EC;
+  --text: #F3F3EC; --sub: #DADAD2; --muted: #9A9A92;
+  --accent: #C6FF1A; --accent-text: #C6FF1A; --accent-soft: rgba(198,255,26,.16); --accent-border: #F3F3EC; --on-accent: #0B0B0B;
+  --link: #8C8CFF;
+  --cool: #8C8CFF; --cool-text: #A8A8FF; --cool-soft: rgba(140,140,255,.4);
+  --danger: #FF4A2E; --danger-soft: #3A120C; --ok: #C6FF1A;
+  --inv-bg: #F3F3EC; --inv-text: #0B0B0B;
+  --shadow: 4px 4px 0 #F3F3EC;
+  --hard: 4px 4px 0 #F3F3EC;
+  --track: #151515; --fill: #C6FF1A;
+  --wall: #F3F3EC; --furn: #F3F3EC; --furn-fill: transparent; --door: #F3F3EC;
+  --room-floor: #151515; --presence-floor: rgba(140,140,255,.14); --label-bg: #0B0B0B;
+  --glow: #C6FF1A; --glow-a: .55; --glow-b: .2;
+  --photo-dim: .6;
+  --hero-card: #151515;
+  --fluid-a: #0B0B0B; --fluid-b: #0B0B0B; --fluid-c: #0B0B0B; --fluid-glow: #0B0B0B;
+  --dither-ink: #0B0B0B; --dither-paper: #F3F3EC; --dither-spot: #C6FF1A;
+  --riso-blend: screen;
+}
+
+/* — база: квадраты, никакого стекла и мягких теней, курсор-прицел, выделение маркером — */
+:root[data-trend="brutal"] body { cursor: crosshair; background-attachment: local; }
+:root[data-trend="brutal"] ::selection { background: var(--accent); color: var(--on-accent); }
+:root[data-trend="brutal"] *:not(svg, svg *) { border-radius: 0 !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+:root[data-trend="brutal"] button { cursor: pointer; }
+:root[data-trend="brutal"] h1, :root[data-trend="brutal"] h2, :root[data-trend="brutal"] h3 { text-transform: uppercase; line-height: .95; }
+:root[data-trend="brutal"] h1 { font-size: clamp(30px, 9vw, 64px) !important; letter-spacing: -.045em; hyphens: auto; }
+:root[data-trend="brutal"] header h1, :root[data-trend="brutal"] .top h1 { font-size: clamp(44px, 12.5vw, 104px) !important; }
+:root[data-trend="brutal"] .label { font-size: 11px; font-weight: 600; }
+:root[data-trend="brutal"] a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+
+/* появление — рывком, как будто страница догружается */
+@keyframes jolt { 0% { opacity: 0; transform: translate(-6px, 0); } 50% { opacity: 1; transform: translate(3px, 0); } 100% { opacity: 1; transform: none; } }
+:root[data-trend="brutal"] .rise { animation: jolt .24s steps(3, end) both !important; filter: none; }
+:root[data-trend="brutal"] .float { animation: none !important; }
+
+/* нажатие — коробка вдавливается в свою тень */
+:root[data-trend="brutal"] .press { transition: none !important; }
+:root[data-trend="brutal"] .press:active { transform: translate(3px, 3px) !important; box-shadow: none !important; }
+
+/* — карточки, плитки, чипы — */
+:root[data-trend="brutal"] .card,
+:root[data-trend="brutal"] .tile { background: var(--surface); border: var(--bw) solid var(--border) !important; box-shadow: var(--hard); outline: none; }
+:root[data-trend="brutal"] .tile.on { background: var(--accent); color: var(--on-accent); --muted: var(--on-accent); --text: var(--on-accent); }
+:root[data-trend="brutal"] .tile .glow { display: none; }
+:root[data-trend="brutal"] .tile .tx b { text-transform: uppercase; font-size: 13px; letter-spacing: .02em; font-weight: 600; }
+:root[data-trend="brutal"] .tile .val { font-weight: 900; font-size: 27px; max-width: calc(100% - 28px); overflow: hidden; text-overflow: clip; white-space: nowrap; letter-spacing: -.04em; }
+:root[data-trend="brutal"] .tile .art img { filter: url(#riso) contrast(1.1) !important; mix-blend-mode: var(--riso-blend); }
+:root[data-trend="brutal"] .tile.on .art img { mix-blend-mode: multiply; }
+/* переключатель на плитке — коробка с квадратом, а не капсула */
+:root[data-trend="brutal"] .tile .tg { width: 50px; height: 28px; background: var(--surface); border: var(--bw) solid var(--text); }
+:root[data-trend="brutal"] .tile .tg .knob { top: 2px; left: 2px; width: 20px; height: 20px; background: var(--text); box-shadow: none; transition: none; }
+:root[data-trend="brutal"] .tile.on .tg { background: var(--on-accent); border-color: var(--on-accent); }
+:root[data-trend="brutal"] .tile.on .tg .knob { background: var(--accent); transform: translateX(22px); }
+
+:root[data-trend="brutal"] .chip { height: 40px; border: var(--bw) solid var(--border); background: var(--surface); color: var(--text); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; box-shadow: 3px 3px 0 var(--border); }
+:root[data-trend="brutal"] .chip.on { background: var(--accent); color: var(--on-accent); border-color: var(--border); }
+
+/* — тумблер, слайдер, сегменты — */
+:root[data-trend="brutal"] .tg.rocker { border: var(--bw) solid var(--text); width: 72px; background: var(--surface); }
+:root[data-trend="brutal"] .tg.rocker span { font-weight: 600; color: var(--text); }
+:root[data-trend="brutal"] .tg.rocker i { width: 14px; height: 14px; background: var(--text); }
+:root[data-trend="brutal"] .tg.rocker.on { background: var(--accent); }
+:root[data-trend="brutal"] .tg.rocker.on span { color: var(--on-accent); }
+:root[data-trend="brutal"] .tg.rocker.on i { background: var(--on-accent); }
+:root[data-trend="brutal"] .sl.s-fill .track { border: var(--bw) solid var(--border); box-shadow: var(--hard); background: repeating-linear-gradient(90deg, transparent 0 9px, var(--grid) 9px 10px), var(--track); }
+:root[data-trend="brutal"] .sl.s-fill .fill { background: var(--fill); border-right: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] .sl.s-fill .val { mix-blend-mode: normal; color: var(--text); font-weight: 600; }
+:root[data-trend="brutal"] .sl .track, :root[data-trend="brutal"] .sl .fill, :root[data-trend="brutal"] .sl .knob { transition: none !important; }
+:root[data-trend="brutal"] .seg { background: var(--surface); border: var(--bw) solid var(--border); padding: 0; gap: 0; }
+:root[data-trend="brutal"] .seg .thumb { top: 0; bottom: 0; background: var(--accent); transition: none !important; }
+:root[data-trend="brutal"] .seg button { font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text); }
+:root[data-trend="brutal"] .seg button.on { color: var(--on-accent); }
+:root[data-trend="brutal"] .sc { border: var(--bw) solid var(--border); box-shadow: 3px 3px 0 var(--border); background: var(--surface); }
+:root[data-trend="brutal"] .sc b { text-transform: uppercase; font-size: 12.5px; font-weight: 600; }
+:root[data-trend="brutal"] .sc .ic { background: transparent; border: var(--bw) solid var(--border); color: var(--text); }
+:root[data-trend="brutal"] .sc.on { background: var(--accent); color: var(--on-accent); }
+:root[data-trend="brutal"] .sc.on .ic { background: var(--on-accent); color: var(--accent); }
+
+/* — навигация: чёрная полоса снизу, подписи капсом, активная вкладка — маркер — */
+:root[data-trend="brutal"] .tabs.flat { background: var(--inv-bg); border-top: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] .tabs.flat button { color: var(--inv-text); border-top: 0; margin: 0; }
+:root[data-trend="brutal"] .tabs.flat button.on { background: var(--accent); color: var(--on-accent); }
+:root[data-trend="brutal"] nav.top { background: var(--inv-bg); border-bottom: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] nav.top .mark { color: var(--accent); font-family: var(--font-display); font-weight: 900; letter-spacing: -.02em; font-size: 16px; text-transform: uppercase; }
+:root[data-trend="brutal"] nav.top button { color: var(--inv-text); border-bottom: 0; }
+:root[data-trend="brutal"] nav.top button.on { background: var(--accent); color: var(--on-accent); }
+
+/* — главная: нумерованные разделы, фото комнат в ч/б с подписью на плашке — */
+:root[data-trend="brutal"] .scr { counter-reset: sec; }
+:root[data-trend="brutal"] .sh { counter-increment: sec; text-transform: uppercase; font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: -.03em; border-top: var(--bw) solid var(--border); padding-top: 8px; }
+:root[data-trend="brutal"] .sh::before { content: counter(sec, decimal-leading-zero) " / "; font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: 0; vertical-align: top; }
+:root[data-trend="brutal"] .room { border: var(--bw) solid var(--border) !important; box-shadow: var(--hard); }
+:root[data-trend="brutal"] .room img { filter: grayscale(1) contrast(1.25); }
+:root[data-trend="brutal"] .room .rt b { text-transform: uppercase; font-family: var(--font-display); font-weight: 900; letter-spacing: -.02em; }
+:root[data-trend="brutal"] .room .here { background: var(--accent); color: var(--on-accent); font-weight: 600; text-transform: uppercase; }
+:root[data-trend="brutal"] .lnk { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+:root[data-trend="brutal"] .facts span { border: var(--bw) solid var(--border); background: var(--surface); }
+
+/* — дом: подписи комнат как наклейки — */
+:root[data-trend="brutal"] .dom .lb { border: var(--bw) solid var(--border) !important; background: var(--surface) !important; color: var(--text) !important; box-shadow: 2px 2px 0 var(--border); font-family: var(--font-ui); text-transform: uppercase; }
+:root[data-trend="brutal"] .dom .lb.on, :root[data-trend="brutal"] .dom .lb.sel { background: var(--accent) !important; color: var(--on-accent) !important; }
+
+/* — медиа — */
+:root[data-trend="brutal"] .hero, :root[data-trend="brutal"] .hero-pg { border: var(--bw) solid var(--border) !important; box-shadow: var(--hard); }
+:root[data-trend="brutal"] .pc .art, :root[data-trend="brutal"] .sq .art, :root[data-trend="brutal"] .wide .art, :root[data-trend="brutal"] .poster .art { border: var(--bw) solid var(--border); filter: grayscale(1) contrast(1.3); }
+:root[data-trend="brutal"] .pc:hover .art, :root[data-trend="brutal"] .sq:hover .art { filter: none; }
+:root[data-trend="brutal"] .mini, :root[data-trend="brutal"] .where, :root[data-trend="brutal"] .cf { background: var(--surface) !important; border: var(--bw) solid var(--border) !important; box-shadow: 6px 6px 0 var(--border) !important; }
+:root[data-trend="brutal"] .mini .pp, :root[data-trend="brutal"] .where .go { background: var(--accent); color: var(--on-accent); border: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] .fp { background: var(--bg) !important; background-image: var(--bg-img) !important; color: var(--text) !important; }
+:root[data-trend="brutal"] .fp .bg { display: none; }
+:root[data-trend="brutal"] .fp .cover { border: var(--bw) solid var(--border); box-shadow: 8px 8px 0 var(--border); }
+:root[data-trend="brutal"] .fp .tb.main { background: var(--accent); color: var(--on-accent); border: var(--bw) solid var(--border); box-shadow: var(--hard); }
+:root[data-trend="brutal"] .fp .ic, :root[data-trend="brutal"] .fp .mute, :root[data-trend="brutal"] .fp .sm, :root[data-trend="brutal"] .fp .ghost { background: var(--surface); color: var(--text); border: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] .fp .tp { --text: var(--text); color: var(--text); }
+:root[data-trend="brutal"] .fp .opt { background: var(--surface); border: var(--bw) solid var(--border); color: var(--text); }
+:root[data-trend="brutal"] .fp .opt.on { background: var(--accent); color: var(--on-accent); }
+:root[data-trend="brutal"] .fp .tabs { background: var(--surface); border: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] .fp .tabs button { color: var(--text); text-transform: uppercase; font-weight: 600; }
+:root[data-trend="brutal"] .fp .tabs button.on { background: var(--inv-bg); color: var(--inv-text); }
+:root[data-trend="brutal"] .fp .seek { background: linear-gradient(90deg, var(--text) var(--p), var(--surface-2) var(--p)); height: 8px; border: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] .fp .ttl b { text-transform: uppercase; font-weight: 900; }
+:root[data-trend="brutal"] .fp .plan { background: var(--surface); border: var(--bw) solid var(--border); box-shadow: var(--hard); }
+:root[data-trend="brutal"] .fp .knob .val { stroke: var(--accent); stroke-linecap: butt; stroke-width: 12; }
+:root[data-trend="brutal"] .fp .knob .trk { stroke: var(--surface-2); stroke-linecap: butt; stroke-width: 12; }
+:root[data-trend="brutal"] .fp .knob .cap { fill: var(--surface); stroke: var(--border); stroke-width: 2; }
+:root[data-trend="brutal"] .fp .knob .ptr { stroke: var(--text); stroke-width: 5; stroke-linecap: butt; transition: none; }
+:root[data-trend="brutal"] .toast { background: var(--accent) !important; color: var(--on-accent) !important; border: var(--bw) solid var(--border); box-shadow: var(--hard); text-transform: uppercase; font-weight: 600; }
+
+/* — дом: слои и этажи — табличкой — */
+:root[data-trend="brutal"] .layers, :root[data-trend="brutal"] .floors { border: var(--bw) solid var(--border); padding: 0; gap: 0; background: var(--surface); }
+:root[data-trend="brutal"] .layers button, :root[data-trend="brutal"] .floors button { color: var(--text); text-transform: uppercase; font-weight: 600; height: 36px; }
+:root[data-trend="brutal"] .layers button.on, :root[data-trend="brutal"] .floors button.on { background: var(--accent); color: var(--on-accent); }
+:root[data-trend="brutal"] .dom .fl { color: var(--text); }
+
+/* — крупный план: силовая кнопка и полоса яркости — коробки — */
+:root[data-trend="brutal"] .dv .pw { background: var(--surface); border: var(--bw) solid var(--border); color: var(--text); box-shadow: var(--hard); }
+:root[data-trend="brutal"] .dv .pw.on { background: var(--accent); color: var(--on-accent); box-shadow: var(--hard); }
+:root[data-trend="brutal"] .dv .track { background: var(--surface); border: var(--bw) solid var(--border); box-shadow: var(--hard); }
+:root[data-trend="brutal"] .dv .fill { background: var(--accent); border-right: var(--bw) solid var(--border); }
+:root[data-trend="brutal"] .dv .bg { filter: grayscale(1) contrast(1.2) !important; }
+:root[data-trend="brutal"] .dom .fl { font-size: 11px; text-transform: uppercase; border: var(--bw) solid var(--border); background: var(--surface); }
+:root[data-trend="brutal"] .dom .fl i { background: var(--accent); color: var(--on-accent); }

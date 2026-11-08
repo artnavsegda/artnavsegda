@@ -1,0 +1,3577 @@
+{
+ "schema": 1,
+ "site": {
+  "id": "sosny",
+  "name": "Дом с проектором"
+ },
+ "floors": [
+  {
+   "id": "f0",
+   "name": "Цоколь",
+   "level": 0
+  },
+  {
+   "id": "f1",
+   "name": "1 этаж",
+   "level": 1
+  },
+  {
+   "id": "f2",
+   "name": "2 этаж",
+   "level": 2
+  },
+  {
+   "id": "f3",
+   "name": "3 этаж",
+   "level": 3
+  },
+  {
+   "id": "site",
+   "name": "Участок",
+   "level": 99,
+   "outdoor": true
+  }
+ ],
+ "spaces": [
+  {
+   "id": "garage",
+   "floor": "f0",
+   "name": "Гараж",
+   "kind": "garage",
+   "code": "L0",
+   "aliases": [
+    "Garage"
+   ]
+  },
+  {
+   "id": "corridor0",
+   "floor": "f0",
+   "name": "Коридор",
+   "kind": "hall",
+   "aliases": [
+    "Corridor",
+    "Basement"
+   ]
+  },
+  {
+   "id": "boiler",
+   "floor": "f0",
+   "name": "Бойлерная",
+   "kind": "boiler",
+   "aliases": [
+    "Boiler"
+   ]
+  },
+  {
+   "id": "tech",
+   "floor": "f0",
+   "name": "Подсобка",
+   "kind": "tech",
+   "aliases": [
+    "Technical_room"
+   ]
+  },
+  {
+   "id": "hallway",
+   "floor": "f1",
+   "name": "Прихожая",
+   "kind": "hallway",
+   "code": "L1",
+   "aliases": [
+    "Hallway"
+   ]
+  },
+  {
+   "id": "hall1",
+   "floor": "f1",
+   "name": "Холл",
+   "kind": "hall",
+   "code": "L2",
+   "aliases": [
+    "Hall",
+    "1st floor Hall"
+   ]
+  },
+  {
+   "id": "living",
+   "floor": "f1",
+   "name": "Гостиная",
+   "kind": "living",
+   "code": "L3",
+   "aliases": [
+    "Living_room",
+    "Livingroom",
+    "Living Room"
+   ]
+  },
+  {
+   "id": "kitchen",
+   "floor": "f1",
+   "name": "Кухня",
+   "kind": "kitchen",
+   "code": "L4",
+   "aliases": [
+    "Kitchen",
+    "Kitechen"
+   ]
+  },
+  {
+   "id": "bath1",
+   "floor": "f1",
+   "name": "Санузел",
+   "kind": "bath",
+   "code": "L5",
+   "aliases": [
+    "Bathroom",
+    "1st_Bathroom"
+   ]
+  },
+  {
+   "id": "stairs",
+   "floor": "f1",
+   "name": "Лестница",
+   "kind": "stairs",
+   "aliases": [
+    "Stairs"
+   ]
+  },
+  {
+   "id": "bed",
+   "floor": "f2",
+   "name": "Спальня",
+   "kind": "bedroom",
+   "code": "L6",
+   "aliases": [
+    "Bedroom"
+   ]
+  },
+  {
+   "id": "kids",
+   "floor": "f2",
+   "name": "Детская",
+   "kind": "kids",
+   "code": "L7",
+   "aliases": [
+    "Kids_room",
+    "Kids_toom"
+   ]
+  },
+  {
+   "id": "bath2b",
+   "floor": "f2",
+   "name": "Санузел спальни",
+   "kind": "bath",
+   "code": "L8",
+   "aliases": [
+    "Bedroom_bathroom"
+   ]
+  },
+  {
+   "id": "bath2k",
+   "floor": "f2",
+   "name": "Санузел детской",
+   "kind": "bath",
+   "code": "L9",
+   "aliases": [
+    "Kids_room_bathroom"
+   ]
+  },
+  {
+   "id": "hall2",
+   "floor": "f2",
+   "name": "Холл 2 этажа",
+   "kind": "hall",
+   "code": "L10"
+  },
+  {
+   "id": "cabinet",
+   "floor": "f3",
+   "name": "Кабинет",
+   "kind": "office",
+   "code": "L11",
+   "aliases": [
+    "Cabinet",
+    "Kabinet"
+   ]
+  },
+  {
+   "id": "hall3",
+   "floor": "f3",
+   "name": "Холл 3 этажа",
+   "kind": "hall",
+   "code": "L12"
+  },
+  {
+   "id": "bath3",
+   "floor": "f3",
+   "name": "Санузел 3 этажа",
+   "kind": "bath",
+   "code": "L13",
+   "aliases": [
+    "3rd_floor_Bathroom",
+    "Highfloor_Bathroom"
+   ]
+  },
+  {
+   "id": "workshop",
+   "floor": "f3",
+   "name": "Мастерская",
+   "kind": "workshop",
+   "code": "L14",
+   "aliases": [
+    "Workshop",
+    "1st_level"
+   ]
+  },
+  {
+   "id": "balcony",
+   "floor": "f3",
+   "name": "Балкон",
+   "kind": "balcony",
+   "code": "L15",
+   "aliases": [
+    "Balcony"
+   ]
+  },
+  {
+   "id": "entrance",
+   "floor": "site",
+   "name": "Вход и ворота",
+   "kind": "outdoor",
+   "aliases": [
+    "Entrance",
+    "House entrance",
+    "Vorota"
+   ]
+  }
+ ],
+ "zones": [
+  {
+   "id": "z-basement",
+   "name": "Цоколь",
+   "spaces": [
+    "garage",
+    "corridor0",
+    "boiler",
+    "tech"
+   ],
+   "kind": "room",
+   "floor": "f0"
+  },
+  {
+   "id": "z-workshop",
+   "name": "Мастерская",
+   "spaces": [
+    "workshop",
+    "balcony"
+   ],
+   "kind": "room",
+   "include": [
+    "balcony.main"
+   ]
+  },
+  {
+   "id": "z-baths",
+   "name": "Все санузлы",
+   "spaces": [
+    "bath1",
+    "bath2b",
+    "bath2k",
+    "bath3"
+   ],
+   "kind": "group"
+  },
+  {
+   "id": "z-living",
+   "name": "Гостиная",
+   "spaces": [
+    "living"
+   ],
+   "kind": "room",
+   "include": [
+    "hall1.accent-2",
+    "hall1.main-2"
+   ]
+  },
+  {
+   "id": "z-stairs",
+   "name": "Лестница",
+   "spaces": [
+    "stairs"
+   ],
+   "kind": "room",
+   "include": [
+    "hall2.main",
+    "hall2.sconce",
+    "hall3.sconce",
+    "workshop.sconce-2"
+   ]
+  },
+  {
+   "id": "z-bath2k",
+   "name": "Санузел детской",
+   "spaces": [
+    "bath2k"
+   ],
+   "kind": "room",
+   "include": [
+    "bath2b.floor"
+   ]
+  }
+ ],
+ "devices": [
+  {
+   "id": "garage.main",
+   "type": "light.switch",
+   "space": "garage",
+   "name": "Гараж",
+   "role": "main",
+   "code": "L0-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Garage]Ceiling[L0-1]"
+   },
+   "legacy": [
+    "[Light][Garage]Ceiling[L0-1]"
+   ]
+  },
+  {
+   "id": "corridor0.main",
+   "type": "light.switch",
+   "space": "corridor0",
+   "name": "Коридор",
+   "role": "main",
+   "code": "L0-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Corridor]Ceiling[L0-2]"
+   },
+   "legacy": [
+    "[Light][Corridor]Ceiling[L0-2]"
+   ]
+  },
+  {
+   "id": "boiler.main",
+   "type": "light.switch",
+   "space": "boiler",
+   "name": "Бойлерная",
+   "role": "main",
+   "code": "L0-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Boiler]Ceiling[L0-3]"
+   },
+   "legacy": [
+    "[Light][Boiler]Ceiling[L0-3]"
+   ]
+  },
+  {
+   "id": "tech.main",
+   "type": "light.switch",
+   "space": "tech",
+   "name": "Подсобка",
+   "role": "main",
+   "code": "L0-4",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Technical_room]Ceiling[L0-4]"
+   },
+   "legacy": [
+    "[Light][Technical_room]Ceiling[L0-4]"
+   ]
+  },
+  {
+   "id": "stairs.sconce",
+   "type": "light.dimmer",
+   "space": "stairs",
+   "name": "Бра первый этаж",
+   "role": "sconce",
+   "code": "Ll1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Stairs]Bra[Ll1]"
+   },
+   "legacy": [
+    "[Light][Stairs]Bra[Ll1]"
+   ]
+  },
+  {
+   "id": "hallway.main",
+   "type": "light.switch",
+   "space": "hallway",
+   "name": "Прихожая",
+   "role": "main",
+   "code": "L1-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hallway]Ceiling[L1-1]"
+   },
+   "legacy": [
+    "[Light][Hallway]Ceiling[L1-1]"
+   ]
+  },
+  {
+   "id": "stairs.sconce-2",
+   "type": "light.dimmer",
+   "space": "stairs",
+   "name": "Бра второй этаж",
+   "role": "sconce",
+   "code": "Ll2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Stairs]Bra[Ll2]"
+   },
+   "legacy": [
+    "[Light][Stairs]Bra[Ll2]"
+   ]
+  },
+  {
+   "id": "hall1.main",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Споты",
+   "role": "main",
+   "code": "L2-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]Ceiling[L2-1]"
+   },
+   "legacy": [
+    "[Light][Hall]Ceiling[L2-1]",
+    "[Light][Hall]Spot[L2-1]"
+   ]
+  },
+  {
+   "id": "hall1.sconce",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Зеркало",
+   "role": "sconce",
+   "code": "L2-1/1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]Bra[L2-1/1]"
+   },
+   "legacy": [
+    "[Light][Hall]Bra[L2-1/1]",
+    "[Light][Hall]Mirror[L2-1/1]"
+   ]
+  },
+  {
+   "id": "hall1.accent",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Витраж",
+   "role": "accent",
+   "code": "L2-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]LED[L2-2]"
+   },
+   "legacy": [
+    "[Light][Hall]LED[L2-2]",
+    "[Light][Hall]Stained_glass[L2-2]"
+   ]
+  },
+  {
+   "id": "hall1.main-2",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Споты",
+   "role": "main",
+   "code": "L2-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]Ceiling[L2-3]"
+   },
+   "legacy": [
+    "[Light][Hall]Ceiling[L2-3]",
+    "[Light][Living_room]Spot[L2-3]"
+   ]
+  },
+  {
+   "id": "hall1.accent-2",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Колонны",
+   "role": "accent",
+   "code": "L2-4/1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]LED[L2-4/1]"
+   },
+   "legacy": [
+    "[Light][Hall]LED[L2-4/1]",
+    "[Light][Living_room]Pillars[L2-4/1]"
+   ]
+  },
+  {
+   "id": "hall1.accent-3",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Подсветка",
+   "role": "accent",
+   "code": "L2-4/2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]LED[L2-4/2]"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   },
+   "legacy": [
+    "[Light][Hall]LED[L2-4/2]"
+   ]
+  },
+  {
+   "id": "hall1.main-3",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Свет",
+   "role": "main",
+   "code": "L2-5",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]Lamp[L2-5]"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   },
+   "legacy": [
+    "[Light][Hall]Lamp[L2-5]"
+   ]
+  },
+  {
+   "id": "hall1.accent-4",
+   "type": "light.dimmer",
+   "space": "hall1",
+   "name": "Подсветка",
+   "role": "accent",
+   "code": "L2-6",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]LED[L2-6]"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   },
+   "legacy": [
+    "[Light][Hall]LED[L2-6]"
+   ]
+  },
+  {
+   "id": "cabinet.main",
+   "type": "light.dimmer",
+   "space": "cabinet",
+   "name": "Люстра",
+   "role": "main",
+   "code": "Ll3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Cabinet]Luster[Ll3]"
+   },
+   "legacy": [
+    "[Light][Cabinet]Luster[Ll3]"
+   ]
+  },
+  {
+   "id": "living.main",
+   "type": "light.dimmer",
+   "space": "living",
+   "name": "Люстра",
+   "role": "main",
+   "code": "L3-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Living_room]Luster[L3-1]"
+   },
+   "legacy": [
+    "[Light][Living_room]Luster[L3-1]"
+   ]
+  },
+  {
+   "id": "living.accent",
+   "type": "light.dimmer",
+   "space": "living",
+   "name": "Полки",
+   "role": "accent",
+   "code": "L3-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Living_room]LED[L3-2]"
+   },
+   "legacy": [
+    "[Light][Living_room]LED[L3-2]"
+   ]
+  },
+  {
+   "id": "living.accent-2",
+   "type": "light.dimmer",
+   "space": "living",
+   "name": "Лента",
+   "role": "accent",
+   "code": "L3-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Living_room]LED[L3-3]"
+   },
+   "legacy": [
+    "[Light][Living_room]LED[L3-3]"
+   ]
+  },
+  {
+   "id": "living.accent-3",
+   "type": "light.dimmer",
+   "space": "living",
+   "name": "Стена",
+   "role": "accent",
+   "code": "L3-4",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Living_room]LED[L3-4]"
+   },
+   "legacy": [
+    "[Light][Living_room]LED[L3-4]"
+   ]
+  },
+  {
+   "id": "kitchen.main",
+   "type": "light.dimmer",
+   "space": "kitchen",
+   "name": "Люстра",
+   "role": "main",
+   "code": "L4-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kitchen]Luster[L4-1]"
+   },
+   "legacy": [
+    "[Light][Kitchen]Luster[L4-1]"
+   ]
+  },
+  {
+   "id": "kitchen.accent",
+   "type": "light.dimmer",
+   "space": "kitchen",
+   "name": "Споты",
+   "role": "accent",
+   "code": "L4-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kitchen]Built-in[L4-2]"
+   },
+   "legacy": [
+    "[Light][Kitchen]Built-in[L4-2]"
+   ]
+  },
+  {
+   "id": "kitchen.accent-2",
+   "type": "light.dimmer",
+   "space": "kitchen",
+   "name": "Лента",
+   "role": "accent",
+   "code": "L4-2/1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kitchen]LED[L4-2/1]"
+   },
+   "legacy": [
+    "[Light][Kitchen]LED[L4-2/1]"
+   ]
+  },
+  {
+   "id": "kitchen.accent-3",
+   "type": "light.dimmer",
+   "space": "kitchen",
+   "name": "Ниша",
+   "role": "accent",
+   "code": "L4-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kitchen]Built-in[L4-3]"
+   },
+   "legacy": [
+    "[Light][Kitchen]Built-in[L4-3]"
+   ]
+  },
+  {
+   "id": "bath1.sconce",
+   "type": "light.dimmer",
+   "space": "bath1",
+   "name": "Бра",
+   "role": "sconce",
+   "code": "L5-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bathroom]Bra[L5-1]"
+   },
+   "legacy": [
+    "[Light][Bathroom]Bra[L5-1]"
+   ]
+  },
+  {
+   "id": "bath1.main",
+   "type": "light.dimmer",
+   "space": "bath1",
+   "name": "Люстра",
+   "role": "main",
+   "code": "L5-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bathroom]Luster[L5-2]"
+   },
+   "legacy": [
+    "[Light][Bathroom]Luster[L5-2]"
+   ]
+  },
+  {
+   "id": "bed.main",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Люстра",
+   "role": "main",
+   "code": "L6-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]Luster[L6-1]"
+   },
+   "legacy": [
+    "[Light][Bedroom]Luster[L6-1]"
+   ]
+  },
+  {
+   "id": "bed.accent",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Лента",
+   "role": "accent",
+   "code": "L6-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]LED[L6-3]"
+   },
+   "legacy": [
+    "[Light][Bedroom]LED[L6-3]"
+   ]
+  },
+  {
+   "id": "bed.sconce",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Столик",
+   "role": "sconce",
+   "code": "L6-5",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]Bra[L6-5]"
+   },
+   "legacy": [
+    "[Light][Bedroom]Bra[L6-5]"
+   ]
+  },
+  {
+   "id": "bed.accent-2",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Витраж",
+   "role": "accent",
+   "code": "L6-6",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]LED[L6-6]"
+   },
+   "legacy": [
+    "[Light][Bedroom]LED[L6-6]"
+   ]
+  },
+  {
+   "id": "bed.sconce-2",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Правое бра",
+   "role": "sconce",
+   "code": "L6-7",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]Bra[L6-7]"
+   },
+   "legacy": [
+    "[Light][Bedroom]Bra[L6-7]"
+   ]
+  },
+  {
+   "id": "bed.sconce-3",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Левое бра",
+   "role": "sconce",
+   "code": "L6-8",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]Bra[L6-8]"
+   },
+   "legacy": [
+    "[Light][Bedroom]Bra[L6-8]"
+   ]
+  },
+  {
+   "id": "bed.outlet",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Розетка прав",
+   "role": "outlet",
+   "code": "L6-9",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]Outlet[L6-9]"
+   },
+   "legacy": [
+    "[Light][Bedroom]Outlet[L6-9]"
+   ]
+  },
+  {
+   "id": "bed.outlet-2",
+   "type": "light.dimmer",
+   "space": "bed",
+   "name": "Розетка лев",
+   "role": "outlet",
+   "code": "L6-10",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom]Outlet[L6-10]"
+   },
+   "legacy": [
+    "[Light][Bedroom]Outlet[L6-10]"
+   ]
+  },
+  {
+   "id": "kids.main",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Светильники",
+   "role": "main",
+   "code": "L7-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Ceiling[L7-1]"
+   },
+   "legacy": [
+    "[Light][Kids_room]Ceiling[L7-1]"
+   ]
+  },
+  {
+   "id": "kids.main-2",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Споты",
+   "role": "main",
+   "code": "L7-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Ceiling[L7-2]"
+   },
+   "legacy": [
+    "[Light][Kids_room]Ceiling[L7-2]"
+   ]
+  },
+  {
+   "id": "kids.sconce",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Столик",
+   "role": "sconce",
+   "code": "L7-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Bra[L7-3]"
+   },
+   "legacy": [
+    "[Light][Kids_room]Bra[L7-3]"
+   ]
+  },
+  {
+   "id": "kids.sconce-2",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Ниша",
+   "role": "sconce",
+   "code": "L7-4",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Bra[L7-4]"
+   },
+   "legacy": [
+    "[Light][Kids_room]Bra[L7-4]"
+   ]
+  },
+  {
+   "id": "kids.main-3",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Свет",
+   "role": "main",
+   "code": "L7-5",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Ceiling[L7-5]"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   },
+   "legacy": [
+    "[Light][Kids_room]Ceiling[L7-5]"
+   ]
+  },
+  {
+   "id": "kids.main-4",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Свет",
+   "role": "main",
+   "code": "L7-6",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Ceiling[L7-6]"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   },
+   "legacy": [
+    "[Light][Kids_room]Ceiling[L7-6]"
+   ]
+  },
+  {
+   "id": "kids.sconce-3",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Бра правая",
+   "role": "sconce",
+   "code": "L7-7",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Bra[L7-7]"
+   },
+   "legacy": [
+    "[Light][Kids_room]Bra[L7-7]"
+   ]
+  },
+  {
+   "id": "kids.sconce-4",
+   "type": "light.dimmer",
+   "space": "kids",
+   "name": "Бра левая",
+   "role": "sconce",
+   "code": "L7-8",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room]Bra[L7-8]"
+   },
+   "legacy": [
+    "[Light][Kids_room]Bra[L7-8]"
+   ]
+  },
+  {
+   "id": "bath2b.main",
+   "type": "light.dimmer",
+   "space": "bath2b",
+   "name": "Люстра",
+   "role": "main",
+   "code": "L8-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom_bathroom]Ceiling[L8-1]"
+   },
+   "legacy": [
+    "[Light][Bedroom_bathroom]Ceiling[L8-1]"
+   ]
+  },
+  {
+   "id": "bath2b.mirror",
+   "type": "light.switch",
+   "space": "bath2b",
+   "name": "Зеркало",
+   "role": "mirror",
+   "code": "L8-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bedroom_bathroom]Mirror[L8-2]"
+   },
+   "legacy": [
+    "[Light][Bedroom_bathroom]Mirror[L8-2]"
+   ]
+  },
+  {
+   "id": "bath2k.main",
+   "type": "light.dimmer",
+   "space": "bath2k",
+   "name": "Люстра",
+   "role": "main",
+   "code": "L9-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room_bathroom]Ceiling[L9-1]"
+   },
+   "legacy": [
+    "[Light][Kids_room_bathroom]Ceiling[L9-1]"
+   ]
+  },
+  {
+   "id": "bath2k.mirror",
+   "type": "light.switch",
+   "space": "bath2k",
+   "name": "Зеркало",
+   "role": "mirror",
+   "code": "L9-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Kids_room_bathroom]Mirror[L9-2]"
+   },
+   "legacy": [
+    "[Light][Kids_room_bathroom]Mirror[L9-2]"
+   ]
+  },
+  {
+   "id": "hall2.sconce",
+   "type": "light.dimmer",
+   "space": "hall2",
+   "name": "Бра второго этажа",
+   "role": "sconce",
+   "code": "L10-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]Bra[L10-1]"
+   },
+   "legacy": [
+    "[Light][Hall]Bra[L10-1]"
+   ]
+  },
+  {
+   "id": "hall2.main",
+   "type": "light.dimmer",
+   "space": "hall2",
+   "name": "Споты второго этажа",
+   "role": "main",
+   "code": "L10-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]Ceiling[L10-2]"
+   },
+   "legacy": [
+    "[Light][Hall]Ceiling[L10-2]"
+   ]
+  },
+  {
+   "id": "cabinet.main-2",
+   "type": "light.dimmer",
+   "space": "cabinet",
+   "name": "Споты",
+   "role": "main",
+   "code": "L11-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Cabinet]Ceiling[L11-1]"
+   },
+   "legacy": [
+    "[Light][Cabinet]Ceiling[L11-1]"
+   ]
+  },
+  {
+   "id": "cabinet.main-3",
+   "type": "light.dimmer",
+   "space": "cabinet",
+   "name": "Свет",
+   "role": "main",
+   "code": "L11-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Cabinet]Ceiling[L11-2]"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   },
+   "legacy": [
+    "[Light][Cabinet]Ceiling[L11-2]"
+   ]
+  },
+  {
+   "id": "cabinet.sconce",
+   "type": "light.dimmer",
+   "space": "cabinet",
+   "name": "Бра",
+   "role": "sconce",
+   "code": "L11-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Cabinet]Bra[L11-3]"
+   },
+   "legacy": [
+    "[Light][Cabinet]Bra[L11-3]"
+   ]
+  },
+  {
+   "id": "cabinet.accent",
+   "type": "light.dimmer",
+   "space": "cabinet",
+   "name": "Лента",
+   "role": "accent",
+   "code": "L11-4",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Cabinet]LED[L11-4]"
+   },
+   "legacy": [
+    "[Light][Cabinet]LED[L11-4]"
+   ]
+  },
+  {
+   "id": "hall3.sconce",
+   "type": "light.dimmer",
+   "space": "hall3",
+   "name": "Бра третьего этажа",
+   "role": "sconce",
+   "code": "L12-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Hall]Bra[L12-1]"
+   },
+   "legacy": [
+    "[Light][Hall]Bra[L12-1]"
+   ]
+  },
+  {
+   "id": "bath3.main",
+   "type": "light.dimmer",
+   "space": "bath3",
+   "name": "Споты",
+   "role": "main",
+   "code": "L13-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bathroom]Lamp[L13-1]"
+   },
+   "legacy": [
+    "[Light][Bathroom]Lamp[L13-1]",
+    "[Light][Bathroom]Spot[L13-1]"
+   ]
+  },
+  {
+   "id": "bath3.mirror",
+   "type": "light.switch",
+   "space": "bath3",
+   "name": "Зеркало",
+   "role": "mirror",
+   "code": "L13-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bathroom]Bra_mirror[L13-2]"
+   },
+   "legacy": [
+    "[Light][Bathroom]Bra_mirror[L13-2]"
+   ]
+  },
+  {
+   "id": "bath3.main-2",
+   "type": "light.dimmer",
+   "space": "bath3",
+   "name": "Свет",
+   "role": "main",
+   "code": "L13-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bathroom]Luster[L13-3]"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   },
+   "legacy": [
+    "[Light][Bathroom]Luster[L13-3]"
+   ]
+  },
+  {
+   "id": "bath3.accent",
+   "type": "light.dimmer",
+   "space": "bath3",
+   "name": "Лента",
+   "role": "accent",
+   "code": "L13-4",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Bathroom]LED[L13-4]"
+   },
+   "legacy": [
+    "[Light][Bathroom]LED[L13-4]"
+   ]
+  },
+  {
+   "id": "workshop.main",
+   "type": "light.dimmer",
+   "space": "workshop",
+   "name": "Треки",
+   "role": "main",
+   "code": "L14-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Workshop]Lamp[L14-1]"
+   },
+   "legacy": [
+    "[Light][1st_level]Lamp[L14-1]",
+    "[Light][Workshop]Lamp[L14-1]"
+   ]
+  },
+  {
+   "id": "workshop.main-2",
+   "type": "light.dimmer",
+   "space": "workshop",
+   "name": "Люстры",
+   "role": "main",
+   "code": "L14-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Workshop]Lamp[L14-2]"
+   },
+   "legacy": [
+    "[Light][1st_level]Lamp[L14-2]",
+    "[Light][Workshop]Lamp[L14-2]"
+   ]
+  },
+  {
+   "id": "workshop.sconce",
+   "type": "light.dimmer",
+   "space": "workshop",
+   "name": "Сова",
+   "role": "sconce",
+   "code": "L14-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Workshop]Bra[L14-3]"
+   },
+   "legacy": [
+    "[Light][1st_level]Bra[L14-3]",
+    "[Light][Workshop]Bra[L14-3]"
+   ]
+  },
+  {
+   "id": "workshop.sconce-2",
+   "type": "light.dimmer",
+   "space": "workshop",
+   "name": "Бра третий этаж",
+   "role": "sconce",
+   "code": "L14-4",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Workshop]Bra[L14-4]"
+   },
+   "legacy": [
+    "[Light][1st_level]Bra[L14-4]",
+    "[Light][Workshop]Bra[L14-4]"
+   ]
+  },
+  {
+   "id": "balcony.main",
+   "type": "light.dimmer",
+   "space": "balcony",
+   "name": "Балкон",
+   "role": "main",
+   "code": "L15-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Light][Workshop]Balcony[L15-1]"
+   },
+   "legacy": [
+    "[Light][Balcony]Lamp[L15-1]",
+    "[Light][Workshop]Balcony[L15-1]"
+   ]
+  },
+  {
+   "id": "workshop.shade",
+   "type": "shade.motor",
+   "space": "workshop",
+   "name": "Штора",
+   "code": "S14-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][1st_level]S14-1"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "workshop.shade-2",
+   "type": "shade.motor",
+   "space": "workshop",
+   "name": "Штора",
+   "code": "S14-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][1st_level]S14-2"
+   },
+   "flags": {
+    "serviceOnly": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "bed.shade",
+   "type": "shade.motor",
+   "space": "bed",
+   "name": "Правая штора",
+   "code": "S6-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Bedroom]S6-1"
+   }
+  },
+  {
+   "id": "bed.shade-2",
+   "type": "shade.motor",
+   "space": "bed",
+   "name": "Левая штора",
+   "code": "S6-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Bedroom]S6-2"
+   }
+  },
+  {
+   "id": "cabinet.shade",
+   "type": "shade.motor",
+   "space": "cabinet",
+   "name": "Шторы",
+   "code": "S11-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Cabinet]S11-1"
+   }
+  },
+  {
+   "id": "kids.shade",
+   "type": "shade.motor",
+   "space": "kids",
+   "name": "Левая штора",
+   "code": "S7-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Kids_room]S7-1"
+   }
+  },
+  {
+   "id": "kids.shade-2",
+   "type": "shade.motor",
+   "space": "kids",
+   "name": "Правая штора",
+   "code": "S7-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Kids_room]S7-2"
+   }
+  },
+  {
+   "id": "kitchen.shade",
+   "type": "shade.motor",
+   "space": "kitchen",
+   "name": "Шторы",
+   "code": "S4-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Kitchen]S4-1"
+   }
+  },
+  {
+   "id": "kitchen.shade-2",
+   "type": "shade.motor",
+   "space": "kitchen",
+   "name": "Шторы",
+   "code": "S4-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Kitchen]S4-2"
+   }
+  },
+  {
+   "id": "kitchen.shade-3",
+   "type": "shade.motor",
+   "space": "kitchen",
+   "name": "Шторы",
+   "code": "S4-3",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Kitchen]S4-3"
+   }
+  },
+  {
+   "id": "living.shade",
+   "type": "shade.motor",
+   "space": "living",
+   "name": "Правая штора",
+   "code": "S3-1",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Living_room]S3-1"
+   }
+  },
+  {
+   "id": "living.shade-2",
+   "type": "shade.motor",
+   "space": "living",
+   "name": "Левая штора",
+   "code": "S3-2",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Shade][Living_room]S3-2"
+   }
+  },
+  {
+   "id": "bath1.fan",
+   "type": "vent.fan",
+   "space": "bath1",
+   "name": "Вытяжка",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Bathroom]Fan"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "hallway.floor",
+   "type": "climate.floor",
+   "space": "hallway",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Hallway]Floor"
+   }
+  },
+  {
+   "id": "bath2b.fan",
+   "type": "vent.fan",
+   "space": "bath2b",
+   "name": "Вытяжка",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Bedroom_bathroom]Fan"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "hall1.floor",
+   "type": "climate.floor",
+   "space": "hall1",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Hall]Floor"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "bath2k.fan",
+   "type": "vent.fan",
+   "space": "bath2k",
+   "name": "Вытяжка",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Kids_room_bathroom]Fan"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "bath3.fan",
+   "type": "vent.fan",
+   "space": "bath3",
+   "name": "Вытяжка",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][3rd_floor_bathroom]Fan"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "living.radiator",
+   "type": "climate.radiator",
+   "space": "living",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Livingroom]Heater"
+   }
+  },
+  {
+   "id": "tech.radiator",
+   "type": "climate.radiator",
+   "space": "tech",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Technical_room]Heater"
+   }
+  },
+  {
+   "id": "kitchen.radiator",
+   "type": "climate.radiator",
+   "space": "kitchen",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Kitchen]Heater"
+   }
+  },
+  {
+   "id": "boiler.radiator",
+   "type": "climate.radiator",
+   "space": "boiler",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Boiler]Heater"
+   }
+  },
+  {
+   "id": "garage.radiator",
+   "type": "climate.radiator",
+   "space": "garage",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Garage]Heater"
+   }
+  },
+  {
+   "id": "stairs.floor",
+   "type": "climate.floor",
+   "space": "stairs",
+   "name": "Тёплый пол · 3 этаж",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][3rd_floor_stairs]Floor"
+   }
+  },
+  {
+   "id": "kids.floor",
+   "type": "climate.floor",
+   "space": "kids",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Kids_room]Floor"
+   }
+  },
+  {
+   "id": "bed.floor",
+   "type": "climate.floor",
+   "space": "bed",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Bedroom]Floor"
+   }
+  },
+  {
+   "id": "bath2b.floor",
+   "type": "climate.floor",
+   "space": "bath2b",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][2nd_floor_Bathrooms]Floor"
+   }
+  },
+  {
+   "id": "bath3.floor",
+   "type": "climate.floor",
+   "space": "bath3",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][3rd_floor_Bathroom]Floor"
+   }
+  },
+  {
+   "id": "cabinet.floor",
+   "type": "climate.floor",
+   "space": "cabinet",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Cabinet]Floor"
+   }
+  },
+  {
+   "id": "workshop.radiator",
+   "type": "climate.radiator",
+   "space": "workshop",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Workshop]Heater"
+   }
+  },
+  {
+   "id": "living.floor",
+   "type": "climate.floor",
+   "space": "living",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Livingroom]Floor"
+   }
+  },
+  {
+   "id": "bath1.floor",
+   "type": "climate.floor",
+   "space": "bath1",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Bathroom]Floor"
+   }
+  },
+  {
+   "id": "kitchen.floor",
+   "type": "climate.floor",
+   "space": "kitchen",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Kitchen]Floor"
+   }
+  },
+  {
+   "id": "bed.radiator",
+   "type": "climate.radiator",
+   "space": "bed",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Bedroom]Heater"
+   }
+  },
+  {
+   "id": "kids.radiator",
+   "type": "climate.radiator",
+   "space": "kids",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Kids_room]Heater"
+   }
+  },
+  {
+   "id": "cabinet.radiator",
+   "type": "climate.radiator",
+   "space": "cabinet",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Cabinet]Heater"
+   }
+  },
+  {
+   "id": "hall1.radiator",
+   "type": "climate.radiator",
+   "space": "hall1",
+   "name": "Радиатор",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Hall]Heater"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "stairs.floor-2",
+   "type": "climate.floor",
+   "space": "stairs",
+   "name": "Тёплый пол · 2 этаж",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][2nd_floor_stairs]Floor"
+   }
+  },
+  {
+   "id": "bath2b.floor-2",
+   "type": "climate.floor",
+   "space": "bath2b",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Bedroom_bathroom]Floor"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "workshop.floor",
+   "type": "climate.floor",
+   "space": "workshop",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Workshop]Floor"
+   }
+  },
+  {
+   "id": "bath2k.floor",
+   "type": "climate.floor",
+   "space": "bath2k",
+   "name": "Тёплый пол",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Climate][Kids_room_bathroom]Floor"
+   },
+   "flags": {
+    "hidden": "не было в интерфейсе жильца"
+   }
+  },
+  {
+   "id": "bed.ac",
+   "type": "climate.ac",
+   "space": "bed",
+   "name": "Кондиционер",
+   "bind": {
+    "driver": "coolmaster",
+    "unit": "bed"
+   }
+  },
+  {
+   "id": "kids.ac",
+   "type": "climate.ac",
+   "space": "kids",
+   "name": "Кондиционер",
+   "bind": {
+    "driver": "coolmaster",
+    "unit": "kids"
+   }
+  },
+  {
+   "id": "cabinet.ac",
+   "type": "climate.ac",
+   "space": "cabinet",
+   "name": "Кондиционер",
+   "bind": {
+    "driver": "coolmaster",
+    "unit": "cabinet"
+   }
+  },
+  {
+   "id": "workshop.ac",
+   "type": "climate.ac",
+   "space": "workshop",
+   "name": "Кондиционер",
+   "bind": {
+    "driver": "coolmaster",
+    "unit": "workshop"
+   }
+  },
+  {
+   "id": "tech.vent1",
+   "type": "vent.unit",
+   "space": "tech",
+   "scope": "house",
+   "name": "Приточная установка 1",
+   "bind": {
+    "driver": "modbus",
+    "unit": "Lessar 1200 / Segnetics 103"
+   }
+  },
+  {
+   "id": "tech.vent2",
+   "type": "vent.unit",
+   "space": "tech",
+   "scope": "house",
+   "name": "Приточная установка 2",
+   "bind": {
+    "driver": "modbus",
+    "unit": "Lessar 700 / Segnetics 104"
+   }
+  },
+  {
+   "id": "cabinet.keypad",
+   "type": "keypad",
+   "space": "cabinet",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "4D",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "garage.occupancy",
+   "type": "sensor.occupancy",
+   "space": "garage",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "91",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "garage.occupancy-2",
+   "type": "sensor.occupancy",
+   "space": "garage",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "92",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "hall1.keypad",
+   "type": "keypad",
+   "space": "hall1",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "41",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "living.keypad",
+   "type": "keypad",
+   "space": "living",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "44",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "living.keypad-2",
+   "type": "keypad",
+   "space": "living",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "43",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "living.keypad-3",
+   "type": "keypad",
+   "space": "living",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "42",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "kitchen.keypad",
+   "type": "keypad",
+   "space": "kitchen",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "45",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "bed.keypad",
+   "type": "keypad",
+   "space": "bed",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "46",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "bed.keypad-2",
+   "type": "keypad",
+   "space": "bed",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "47",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "bed.keypad-3",
+   "type": "keypad",
+   "space": "bed",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "48",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "kids.keypad",
+   "type": "keypad",
+   "space": "kids",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "49",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "kids.keypad-2",
+   "type": "keypad",
+   "space": "kids",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "4A",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "kids.keypad-3",
+   "type": "keypad",
+   "space": "kids",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "4B",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "stairs.occupancy",
+   "type": "sensor.occupancy",
+   "space": "stairs",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "94",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "entrance.occupancy",
+   "type": "sensor.occupancy",
+   "space": "entrance",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "95",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "hall1.occupancy",
+   "type": "sensor.occupancy",
+   "space": "hall1",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "96",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "bath1.occupancy",
+   "type": "sensor.occupancy",
+   "space": "bath1",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "97",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "hall2.occupancy",
+   "type": "sensor.occupancy",
+   "space": "hall2",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "98",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "hall2.occupancy-2",
+   "type": "sensor.occupancy",
+   "space": "hall2",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "99",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "hall3.occupancy",
+   "type": "sensor.occupancy",
+   "space": "hall3",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "9A",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "hall3.occupancy-2",
+   "type": "sensor.occupancy",
+   "space": "hall3",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "9B",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "workshop.keypad",
+   "type": "keypad",
+   "space": "workshop",
+   "name": "Клавишная панель",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "4C",
+    "model": "C2NI-CB"
+   }
+  },
+  {
+   "id": "corridor0.occupancy",
+   "type": "sensor.occupancy",
+   "space": "corridor0",
+   "name": "Датчик присутствия",
+   "bind": {
+    "driver": "crestron",
+    "cresnet": "9C",
+    "model": "GLS-OIR-C-CN"
+   }
+  },
+  {
+   "id": "hallway.sec-co",
+   "type": "security.sensor",
+   "space": "hallway",
+   "name": "CO",
+   "role": "co",
+   "bind": {
+    "driver": "jablotron",
+    "id": 56
+   }
+  },
+  {
+   "id": "kitchen.sec-break",
+   "type": "security.sensor",
+   "space": "kitchen",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 7
+   }
+  },
+  {
+   "id": "kitchen.sec-movement",
+   "type": "security.sensor",
+   "space": "kitchen",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 6
+   }
+  },
+  {
+   "id": "kids.sec-break",
+   "type": "security.sensor",
+   "space": "kids",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 5
+   }
+  },
+  {
+   "id": "kids.sec-movement",
+   "type": "security.sensor",
+   "space": "kids",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 4
+   }
+  },
+  {
+   "id": "bed.sec-door",
+   "type": "security.sensor",
+   "space": "bed",
+   "name": "Дверь 4",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 15
+   }
+  },
+  {
+   "id": "garage.sec-door",
+   "type": "security.sensor",
+   "space": "garage",
+   "name": "Дверь",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 14
+   }
+  },
+  {
+   "id": "entrance.sec-door",
+   "type": "security.sensor",
+   "space": "entrance",
+   "name": "Дверь",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 13
+   }
+  },
+  {
+   "id": "entrance.sec-movement",
+   "type": "security.sensor",
+   "space": "entrance",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 10
+   }
+  },
+  {
+   "id": "bed.sec-break",
+   "type": "security.sensor",
+   "space": "bed",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 9
+   }
+  },
+  {
+   "id": "bed.sec-movement",
+   "type": "security.sensor",
+   "space": "bed",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 8
+   }
+  },
+  {
+   "id": "bed.sec-door-2",
+   "type": "security.sensor",
+   "space": "bed",
+   "name": "Дверь 1",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 23
+   }
+  },
+  {
+   "id": "kids.sec-window",
+   "type": "security.sensor",
+   "space": "kids",
+   "name": "Окно 1",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 22
+   }
+  },
+  {
+   "id": "kids.sec-door",
+   "type": "security.sensor",
+   "space": "kids",
+   "name": "Дверь 1",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 21
+   }
+  },
+  {
+   "id": "kitchen.sec-window",
+   "type": "security.sensor",
+   "space": "kitchen",
+   "name": "Окно 1",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 20
+   }
+  },
+  {
+   "id": "kitchen.sec-window-2",
+   "type": "security.sensor",
+   "space": "kitchen",
+   "name": "Окно 3",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 19
+   }
+  },
+  {
+   "id": "kids.sec-door-2",
+   "type": "security.sensor",
+   "space": "kids",
+   "name": "Дверь 2",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 18
+   }
+  },
+  {
+   "id": "bed.sec-door-3",
+   "type": "security.sensor",
+   "space": "bed",
+   "name": "Дверь 2",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 17
+   }
+  },
+  {
+   "id": "bed.sec-door-4",
+   "type": "security.sensor",
+   "space": "bed",
+   "name": "Дверь 3",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 16
+   }
+  },
+  {
+   "id": "bed.sec-fire",
+   "type": "security.sensor",
+   "space": "bed",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 76
+   }
+  },
+  {
+   "id": "kids.sec-fire",
+   "type": "security.sensor",
+   "space": "kids",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 75
+   }
+  },
+  {
+   "id": "stairs.sec-fire",
+   "type": "security.sensor",
+   "space": "stairs",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 74
+   }
+  },
+  {
+   "id": "living.sec-fire",
+   "type": "security.sensor",
+   "space": "living",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 73
+   }
+  },
+  {
+   "id": "stairs.sec-fire-2",
+   "type": "security.sensor",
+   "space": "stairs",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 72
+   }
+  },
+  {
+   "id": "stairs.sec-fire-3",
+   "type": "security.sensor",
+   "space": "stairs",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 77
+   }
+  },
+  {
+   "id": "cabinet.sec-fire",
+   "type": "security.sensor",
+   "space": "cabinet",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 78
+   }
+  },
+  {
+   "id": "workshop.sec-fire",
+   "type": "security.sensor",
+   "space": "workshop",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 79
+   }
+  },
+  {
+   "id": "kitchen.sec-leak",
+   "type": "security.sensor",
+   "space": "kitchen",
+   "name": "Протечка",
+   "role": "leak",
+   "bind": {
+    "driver": "jablotron",
+    "id": 64
+   }
+  },
+  {
+   "id": "garage.sec-leak",
+   "type": "security.sensor",
+   "space": "garage",
+   "name": "Протечка",
+   "role": "leak",
+   "bind": {
+    "driver": "jablotron",
+    "id": 65
+   }
+  },
+  {
+   "id": "bath1.sec-leak",
+   "type": "security.sensor",
+   "space": "bath1",
+   "name": "Протечка",
+   "role": "leak",
+   "bind": {
+    "driver": "jablotron",
+    "id": 66
+   }
+  },
+  {
+   "id": "stairs.sec-movement",
+   "type": "security.sensor",
+   "space": "stairs",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 68
+   }
+  },
+  {
+   "id": "entrance.sec-fire",
+   "type": "security.sensor",
+   "space": "entrance",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 69
+   }
+  },
+  {
+   "id": "corridor0.sec-fire",
+   "type": "security.sensor",
+   "space": "corridor0",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 70
+   }
+  },
+  {
+   "id": "kitchen.sec-fire",
+   "type": "security.sensor",
+   "space": "kitchen",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 71
+   }
+  },
+  {
+   "id": "bath3.sec-leak",
+   "type": "security.sensor",
+   "space": "bath3",
+   "name": "Протечка",
+   "role": "leak",
+   "bind": {
+    "driver": "jablotron",
+    "id": 61
+   }
+  },
+  {
+   "id": "bath2b.sec-leak",
+   "type": "security.sensor",
+   "space": "bath2b",
+   "name": "Протечка",
+   "role": "leak",
+   "bind": {
+    "driver": "jablotron",
+    "id": 62
+   }
+  },
+  {
+   "id": "bath2k.sec-leak",
+   "type": "security.sensor",
+   "space": "bath2k",
+   "name": "Протечка",
+   "role": "leak",
+   "bind": {
+    "driver": "jablotron",
+    "id": 63
+   }
+  },
+  {
+   "id": "boiler.sec-gas",
+   "type": "security.sensor",
+   "space": "boiler",
+   "name": "Газ",
+   "role": "gas",
+   "bind": {
+    "driver": "jablotron",
+    "id": 48
+   }
+  },
+  {
+   "id": "workshop.sec-window",
+   "type": "security.sensor",
+   "space": "workshop",
+   "name": "Окно 1",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 49
+   }
+  },
+  {
+   "id": "tech.sec-movement",
+   "type": "security.sensor",
+   "space": "tech",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 50
+   }
+  },
+  {
+   "id": "tech.sec-break",
+   "type": "security.sensor",
+   "space": "tech",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 51
+   }
+  },
+  {
+   "id": "garage.sec-fire",
+   "type": "security.sensor",
+   "space": "garage",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 52
+   }
+  },
+  {
+   "id": "tech.sec-fire",
+   "type": "security.sensor",
+   "space": "tech",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 53
+   }
+  },
+  {
+   "id": "boiler.sec-fire",
+   "type": "security.sensor",
+   "space": "boiler",
+   "name": "Дым",
+   "role": "fire",
+   "bind": {
+    "driver": "jablotron",
+    "id": 54
+   }
+  },
+  {
+   "id": "cabinet.sec-window",
+   "type": "security.sensor",
+   "space": "cabinet",
+   "name": "Окно",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 40
+   }
+  },
+  {
+   "id": "boiler.sec-movement",
+   "type": "security.sensor",
+   "space": "boiler",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 42
+   }
+  },
+  {
+   "id": "boiler.sec-break",
+   "type": "security.sensor",
+   "space": "boiler",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 43
+   }
+  },
+  {
+   "id": "garage.sec-movement",
+   "type": "security.sensor",
+   "space": "garage",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 44
+   }
+  },
+  {
+   "id": "corridor0.sec-window",
+   "type": "security.sensor",
+   "space": "corridor0",
+   "name": "Окно 1",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 45
+   }
+  },
+  {
+   "id": "corridor0.sec-window-2",
+   "type": "security.sensor",
+   "space": "corridor0",
+   "name": "Окно 2",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 46
+   }
+  },
+  {
+   "id": "corridor0.sec-window-3",
+   "type": "security.sensor",
+   "space": "corridor0",
+   "name": "Окно 3",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 47
+   }
+  },
+  {
+   "id": "living.sec-door",
+   "type": "security.sensor",
+   "space": "living",
+   "name": "Дверь 2",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 32
+   }
+  },
+  {
+   "id": "cabinet.sec-movement",
+   "type": "security.sensor",
+   "space": "cabinet",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 33
+   }
+  },
+  {
+   "id": "cabinet.sec-break",
+   "type": "security.sensor",
+   "space": "cabinet",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 34
+   }
+  },
+  {
+   "id": "workshop.sec-movement",
+   "type": "security.sensor",
+   "space": "workshop",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 35
+   }
+  },
+  {
+   "id": "workshop.sec-break",
+   "type": "security.sensor",
+   "space": "workshop",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 36
+   }
+  },
+  {
+   "id": "workshop.sec-window-2",
+   "type": "security.sensor",
+   "space": "workshop",
+   "name": "Окно 2",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 37
+   }
+  },
+  {
+   "id": "workshop.sec-window-3",
+   "type": "security.sensor",
+   "space": "workshop",
+   "name": "Окно 4",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 38
+   }
+  },
+  {
+   "id": "workshop.sec-window-4",
+   "type": "security.sensor",
+   "space": "workshop",
+   "name": "Окно 3",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 39
+   }
+  },
+  {
+   "id": "kids.sec-window-2",
+   "type": "security.sensor",
+   "space": "kids",
+   "name": "Окно 2",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 24
+   }
+  },
+  {
+   "id": "living.sec-movement",
+   "type": "security.sensor",
+   "space": "living",
+   "name": "Движение",
+   "role": "movement",
+   "bind": {
+    "driver": "jablotron",
+    "id": 27
+   }
+  },
+  {
+   "id": "living.sec-break",
+   "type": "security.sensor",
+   "space": "living",
+   "name": "Разбитие стекла",
+   "role": "break",
+   "bind": {
+    "driver": "jablotron",
+    "id": 28
+   }
+  },
+  {
+   "id": "living.sec-window",
+   "type": "security.sensor",
+   "space": "living",
+   "name": "Окно 1",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 29
+   }
+  },
+  {
+   "id": "living.sec-door-2",
+   "type": "security.sensor",
+   "space": "living",
+   "name": "Дверь 1",
+   "role": "door",
+   "bind": {
+    "driver": "jablotron",
+    "id": 30
+   }
+  },
+  {
+   "id": "living.sec-window-2",
+   "type": "security.sensor",
+   "space": "living",
+   "name": "Окно 2",
+   "role": "window",
+   "bind": {
+    "driver": "jablotron",
+    "id": 31
+   }
+  },
+  {
+   "id": "hallway.alarm",
+   "type": "security.panel",
+   "space": "hallway",
+   "name": "Охранная панель Jablotron",
+   "bind": {
+    "driver": "jablotron",
+    "id": 0
+   }
+  },
+  {
+   "id": "entrance.gate",
+   "type": "access.gate",
+   "space": "entrance",
+   "name": "Ворота",
+   "bind": {
+    "driver": "crestron",
+    "controller": "cp3",
+    "signal": "[Security][Jablotron]Gate"
+   }
+  },
+  {
+   "id": "entrance.barrier",
+   "type": "access.gate",
+   "space": "entrance",
+   "name": "Шлагбаум",
+   "bind": {
+    "driver": "crestron",
+    "controller": "cp3",
+    "signal": "[Security][Jablotron]Barrier"
+   }
+  },
+  {
+   "id": "tech.atv1",
+   "type": "av.source",
+   "space": "tech",
+   "name": "Apple TV 1",
+   "bind": {
+    "driver": "appletv"
+   }
+  },
+  {
+   "id": "tech.atv2",
+   "type": "av.source",
+   "space": "tech",
+   "name": "Apple TV 2",
+   "bind": {
+    "driver": "appletv"
+   }
+  },
+  {
+   "id": "tech.kodi1",
+   "type": "av.source",
+   "space": "tech",
+   "name": "Kodi 1",
+   "bind": {
+    "driver": "kodi"
+   }
+  },
+  {
+   "id": "tech.kodi2",
+   "type": "av.source",
+   "space": "tech",
+   "name": "Kodi 2",
+   "bind": {
+    "driver": "kodi"
+   }
+  },
+  {
+   "id": "tech.matrix",
+   "type": "av.matrix",
+   "space": "tech",
+   "name": "HDMI-матрица WyreStorm",
+   "bind": {
+    "driver": "wyrestorm"
+   }
+  },
+  {
+   "id": "tech.amp",
+   "type": "av.receiver",
+   "space": "tech",
+   "name": "Усилитель мультирума 6×100",
+   "bind": {
+    "driver": "crestron",
+    "controller": "cp3",
+    "model": "C2N-AMP-6x100"
+   }
+  },
+  {
+   "id": "living.projector",
+   "type": "av.projector",
+   "space": "living",
+   "name": "Проектор",
+   "bind": {
+    "driver": "jvc"
+   }
+  },
+  {
+   "id": "living.screen",
+   "type": "av.screen",
+   "space": "living",
+   "name": "Экран и лифт проектора",
+   "bind": {
+    "driver": "crestron",
+    "controller": "cp3",
+    "signal": "[Media][Projector]"
+   }
+  },
+  {
+   "id": "living.avr",
+   "type": "av.receiver",
+   "space": "living",
+   "name": "Ресивер Yamaha RX-A3010",
+   "bind": {
+    "driver": "yamaha"
+   }
+  },
+  {
+   "id": "living.tv",
+   "type": "av.tv",
+   "space": "living",
+   "name": "Телевизор",
+   "bind": {
+    "driver": "ir",
+    "profile": "Samsung Modern"
+   }
+  },
+  {
+   "id": "kitchen.tv",
+   "type": "av.tv",
+   "space": "kitchen",
+   "name": "Телевизор",
+   "bind": {
+    "driver": "ir",
+    "profile": "Samsung Modern"
+   }
+  },
+  {
+   "id": "bed.tv",
+   "type": "av.tv",
+   "space": "bed",
+   "name": "Телевизор",
+   "bind": {
+    "driver": "ir",
+    "profile": "Samsung Modern"
+   }
+  },
+  {
+   "id": "kids.tv",
+   "type": "av.tv",
+   "space": "kids",
+   "name": "Телевизор",
+   "bind": {
+    "driver": "ir",
+    "profile": "Samsung Modern"
+   },
+   "flags": {
+    "hidden": "в старом интерфейсе не было — только ИК-пульт"
+   }
+  },
+  {
+   "id": "living.audio",
+   "type": "av.audiozone",
+   "space": "living",
+   "name": "Музыка",
+   "bind": {
+    "driver": "musiccast"
+   }
+  },
+  {
+   "id": "kitchen.audio",
+   "type": "av.audiozone",
+   "space": "kitchen",
+   "name": "Музыка",
+   "bind": {
+    "driver": "musiccast"
+   }
+  },
+  {
+   "id": "bath1.audio",
+   "type": "av.audiozone",
+   "space": "bath1",
+   "name": "Музыка",
+   "bind": {
+    "driver": "crestron-amp"
+   }
+  },
+  {
+   "id": "bed.audio",
+   "type": "av.audiozone",
+   "space": "bed",
+   "name": "Музыка",
+   "bind": {
+    "driver": "musiccast"
+   }
+  },
+  {
+   "id": "bath2b.audio",
+   "type": "av.audiozone",
+   "space": "bath2b",
+   "name": "Музыка",
+   "bind": {
+    "driver": "crestron-amp"
+   }
+  },
+  {
+   "id": "bath3.audio",
+   "type": "av.audiozone",
+   "space": "bath3",
+   "name": "Музыка",
+   "bind": {
+    "driver": "crestron-amp"
+   }
+  }
+ ],
+ "media": {
+  "matrix": "tech.matrix",
+  "sources": [
+   "tech.atv1",
+   "tech.atv2",
+   "tech.kodi1",
+   "tech.kodi2"
+  ],
+  "zones": [
+   {
+    "id": "mz-cinema",
+    "name": "Кинотеатр",
+    "space": "living",
+    "sinks": [
+     "living.projector",
+     "living.screen",
+     "living.avr"
+    ],
+    "sources": [
+     "tech.atv1",
+     "tech.kodi1"
+    ]
+   },
+   {
+    "id": "mz-living",
+    "name": "Гостиная",
+    "space": "living",
+    "sinks": [
+     "living.tv",
+     "living.audio"
+    ],
+    "sources": [
+     "tech.atv2",
+     "tech.kodi2"
+    ]
+   },
+   {
+    "id": "mz-kitchen",
+    "name": "Кухня",
+    "space": "kitchen",
+    "sinks": [
+     "kitchen.tv",
+     "kitchen.audio"
+    ],
+    "sources": [
+     "tech.atv1",
+     "tech.atv2",
+     "tech.kodi1",
+     "tech.kodi2"
+    ]
+   },
+   {
+    "id": "mz-bed",
+    "name": "Спальня",
+    "space": "bed",
+    "sinks": [
+     "bed.tv",
+     "bed.audio"
+    ],
+    "sources": [
+     "tech.atv1",
+     "tech.atv2",
+     "tech.kodi1",
+     "tech.kodi2"
+    ]
+   },
+   {
+    "id": "mz-kids",
+    "name": "Детская",
+    "space": "kids",
+    "sinks": [
+     "kids.tv"
+    ],
+    "sources": [
+     "tech.atv1",
+     "tech.atv2",
+     "tech.kodi1",
+     "tech.kodi2"
+    ]
+   },
+   {
+    "id": "mz-bath1",
+    "name": "Санузел",
+    "space": "bath1",
+    "sinks": [
+     "bath1.audio"
+    ],
+    "sources": []
+   },
+   {
+    "id": "mz-bath2b",
+    "name": "Санузел спальни",
+    "space": "bath2b",
+    "sinks": [
+     "bath2b.audio"
+    ],
+    "sources": []
+   },
+   {
+    "id": "mz-bath3",
+    "name": "Санузел 3 этажа",
+    "space": "bath3",
+    "sinks": [
+     "bath3.audio"
+    ],
+    "sources": []
+   }
+  ]
+ },
+ "security": {
+  "partitions": [
+   {
+    "id": "full",
+    "name": "Весь дом"
+   },
+   {
+    "id": "perimeter",
+    "name": "Двери и окна"
+   },
+   {
+    "id": "fire",
+    "name": "Пожар и газ"
+   },
+   {
+    "id": "leak",
+    "name": "Протечка"
+   }
+  ],
+  "sensors": {
+   "hallway.sec-co": [
+    "fire"
+   ],
+   "kitchen.sec-break": [
+    "full"
+   ],
+   "kitchen.sec-movement": [
+    "full"
+   ],
+   "kids.sec-break": [
+    "full"
+   ],
+   "kids.sec-movement": [
+    "full"
+   ],
+   "bed.sec-door": [
+    "full",
+    "perimeter"
+   ],
+   "garage.sec-door": [
+    "full",
+    "perimeter"
+   ],
+   "entrance.sec-door": [
+    "full",
+    "perimeter"
+   ],
+   "entrance.sec-movement": [
+    "full"
+   ],
+   "bed.sec-break": [
+    "full"
+   ],
+   "bed.sec-movement": [
+    "full"
+   ],
+   "bed.sec-door-2": [
+    "full",
+    "perimeter"
+   ],
+   "kids.sec-window": [
+    "full",
+    "perimeter"
+   ],
+   "kids.sec-door": [
+    "full",
+    "perimeter"
+   ],
+   "kitchen.sec-window": [
+    "full",
+    "perimeter"
+   ],
+   "kitchen.sec-window-2": [
+    "full",
+    "perimeter"
+   ],
+   "kids.sec-door-2": [
+    "full",
+    "perimeter"
+   ],
+   "bed.sec-door-3": [
+    "full",
+    "perimeter"
+   ],
+   "bed.sec-door-4": [
+    "full",
+    "perimeter"
+   ],
+   "bed.sec-fire": [
+    "fire"
+   ],
+   "kids.sec-fire": [
+    "fire"
+   ],
+   "stairs.sec-fire": [
+    "fire"
+   ],
+   "living.sec-fire": [
+    "fire"
+   ],
+   "stairs.sec-fire-2": [
+    "fire"
+   ],
+   "stairs.sec-fire-3": [
+    "fire"
+   ],
+   "cabinet.sec-fire": [
+    "fire"
+   ],
+   "workshop.sec-fire": [
+    "fire"
+   ],
+   "kitchen.sec-leak": [
+    "leak"
+   ],
+   "garage.sec-leak": [
+    "leak"
+   ],
+   "bath1.sec-leak": [
+    "leak"
+   ],
+   "stairs.sec-movement": [
+    "full"
+   ],
+   "entrance.sec-fire": [
+    "fire"
+   ],
+   "corridor0.sec-fire": [
+    "fire"
+   ],
+   "kitchen.sec-fire": [
+    "fire"
+   ],
+   "bath3.sec-leak": [
+    "leak"
+   ],
+   "bath2b.sec-leak": [
+    "leak"
+   ],
+   "bath2k.sec-leak": [
+    "leak"
+   ],
+   "boiler.sec-gas": [
+    "fire"
+   ],
+   "workshop.sec-window": [
+    "full",
+    "perimeter"
+   ],
+   "tech.sec-movement": [
+    "full"
+   ],
+   "tech.sec-break": [
+    "full"
+   ],
+   "garage.sec-fire": [
+    "fire"
+   ],
+   "tech.sec-fire": [
+    "fire"
+   ],
+   "boiler.sec-fire": [
+    "fire"
+   ],
+   "cabinet.sec-window": [
+    "full",
+    "perimeter"
+   ],
+   "boiler.sec-movement": [
+    "full"
+   ],
+   "boiler.sec-break": [
+    "full"
+   ],
+   "garage.sec-movement": [
+    "full"
+   ],
+   "corridor0.sec-window": [
+    "full",
+    "perimeter"
+   ],
+   "corridor0.sec-window-2": [
+    "full",
+    "perimeter"
+   ],
+   "corridor0.sec-window-3": [
+    "full",
+    "perimeter"
+   ],
+   "living.sec-door": [
+    "full",
+    "perimeter"
+   ],
+   "cabinet.sec-movement": [
+    "full"
+   ],
+   "cabinet.sec-break": [
+    "full"
+   ],
+   "workshop.sec-movement": [
+    "full"
+   ],
+   "workshop.sec-break": [
+    "full"
+   ],
+   "workshop.sec-window-2": [
+    "full",
+    "perimeter"
+   ],
+   "workshop.sec-window-3": [
+    "full",
+    "perimeter"
+   ],
+   "workshop.sec-window-4": [
+    "full",
+    "perimeter"
+   ],
+   "kids.sec-window-2": [
+    "full",
+    "perimeter"
+   ],
+   "living.sec-movement": [
+    "full"
+   ],
+   "living.sec-break": [
+    "full"
+   ],
+   "living.sec-window": [
+    "full",
+    "perimeter"
+   ],
+   "living.sec-door-2": [
+    "full",
+    "perimeter"
+   ],
+   "living.sec-window-2": [
+    "full",
+    "perimeter"
+   ]
+  }
+ },
+ "scenes": [
+  {
+   "id": "scene-day",
+   "name": "День",
+   "scope": "house",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Day"
+   }
+  },
+  {
+   "id": "scene-comfort",
+   "name": "Комфорт",
+   "scope": "house",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Comfort"
+   }
+  },
+  {
+   "id": "scene-cozy",
+   "name": "Уют",
+   "scope": "house",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Cozy"
+   }
+  },
+  {
+   "id": "scene-friends",
+   "name": "Гости",
+   "scope": "house",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Friends"
+   }
+  },
+  {
+   "id": "scene-night",
+   "name": "Ночь",
+   "scope": "house",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Night"
+   }
+  },
+  {
+   "id": "scene-leaving",
+   "name": "Ухожу",
+   "scope": "house",
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Leaving"
+   }
+  },
+  {
+   "id": "scene-home",
+   "name": "Home",
+   "scope": "house",
+   "flags": {
+    "hidden": "в старом интерфейсе не использовалась"
+   },
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Home"
+   }
+  },
+  {
+   "id": "scene-scene1",
+   "name": "Scene_1",
+   "scope": "house",
+   "flags": {
+    "hidden": "в старом интерфейсе не использовалась"
+   },
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Scene_1"
+   }
+  },
+  {
+   "id": "scene-scene2",
+   "name": "Scene_2",
+   "scope": "house",
+   "flags": {
+    "hidden": "в старом интерфейсе не использовалась"
+   },
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Scene_2"
+   }
+  },
+  {
+   "id": "scene-scene3",
+   "name": "Scene_3",
+   "scope": "house",
+   "flags": {
+    "hidden": "в старом интерфейсе не использовалась"
+   },
+   "bind": {
+    "driver": "crestron",
+    "controller": "ap3",
+    "signal": "[Scene]Scene_3"
+   }
+  }
+ ],
+ "notes": [
+  "Свет L2-1: в SIMPL под разными именами (Hall/Ceiling, Hall/Spot) — одно устройство",
+  "Свет L2-1/1: в SIMPL под разными именами (Hall/Bra, Hall/Mirror) — одно устройство",
+  "Свет L2-2: в SIMPL под разными именами (Hall/LED, Hall/Stained_glass) — одно устройство",
+  "Свет L2-3: в SIMPL под разными именами (Hall/Ceiling, Living_room/Spot) — одно устройство",
+  "Свет L2-4/1: в SIMPL под разными именами (Hall/LED, Living_room/Pillars) — одно устройство",
+  "Свет L6-8/6-7: групповой сигнал двух бра в SIMPL — в модели группа выводится сама, отдельного устройства нет",
+  "Свет L13-1: в SIMPL под разными именами (Bathroom/Lamp, Bathroom/Spot) — одно устройство",
+  "Свет L15-1: в SIMPL под разными именами (Balcony/Lamp, Workshop/Balcony) — одно устройство",
+  "ПРОВЕРИТЬ НА ОБЪЕКТЕ: санузлы 2 этажа перепутаны — в SIMPL контуры L8-1, L8-2, L9-1, L9-2 числятся в одном санузле, а в интерфейсе показывались на странице другого. В модели оставлены по электропроекту",
+  "Шторы: групповые сигналы All/Both из SIMPL не перенесены — «открыть все» выводится из зоны",
+  "Климат: один контур пола на оба санузла 2 этажа — устройство в санузле спальни, показывается и в санузле детской",
+  "Зона «Гостиная»: добавлены устройства из соседних помещений — hall1.accent-2, hall1.main-2",
+  "Зона «Лестница»: добавлены устройства из соседних помещений — hall2.main, hall2.sconce, hall3.sconce, workshop.sconce-2",
+  "Зона «Мастерская»: добавлены устройства из соседних помещений — balcony.main",
+  "Зона «Санузел детской»: добавлены устройства из соседних помещений — bath2b.floor"
+ ]
+}
