@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Жизненный цикл</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&amp;family=Geologica:wght@200;300;400;500&amp;family=Onest:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+img{box-sizing:border-box}
+a{color:#C9944F}a:hover{color:#E0B176}
+</style>
+</helmet>
+<div style="width: 794px; height: 1123px; position: relative; overflow: hidden; box-sizing: border-box; padding: 68px 72px 0; background: #121211; color: #EDEBE6; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px">
+  <span style="font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: #C9944F">Жизненный цикл объекта</span>
+  <h1 style="margin: 0; font: 200 44px/1.08 'Geologica', sans-serif; letter-spacing: -0.025em; text-wrap: balance">Полгода до ключей. Годы после.</h1>
+
+  <section aria-label="График проекта" style="display: flex; flex-direction: column; gap: 10px">
+    <div style="display: grid; grid-template-columns: 200px repeat(6, minmax(0, 1fr)); font-size: 12px; color: #A8A49C; padding-bottom: 6px; border-bottom: 1px solid #3A3936">
+      <span>этап</span><span>1 мес.</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+    </div>
+    <sc-for list="{{phases}}" as="p" hint-placeholder-count="5">
+      <div style="display: grid; grid-template-columns: 200px 1fr; align-items: center; gap: 0">
+        <span style="font-size: 14px; color: #EDEBE6">{{p.name}}</span>
+        <div style="position: relative; height: 22px; background: #1D1D1B">
+          <div style="position: absolute; top: 0; bottom: 0; left: {{p.l}}%; width: {{p.w}}%; background: {{p.c}}"></div>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start">
+    <div style="display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px solid #3A3936">
+        <b style="font: 400 18px/1.3 'Geologica', sans-serif">Годы 1–4: поддержка</b>
+        <span style="font-size: 14px; line-height: 1.55; color: #A8A49C">Дежурная смена 24/7, реакция <span style="border-bottom: 1.5px dotted #C9944F; color: #EDEBE6">[15 минут]</span>, выезд <span style="border-bottom: 1.5px dotted #C9944F; color: #EDEBE6">[в течение 4 часов]</span> в пределах зоны обслуживания. Квартальный отчёт о здоровье дома. Обновления — ночью и с откатом.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px solid #3A3936">
+        <b style="font: 400 18px/1.3 'Geologica', sans-serif">Год 3–4: реновация</b>
+        <span style="font-size: 14px; line-height: 1.55; color: #A8A49C">Новый интерьер — новая тема интерфейса по новым рендерам. Шины, щиты и большая часть устройств остаются. Это отдельный проект, но не начало с нуля.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px solid #3A3936">
+        <b style="font: 400 18px/1.3 'Geologica', sans-serif">Передача объекта</b>
+        <span style="font-size: 14px; line-height: 1.55; color: #A8A49C">Исполнительная документация, описание дома в открытом формате и обучение семьи и персонала.</span>
+      </div>
+    </div>
+    <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
+      <img src="/_blob/00720db0f9f78da08a0ad332e7c5d5b7" alt="Сервисный режим на стенной панели: диагностика комнаты и калибровка штор" style="display: block; width: 100%; aspect-ratio: 1180 / 820; object-fit: cover; border-radius: 12px; border: 7px solid #050505">
+      <figcaption style="font-size: 13px; line-height: 1.5; color: #A8A49C"><b style="font-weight: 500; color: #EDEBE6">Сервисный режим панели.</b> Техник калибрует шторы прямо в комнате, без ноутбука. Жильцы видят на своих экранах, что идёт обслуживание.</figcaption>
+    </figure>
+  </div>
+
+  <div style="position: absolute; left: 72px; right: 72px; bottom: 40px; display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #8C887F">
+    <span>Анфилада · Свод</span><span>13</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":794,"height":1123}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const P = (name, a, b, c) => ({ name, l: (a / 6 * 100).toFixed(2), w: ((b - a) / 6 * 100).toFixed(2), c });
+    return {
+      phases: [
+        P('Обмер и сценарии жизни', 0, 1, '#8A867E'),
+        P('Проект с архитектором', 0.5, 2.5, '#B9B5AD'),
+        P('Тема с дизайнером', 1.5, 4, '#C9944F'),
+        P('Монтаж и отделка', 2, 5.2, '#8A867E'),
+        P('Пусконаладка, обучение', 5, 6, '#E0B176')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

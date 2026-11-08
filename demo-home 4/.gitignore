@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.gemini-key
+*.png.tmp

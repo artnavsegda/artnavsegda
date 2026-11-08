@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Сравнение с рынком</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&amp;family=Geologica:wght@200;300;400;500&amp;family=Onest:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#8A5E26}a:hover{color:#6B4719}
+</style>
+</helmet>
+<div style="width: 794px; height: 1123px; position: relative; overflow: hidden; box-sizing: border-box; padding: 68px 64px 0; background: #EEECE7; color: #1A1A18; font-family: 'Onest', system-ui, sans-serif; display: flex; flex-direction: column; gap: 20px">
+  <span style="font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: #8A5E26">Глава V · Сравнение с рынком</span>
+  <h1 style="margin: 0; font: 300 36px/1.12 'Geologica', sans-serif; letter-spacing: -0.02em; text-wrap: balance">Оборудование у всех хорошее. Разница — в том, кто и как строит интерфейс.</h1>
+
+  <table style="width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.45">
+    <thead>
+      <tr style="text-align: left; vertical-align: bottom">
+        <th style="width: 118px; padding: 0 8px 10px 0; font: 500 12px 'Onest', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #55524C; border-bottom: 1.5px solid #1A1A18">Система</th>
+        <th style="padding: 0 8px 10px; font: 500 12px 'Onest', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #55524C; border-bottom: 1.5px solid #1A1A18">Интерфейс</th>
+        <th style="padding: 0 8px 10px; font: 500 12px 'Onest', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #55524C; border-bottom: 1.5px solid #1A1A18">Кто настраивает</th>
+        <th style="padding: 0 8px 10px; font: 500 12px 'Onest', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #55524C; border-bottom: 1.5px solid #1A1A18">После сдачи</th>
+        <th style="padding: 0 0 10px 8px; font: 500 12px 'Onest', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #55524C; border-bottom: 1.5px solid #1A1A18">Оборудование</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+        <tr style="vertical-align: top; background: {{r.bg}}; color: {{r.fg}}">
+          <th scope="row" style="text-align: left; padding: 14px 8px 13px {{r.pad}}; border-bottom: 1px solid {{r.line}}"><span style="display: block; font: 500 15px/1.25 'Geologica', sans-serif">{{r.name}}</span><span style="display: block; margin-top: 3px; font: 400 11.5px/1.35 'Onest', sans-serif; color: {{r.sub}}">{{r.kind}}</span></th>
+          <td style="padding: 14px 8px; border-bottom: 1px solid {{r.line}}">{{r.ui}}</td>
+          <td style="padding: 14px 8px; border-bottom: 1px solid {{r.line}}">{{r.who}}</td>
+          <td style="padding: 14px 8px; border-bottom: 1px solid {{r.line}}">{{r.after}}</td>
+          <td style="padding: 13px {{r.padR}} 13px 8px; border-bottom: 1px solid {{r.line}}">{{r.hw}}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+
+  <p style="margin: 0; font-size: 12px; line-height: 1.55; color: #55524C; text-wrap: pretty">По открытым источникам на ноябрь 2026 года: сайты производителей, дилеров и отраслевая пресса, список — на последней странице. Сравнивается подход к интерфейсу и сервису, а не качество оборудования. KNX для нас не конкурент, а основная шина в резиденциях: «Свод» работает поверх неё.</p>
+
+  <div style="position: absolute; left: 64px; right: 64px; bottom: 40px; display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #6E6A63">
+    <span>Анфилада · Свод</span><span>14</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":794,"height":1123}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const base = { bg: 'transparent', fg: '#1A1A18', sub: '#55524C', line: '#C9C5BD', pad: '0', padR: '0' };
+    const ours = { bg: '#1A1A18', fg: '#EDEBE6', sub: '#C9944F', line: '#1A1A18', pad: '12px', padR: '12px' };
+    return {
+      rows: [
+        { ...ours, name: 'Свод', kind: 'Анфилада', ui: 'Под интерьер: фото комнат, план из чертежей, тема дизайнера.', who: 'Инженер проекта с дизайнером; мелочи — техник.', after: 'Техник правит данные с откатом; новая тема при реновации.', hw: 'Wiren Board; KNX, Matter, Zigbee, Modbus.' },
+        { ...base, name: 'Crestron Home', kind: 'США', ui: 'Готовый, в заданных визуальных рамках.', who: 'Только сертифицированный дилер, без кода.', after: 'Обновления по воздуху, удалённые правки дилера.', hw: 'Собственные процессоры и панели.' },
+        { ...base, name: 'Crestron Custom · CH5', kind: 'США', ui: 'Полностью индивидуальный, HTML5.', who: 'Сертифицированный программист Crestron.', after: 'Любая правка — через программиста.', hw: 'Собственные процессоры и панели.' },
+        { ...base, name: 'Loxone', kind: 'Австрия', ui: 'Строится автоматически из программы.', who: 'Партнёр в Loxone Config (Windows).', after: 'Настроения света — сам; прочее — партнёр.', hw: 'Miniserver и свои модули.' },
+        { ...base, name: 'KNX + визуализация', kind: 'открытый стандарт', ui: 'Отдельный сервер (Gira, Jung, ABB…), интерфейс производителя.', who: 'Интегратор: ETS и инструмент сервера.', after: 'Логика — в ETS, экраны — в инструменте сервера.', hw: 'Сотни производителей, совместимость.' },
+        { ...base, name: 'Larnitech', kind: 'Германия', ui: 'Фирменное приложение, iOS · Android · Windows · Linux.', who: 'Дилеры и удалённо — специалисты Larnitech.', after: 'Часть настроек — сам пользователь.', hw: 'Своя шина CAN и mesh-радио.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

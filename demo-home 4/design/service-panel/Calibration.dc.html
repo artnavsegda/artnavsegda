@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Калибровка</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D5BD6}a:hover{color:#1747A8}
+.nl{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:6px;color:#C7CCD4;text-decoration:none;font-size:14px}
+.nl:hover{background:#22262C;color:#FFFFFF}
+.nl.on{background:#2A303A;color:#FFFFFF}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:6px;border:1px solid #CDD2DA;background:#FFFFFF;color:#15171B;font:500 14px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:#9AA2AE;color:#15171B}
+.btn.pri{background:#1D5BD6;border-color:#1D5BD6;color:#FFFFFF}
+.pill{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:11px;font:500 12px 'IBM Plex Sans',system-ui,sans-serif;white-space:nowrap}
+.ok{background:#E3F2E9;color:#14613C}.warn{background:#FFF0D4;color:#7E4A00}.bad{background:#FCE8E6;color:#9E1D13}.off{background:#E9ECF0;color:#454C57}.info{background:#E6EEFC;color:#1747A8}
+.seg{height:34px;padding:0 12px;border:0;border-radius:5px;background:transparent;color:#3D434D;font:500 13px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer}
+.seg.on{background:#FFFFFF;color:#15171B;box-shadow:0 1px 2px rgba(21,23,27,.12)}
+.tab{height:40px;padding:0 4px;border:0;border-bottom:2px solid transparent;background:none;color:#5F6673;font:500 14px 'IBM Plex Sans',system-ui,sans-serif;cursor:pointer}
+.tab.on{color:#15171B;border-bottom-color:#1D5BD6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+input[type=range]{accent-color:#1D5BD6}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #F3F4F6; color: #15171B; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px">
+
+  <nav aria-label="Разделы сервисной панели" style="flex: 1 1 220px; max-width: 248px; box-sizing: border-box; background: #15171B; color: #C7CCD4; padding: 20px 12px; display: flex; flex-direction: column; gap: 2px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px">
+      <div style="width: 32px; height: 32px; border-radius: 6px; background: #1D5BD6; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font: 600 13px 'IBM Plex Mono', monospace">SV</div>
+      <div style="display: flex; flex-direction: column"><span style="font-weight: 600; color: #FFFFFF; font-size: 15px">Сервис</span><span style="font-size: 12px; color: #8B93A0">панель техника</span></div>
+    </div>
+    <a class="nl" href="Main.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg>Парк объектов</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8a4 4 0 100 8 4 4 0 000-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"></path></svg>Заявки<span class="pill info" style="margin-left: auto; height: 20px">3</span></a>
+    <div style="padding: 18px 10px 6px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8B93A0">Объект OBJ-017</div>
+    <a class="nl" href="Object.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 5h14v10H5zM9 19h6M12 15v4"></path></svg>Устройства</a>
+    <a class="nl" href="Inspector.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 6h5v4H5zM14 14h5v4h-5zM10 8h2a2 2 0 012 2v4M7 10v6a2 2 0 002 2h5"></path></svg>Поведения</a>
+    <a class="nl" href="AVMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4M10 8.5v4l3.5-2z"></path></svg>Медиа</a>
+    <a class="nl" href="ClimateMap.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10 14V5a2 2 0 114 0v9a4 4 0 11-4 0zM12 10v7"></path></svg>Климат</a>
+    <a class="nl on" href="Calibration.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M16 4v4M10 10v4M18 16v4"></path></svg>Калибровка</a>
+    <a class="nl" href="Access.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM3 20c.8-3.5 3.3-5.5 6-5.5s5.2 2 6 5.5M16 4.5a3.5 3.5 0 010 6.5M18 14.8c1.6.8 2.6 2.6 3 5.2"></path></svg>Доступ</a>
+    <a class="nl" href="Config.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 4v16M6 8a3 3 0 100-.1M18 9a3 3 0 100 6 3 3 0 000-6zM6 14c0 2 2 4 6 4h3"></path></svg>Конфигурация</a>
+    <a class="nl" href="PanelService.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h16v12H4zM10 21h4"></path></svg>Режим панели</a>
+    <div style="margin-top: auto; padding: 12px 10px; border-radius: 8px; background: #1E2228; display: flex; flex-direction: column; gap: 4px">
+      <span style="color: #FFFFFF; font-weight: 500">А. Сергеев</span>
+      <span style="font-size: 12px; color: #8B93A0">Техник · смена до 20:00</span>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 13px; color: #5F6673"><a href="Object.dc.html">OBJ-017</a> / Калибровка</span>
+        <h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.01em">Калибровка</h1>
+      </div>
+      <div role="tablist" aria-label="Тип калибровки" style="display: flex; gap: 20px; border-bottom: 1px solid #E2E5EA">
+        <button class="tab on" role="tab" aria-selected="true">Свет</button>
+        <button class="tab" role="tab" aria-selected="false">Шторы</button>
+        <button class="tab" role="tab" aria-selected="false">Датчики</button>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start">
+      <section aria-label="Кривая диммера" style="flex: 3 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-start">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 600">Подвес над столом</h2>
+            <span class="mono" style="font-size: 12px; color: #5F6673">living.dining · DALI DT8 · KNX 1/2/14 · LED 24 Вт</span>
+          </div>
+          <div role="radiogroup" aria-label="Кривая" style="display: flex; gap: 2px; padding: 3px; border-radius: 7px; background: #E9ECF0">
+            <sc-for list="{{curves}}" as="c" hint-placeholder-count="3">
+              <button class="{{c.cls}}" role="radio" aria-checked="{{c.on}}" onClick="{{c.pick}}">{{c.name}}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch">
+          <svg viewBox="0 0 440 260" role="img" aria-label="Кривая: положение слайдера → мощность драйвера" style="flex: 2 1 380px; min-width: 0; height: 260px; background: #F7F8FA; border-radius: 8px">
+            <rect x="40" y="{{flickerY}}" width="380" height="{{flickerH}}" fill="#FCE8E6"></rect>
+            <text x="48" y="{{flickerLabelY}}" font-size="11" fill="#9E1D13" font-family="IBM Plex Sans, sans-serif">зона мерцания этой лампы</text>
+            <path d="M40 20V230H420" fill="none" stroke="#9AA2AE" stroke-width="1"></path>
+            <path d="M40 125H420M230 20V230" fill="none" stroke="#E2E5EA" stroke-width="1"></path>
+            <path d="{{curvePath}}" fill="none" stroke="#1D5BD6" stroke-width="2.5"></path>
+            <circle cx="{{probeX}}" cy="{{probeY}}" r="5" fill="#1D5BD6"></circle>
+            <text x="40" y="250" font-size="11" fill="#5F6673" font-family="IBM Plex Sans, sans-serif">слайдер 0%</text>
+            <text x="370" y="250" font-size="11" fill="#5F6673" font-family="IBM Plex Sans, sans-serif">100%</text>
+            <text x="4" y="24" font-size="11" fill="#5F6673" font-family="IBM Plex Sans, sans-serif">100</text>
+            <text x="14" y="232" font-size="11" fill="#5F6673" font-family="IBM Plex Sans, sans-serif">0</text>
+          </svg>
+          <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+            <label style="display: flex; flex-direction: column; gap: 6px">
+              <span style="display: flex; justify-content: space-between"><span style="color: #3D434D">Минимум драйвера</span><span class="mono">{{min}}%</span></span>
+              <input type="range" min="0" max="30" value="{{min}}" onInput="{{setMin}}" aria-label="Минимум драйвера">
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 6px">
+              <span style="display: flex; justify-content: space-between"><span style="color: #3D434D">Максимум</span><span class="mono">{{max}}%</span></span>
+              <input type="range" min="60" max="100" value="{{max}}" onInput="{{setMax}}" aria-label="Максимум драйвера">
+            </label>
+            <div style="padding: 10px 12px; border-radius: 6px; background: {{verdictBg}}; color: {{verdictFg}}; font-size: 13px; line-height: 1.45">{{verdict}}</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button class="btn">Показать 1% на лампе</button>
+              <button class="btn pri">Сохранить</button>
+            </div>
+          </div>
+        </div>
+        <p style="margin: 0; color: #5F6673; font-size: 13px; line-height: 1.45">Жилец по-прежнему видит шкалу 0–100%. Минимум и кривая переводят её в то, что реально умеет драйвер: на 1% лампа не мерцает, а середина слайдера ощущается как середина яркости.</p>
+      </section>
+
+      <section aria-label="Шторы" style="flex: 2 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; justify-content: space-between; gap: 10px; align-items: flex-start">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <h2 style="margin: 0; font-size: 18px; font-weight: 600">Шторы · Гостиная</h2>
+            <span class="mono" style="font-size: 12px; color: #5F6673">living.shades · KNX 2/1/4 · привод без концевиков</span>
+          </div>
+          <span class="pill warn">нужна калибровка</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+          <div style="padding: 12px; border: 1px solid #E2E5EA; border-radius: 8px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5F6673">Полное открытие</span><span class="mono" style="font-size: 22px">28,4 с</span><span style="font-size: 12px; color: #7E4A00">было 31,0 с</span></div>
+          <div style="padding: 12px; border: 1px solid #E2E5EA; border-radius: 8px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; color: #5F6673">Полное закрытие</span><span class="mono" style="font-size: 22px">26,9 с</span><span style="font-size: 12px; color: #7E4A00">было 29,5 с</span></div>
+        </div>
+        <ol style="margin: 0; padding-left: 18px; color: #3D434D; line-height: 1.6">
+          <li>Закрыть до упора и нажать «Старт».</li>
+          <li>Нажать «Стоп», когда штора полностью открылась.</li>
+          <li>Повторить в обратную сторону.</li>
+        </ol>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <button class="btn pri">Старт замера</button>
+          <button class="btn">Проверить 50%</button>
+          <button class="btn">Инверсия: выкл.</button>
+        </div>
+      </section>
+    </div>
+
+    <section aria-label="Поправки датчиков" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 8px">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #E2E5EA; flex-wrap: wrap">
+        <h2 style="margin: 0; font-size: 16px; font-weight: 600">Поправки датчиков температуры</h2>
+        <span style="font-size: 13px; color: #5F6673">эталон — поверенный термометр техника</span>
+      </div>
+      <div style="overflow-x: auto">
+        <div style="min-width: 760px">
+          <div style="display: grid; grid-template-columns: minmax(160px, 1.4fr) 150px 140px 140px 120px 110px; gap: 12px; padding: 9px 16px; font-size: 12px; color: #5F6673; border-bottom: 1px solid #E2E5EA">
+            <span>Комната</span><span>Датчик</span><span>Показывает</span><span>Эталон</span><span>Поправка</span><span></span>
+          </div>
+          <sc-for list="{{sensors}}" as="s" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: minmax(160px, 1.4fr) 150px 140px 140px 120px 110px; gap: 12px; align-items: center; padding: 9px 16px; border-bottom: 1px solid #EEF0F3">
+              <span style="font-weight: 500">{{s.room}}</span>
+              <span style="color: #3D434D; font-size: 13px">{{s.sensor}}</span>
+              <span class="mono">{{s.shows}}</span>
+              <input value="{{s.ref}}" aria-label="Эталон, {{s.room}}" class="mono" style="height: 32px; width: 100px; padding: 0 10px; border: 1px solid #CDD2DA; border-radius: 6px; font-size: 13px; color: #15171B">
+              <span class="mono" style="color: {{s.color}}">{{s.offset}}</span>
+              <button class="btn" style="height: 32px">Применить</button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { curve: 'log', min: 8, max: 92 }; }
+  renderVals() {
+    const { curve, min, max } = this.state;
+    const f = (x) => curve === 'lin' ? x : curve === 'sq' ? x * x : (Math.pow(10, x * 1.4) - 1) / (Math.pow(10, 1.4) - 1);
+    const X = (x) => 40 + x * 380, Y = (v) => 230 - v / 100 * 210;
+    const pts = [];
+    for (let i = 0; i <= 40; i++) { const x = i / 40; const v = x === 0 ? 0 : min + (max - min) * f(x); pts.push((i ? 'L' : 'M') + X(x).toFixed(1) + ' ' + Y(v).toFixed(1)); }
+    const flicker = 6;
+    const pv = min + (max - min) * f(0.5);
+    const bad = min < flicker;
+    return {
+      curves: [['lin', 'Линейная'], ['log', 'Логарифм.'], ['sq', 'Квадратичная']].map(([id, name]) => ({ name, on: curve === id, cls: curve === id ? 'seg on' : 'seg', pick: () => this.setState({ curve: id }) })),
+      min, max,
+      setMin: (e) => this.setState({ min: Number(e.target.value) }),
+      setMax: (e) => this.setState({ max: Number(e.target.value) }),
+      curvePath: pts.join(' '),
+      flickerY: Y(flicker), flickerH: 230 - Y(flicker), flickerLabelY: Y(flicker) - 6,
+      probeX: X(0.5), probeY: Y(pv),
+      verdict: bad ? `Минимум ${min}% ниже порога мерцания этой лампы (${flicker}%). На низких уровнях будет заметно мигание.` : `На 1% слайдера драйвер даёт ${min}% — без мерцания. Середина слайдера = ${Math.round(pv)}% мощности.`,
+      verdictBg: bad ? '#FCE8E6' : '#E3F2E9', verdictFg: bad ? '#9E1D13' : '#14613C',
+      sensors: [
+        { room: 'Гостиная', sensor: 'KNX термостат', shows: '21,8 °C', ref: '21,2', offset: '−0,6 °C', color: '#7E4A00' },
+        { room: 'Спальня', sensor: 'KNX термостат', shows: '20,3 °C', ref: '20,3', offset: '0,0 °C', color: '#14613C' },
+        { room: 'Детская', sensor: 'Zigbee датчик', shows: '21,0 °C', ref: '21,9', offset: '+0,9 °C', color: '#7E4A00' },
+        { room: 'Кабинет', sensor: 'WB-MSW v3', shows: '21,1 °C', ref: '21,0', offset: '−0,1 °C', color: '#14613C' },
+        { room: 'Ванная · пол', sensor: 'NTC 10k, WB-MR6C', shows: '27,0 °C', ref: '—', offset: 'не задан', color: '#5F6673' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

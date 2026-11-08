@@ -1,0 +1,43 @@
+import { createRequire } from 'module';
+const { chromium } = createRequire(import.meta.url)('playwright');
+const S = process.argv[2];
+const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const errs = [];
+async function page(w, h, trend = 'warm', profile = 'auto') {
+  const p = await b.newPage({ viewport: { width: w, height: h } });
+  await p.route(/fonts\.(googleapis|gstatic)\.com/, r => r.abort());
+  p.on('pageerror', e => errs.push('pageerror: ' + e.message));
+  p.on('console', m => { if (m.type() === 'error' && !m.text().includes('ERR_FAILED')) errs.push(m.text()); });
+  await p.addInitScript(([t, pr]) => { localStorage.setItem('demo.trend', t); localStorage.setItem('demo.profile', pr); }, [trend, profile]);
+  return p;
+}
+const sim = (p, c) => p.evaluate(c => window.__sim.send(c), c);
+let p = await page(1366, 1024);
+await p.goto('http://localhost:4173/#room-living'); await p.waitForTimeout(800);
+await sim(p, { cmd: 'scene.run', scene: 'living-off', room: 'living' }); await p.waitForTimeout(2500);
+await p.click('text=Торшер >> xpath=..', { force: true }).catch(() => {});
+await p.mouse.click(560, 720); // пусто
+await p.screenshot({ path: S + '/f-room-off.png' });
+await p.goto('http://localhost:4173/#lamp-living-dining'); await p.waitForTimeout(800);
+await p.click('text=3D'); await p.waitForTimeout(2500);
+await p.screenshot({ path: S + '/f-lamp3d.png' });
+await p.close();
+p = await page(1366, 1024, 'minimal');
+await p.goto('http://localhost:4173/#plan'); await p.waitForTimeout(500);
+await sim(p, { cmd: 'demo.time', night: false }); await p.waitForTimeout(3500);
+await p.screenshot({ path: S + '/f-min-plan-day.png' });
+await p.goto('http://localhost:4173/#overview'); await p.waitForTimeout(3000);
+await p.screenshot({ path: S + '/f-min-overview.png' });
+await p.close();
+p = await page(1366, 900, 'warm', 'phone');
+await p.goto('http://localhost:4173/#home'); await p.waitForTimeout(600);
+await sim(p, { cmd: 'demo.event', kind: 'doorbell' }); await p.waitForTimeout(2500);
+await p.screenshot({ path: S + '/f-framed.png' });
+await p.close();
+p = await page(1180, 820, 'warm');
+await p.goto('http://localhost:4173/#climate'); await p.waitForTimeout(3000);
+await p.screenshot({ path: S + '/f-climate.png' });
+await p.goto('http://localhost:4173/#media'); await p.waitForTimeout(3000);
+await p.screenshot({ path: S + '/f-media.png' });
+console.log(errs.join('\n') || 'no errors');
+await b.close();
