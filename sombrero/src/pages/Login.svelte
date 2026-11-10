@@ -3,7 +3,7 @@
   import Button from '../components/Button.svelte';
   import Field from '../components/Field.svelte';
   import Icon from '../components/Icon.svelte';
-  import TelegramDialog from '../components/TelegramDialog.svelte';
+  import TelegramFlow from '../components/TelegramFlow.svelte';
   import { store } from '../lib/state.svelte';
   import { go } from '../lib/router.svelte';
 
@@ -23,30 +23,27 @@
     else error = r.error;
   }
 
-  async function tg(username: string) {
-    const r = await store.loginWithTelegram(username);
-    if (!r.ok) return r.error;
-    go('/');
-    return null;
+  function onTelegramSuccess() {
+    go(store.user?.login ? '/' : '/self');
   }
 </script>
 
 <div class="mx-auto max-w-md pt-6 sm:pt-12">
   <div class="mb-6 text-center">
-    <h1 class="text-3xl font-bold tracking-tight text-stone-50">С возвращением</h1>
-    <p class="mt-2 text-stone-400">Войдите, чтобы продолжить работу</p>
+    <h1 class="text-3xl font-bold tracking-tight text-stone-900">С возвращением</h1>
+    <p class="mt-2 text-stone-500">Войдите, чтобы продолжить работу</p>
   </div>
 
   <Card>
     <form onsubmit={submit} class="space-y-4">
       <Field label="Логин" bind:value={login} autocomplete="username" required />
       <Field label="Пароль" type="password" bind:value={password} autocomplete="current-password" required />
-      {#if error}<p class="rounded-lg bg-rose-500/10 px-3 py-2 text-sm text-rose-300">{error}</p>{/if}
+      {#if error}<p class="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-600">{error}</p>{/if}
       <Button type="submit" full size="lg" disabled={busy}>Войти</Button>
     </form>
 
-    <div class="my-5 flex items-center gap-3 text-xs text-stone-600">
-      <span class="h-px flex-1 bg-stone-800"></span>или<span class="h-px flex-1 bg-stone-800"></span>
+    <div class="my-5 flex items-center gap-3 text-xs text-stone-400">
+      <span class="h-px flex-1 bg-stone-200"></span>или<span class="h-px flex-1 bg-stone-200"></span>
     </div>
 
     <Button variant="telegram" full size="lg" onclick={() => (tgOpen = true)}>
@@ -55,14 +52,15 @@
   </Card>
 
   <p class="mt-5 text-center text-sm text-stone-500">
-    Нет аккаунта? <a href="#/register" class="text-amber-400 hover:text-amber-300">Зарегистрироваться</a>
+    Нет аккаунта? <a href="#/register" class="font-medium text-brand-purple hover:brightness-125">Зарегистрироваться</a>
   </p>
 </div>
 
-<TelegramDialog
+<TelegramFlow
   bind:open={tgOpen}
   title="Вход через Telegram"
-  description="Укажите свой Telegram-username. Если аккаунта ещё нет, он будет создан."
-  submitLabel="Продолжить"
-  onsubmit={tg}
+  description="Откройте ссылку и нажмите «Войти на сайт» в боте — мы подтвердим вход автоматически."
+  start={() => store.startTelegramLogin()}
+  poll={(code) => store.pollTelegram(code)}
+  onsuccess={onTelegramSuccess}
 />

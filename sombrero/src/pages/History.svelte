@@ -17,8 +17,15 @@
   const resultOptions = [
     { id: 'all', label: 'Все результаты' },
     { id: 'success', label: 'Успех' },
-    { id: 'fail', label: 'Неудача' }
+    { id: 'fail', label: 'Неудача' },
+    { id: 'error', label: 'Ошибка' }
   ];
+
+  const badge: Record<string, { dot: string; bg: string; text: string; label: string }> = {
+    success: { dot: 'bg-emerald-500', bg: 'bg-emerald-50', text: 'text-emerald-700', label: 'Успех' },
+    fail: { dot: 'bg-rose-500', bg: 'bg-rose-50', text: 'text-rose-700', label: 'Неудача' },
+    error: { dot: 'bg-amber-500', bg: 'bg-amber-50', text: 'text-amber-700', label: 'Ошибка' }
+  };
 
   const filtered = $derived.by(() => {
     const needle = q.trim();
@@ -57,24 +64,26 @@
 <div class="space-y-6">
   <div class="flex items-end justify-between gap-4">
     <div>
-      <h1 class="text-2xl font-bold tracking-tight text-stone-50">История</h1>
-      <p class="mt-1 text-sm text-stone-400">Итоги всех проверок</p>
+      <h1 class="text-2xl font-bold tracking-tight text-stone-900">История</h1>
+      <p class="mt-1 text-sm text-stone-500">
+        Итоги проверок за эту сессию — контракт не отдаёт список прошлых заявок, только статус по id.
+      </p>
     </div>
     <CopyButton
       text={filtered.map((h) => h.value).join('\n')}
       label="Копировать все ({filtered.length})"
-      class="ring-1 ring-stone-800"
+      class="ring-1 ring-stone-200"
     />
   </div>
 
   <Card>
     <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
       <div class="relative lg:col-span-2">
-        <Icon name="search" class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-stone-500" />
+        <Icon name="search" class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-stone-400" />
         <input class="input pl-9 font-mono" placeholder="Поиск по номеру" bind:value={q} />
       </div>
-      <input type="date" class="input scheme-dark" aria-label="С даты" bind:value={from} />
-      <input type="date" class="input scheme-dark" aria-label="По дату" bind:value={to} />
+      <input type="date" class="input" aria-label="С даты" bind:value={from} />
+      <input type="date" class="input" aria-label="По дату" bind:value={to} />
       <Select bind:value={result} options={resultOptions} />
     </div>
     {#if filtersActive}
@@ -84,7 +93,7 @@
     {/if}
   </Card>
 
-  <Card class="p-0! sm:p-0!">
+  <Card surface="white" class="p-0! sm:p-0!">
     {#if filtered.length === 0}
       <p class="px-4 py-14 text-center text-sm text-stone-500">
         {store.history.length === 0 ? 'Пока нет ни одной проверки.' : 'По этим фильтрам ничего не найдено.'}
@@ -92,34 +101,28 @@
     {:else}
       <div class="overflow-x-auto">
         <table class="w-full min-w-120">
-          <thead class="border-b border-stone-800 bg-stone-950/40">
+          <thead class="border-b border-stone-200 bg-stone-50">
             <tr>
               <th class="th">Номер</th>
               <th class="th">Результат</th>
               <th class="th text-right">Проверено</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-stone-800/70">
+          <tbody class="divide-y divide-stone-200">
             {#each slice as h (h.id)}
-              <tr class="transition hover:bg-stone-800/30">
+              <tr class="transition hover:bg-stone-50">
                 <td class="td">
                   <span class="inline-flex items-center gap-1">
-                    <span class="font-mono text-stone-100">{h.value}</span>
+                    <span class="font-mono text-stone-900">{h.value}</span>
                     <CopyButton text={h.value} title="Копировать номер" />
                   </span>
                 </td>
                 <td class="td">
-                  {#if h.result === 'success'}
-                    <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-300">
-                      <span class="size-1.5 rounded-full bg-emerald-400"></span>Успех
-                    </span>
-                  {:else}
-                    <span class="inline-flex items-center gap-1.5 rounded-full bg-rose-500/15 px-2.5 py-0.5 text-xs font-medium text-rose-300">
-                      <span class="size-1.5 rounded-full bg-rose-400"></span>Неудача
-                    </span>
-                  {/if}
+                  <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium {badge[h.result].bg} {badge[h.result].text}" title={h.detail}>
+                    <span class="size-1.5 rounded-full {badge[h.result].dot}"></span>{badge[h.result].label}
+                  </span>
                 </td>
-                <td class="td text-right whitespace-nowrap text-stone-400">{dateTime(h.checkedAt)}</td>
+                <td class="td text-right whitespace-nowrap text-stone-500">{dateTime(h.checkedAt)}</td>
               </tr>
             {/each}
           </tbody>
@@ -127,7 +130,7 @@
       </div>
 
       {#if pages > 1}
-        <div class="flex items-center justify-between border-t border-stone-800 px-4 py-3 text-sm text-stone-400">
+        <div class="flex items-center justify-between border-t border-stone-200 px-4 py-3 text-sm text-stone-500">
           <span>Стр. {page} из {pages} · {filtered.length} записей</span>
           <div class="flex gap-2">
             <Button variant="secondary" size="sm" disabled={page <= 1} onclick={() => (page -= 1)}>Назад</Button>

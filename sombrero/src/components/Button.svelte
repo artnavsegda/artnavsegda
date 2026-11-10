@@ -26,14 +26,13 @@
   }: Props = $props();
 
   const base =
-    'inline-flex items-center justify-center gap-2 rounded-xl font-medium whitespace-nowrap transition cursor-pointer select-none disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400';
+    'inline-flex items-center justify-center gap-2 rounded-lg font-medium whitespace-nowrap transition cursor-pointer select-none disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-purple';
 
   const variants = {
-    primary:
-      'bg-linear-to-b from-amber-400 to-orange-500 text-stone-950 shadow-lg shadow-orange-500/20 hover:from-amber-300 hover:to-orange-400 active:translate-y-px',
-    secondary: 'bg-stone-800/70 text-stone-100 ring-1 ring-inset ring-stone-700 hover:bg-stone-800',
-    ghost: 'text-stone-300 hover:bg-stone-800/60 hover:text-white',
-    danger: 'bg-rose-500/10 text-rose-300 ring-1 ring-inset ring-rose-500/30 hover:bg-rose-500/20',
+    primary: 'bg-brand-purple text-white shadow-sm hover:brightness-110 active:translate-y-px',
+    secondary: 'bg-stone-100 text-stone-800 ring-1 ring-inset ring-stone-200 hover:bg-stone-200',
+    ghost: 'text-stone-600 hover:bg-stone-100 hover:text-stone-900',
+    danger: 'bg-rose-50 text-rose-600 ring-1 ring-inset ring-rose-200 hover:bg-rose-100',
     telegram: 'bg-sky-500 text-white hover:bg-sky-400'
   };
 

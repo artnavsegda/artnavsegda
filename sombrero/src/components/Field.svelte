@@ -25,7 +25,7 @@
 </script>
 
 <div class="space-y-1.5">
-  <label for={uid} class="block text-sm font-medium text-stone-300">{label}</label>
+  <label for={uid} class="block text-sm font-medium text-stone-700">{label}</label>
   <input
     id={uid}
     {type}

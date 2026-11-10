@@ -22,9 +22,9 @@
   onclick={copy}
   aria-label={title}
   {title}
-  class="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2 py-1 text-xs transition hover:bg-stone-800 {done
-    ? 'text-emerald-400'
-    : 'text-stone-400 hover:text-stone-100'} {cls}"
+  class="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2 py-1 text-xs transition hover:bg-stone-100 {done
+    ? 'text-emerald-600'
+    : 'text-stone-500 hover:text-stone-900'} {cls}"
 >
   <Icon name={done ? 'check' : 'copy'} class="size-3.5" />
   {#if label}<span>{done ? 'Скопировано' : label}</span>{/if}

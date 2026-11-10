@@ -83,6 +83,9 @@ export function separatorConflict(
   return null;
 }
 
+// Формат: number(11–13 цифр) | month(01–12) | code(2 цифры) | tail(3 цифры).
+// В теле /check-code (swagger) полей всего 3 — см. комментарий в lib/api/order.ts,
+// где code и tail склеиваются в last_code.
 const RE_NUMBER = /^\d{11,13}$/;
 const RE_TWO = /^\d{2}$/;
 const RE_TAIL = /^\d{3}$/;
